@@ -11,8 +11,6 @@ api.interceptors.request.use(
   async (config) => {
     const authToken = await getSession();
 
-    console.log(API_URL)
-
     config.headers.Authorization = authToken?.api_token;
     
     return config;

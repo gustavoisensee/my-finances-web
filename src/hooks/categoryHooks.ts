@@ -1,4 +1,4 @@
-import { getCategories } from "@/helpers/category";
+import { getCategories } from '@/services/category';
 import { useQuery } from '@tanstack/react-query'
 
 export const useCategories = () => {

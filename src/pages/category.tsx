@@ -1,21 +1,18 @@
-import Link from 'next/link';
-import { useCategories } from '../hooks/categoryHooks';
+import CategoryTable from '@/components/CategoryTable';
+import Loading from '@/components/Loading';
+import { useCategories } from '@/hooks/categoryHooks';
 
 export default function Category() {
   const { data, isLoading, error } = useCategories();
 
   return (
     <div>
-      <h2>Category page</h2>
-      <div>
-        <Link href='/' >Index page</Link>
-      </div>
+      <h3 className='text-2xl dark:text-white mb-4'>Category page</h3>
 
       <div>
-        {isLoading && <span>Loading...</span>}
-        {/* @ts-ignore */}
-        {!isLoading && data && data.data.map((d, i) => <div key={i}><span>{d.name}</span></div>)}
-        {!isLoading && error && <span>Sorry but we could not get the data. try again!</span>}
+        {isLoading && <Loading />}
+        {!isLoading && error && <span>Sorry, we could not get the data. try again!</span>}
+        {!isLoading && data && <CategoryTable data={data.data} />}
       </div>
     </div>
   )
