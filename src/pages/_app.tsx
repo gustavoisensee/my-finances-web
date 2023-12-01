@@ -1,5 +1,11 @@
 import LoggedIn from '@/components/LoggedIn';
-import { SessionProvider, signOut } from 'next-auth/react';
+import { SessionProvider } from 'next-auth/react';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 export default function App({
   //@ts-ignore
@@ -10,7 +16,9 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <LoggedIn />
-      <Component {...pageProps} />
+      <QueryClientProvider client={queryClient}>
+        <Component {...pageProps} />
+      </QueryClientProvider>
     </SessionProvider>
   )
 }

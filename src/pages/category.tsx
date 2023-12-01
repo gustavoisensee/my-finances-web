@@ -1,15 +1,22 @@
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import { useCategories } from '../hooks/categoryHooks';
 
 export default function Category() {
-  const session = useSession();
+  const { data, isLoading, error } = useCategories();
 
-  console.log({ sessionCSR: session });
   return (
     <div>
-      Category page
+      <h2>Category page</h2>
+      <div>
+        <Link href='/' >Index page</Link>
+      </div>
 
-      <Link href='/' >Index page</Link>
+      <div>
+        {isLoading && <span>Loading...</span>}
+        {/* @ts-ignore */}
+        {!isLoading && data && data.data.map((d, i) => <div key={i}><span>{d.name}</span></div>)}
+        {!isLoading && error && <span>Sorry but we could not get the data. try again!</span>}
+      </div>
     </div>
   )
 }

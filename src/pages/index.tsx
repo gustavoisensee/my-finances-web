@@ -3,9 +3,13 @@ import Link from 'next/link';
 export default function Index() {
   return (
     <div>
-      Index page
+      <h2>
+        Index page
+      </h2>
 
-      <Link href='/category'>Category page</Link>
+      <div>
+        <Link href='/category'>Category page</Link>
+      </div>
     </div>
   )
 }
