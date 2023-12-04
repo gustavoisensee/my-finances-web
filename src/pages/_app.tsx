@@ -22,7 +22,7 @@ export default function App({
           <aside className='w-64 flex-none bg-blue-200 p-4'>
             <SideMenu />
           </aside>
-          <main className='min-w-0 flex-1 overflow-auto bg-blue-50 p-4'>
+          <main className='flex min-w-0 flex-1 overflow-auto bg-blue-50 p-4'>
             <Component {...pageProps} />
           </main>
           <PrelineScript />
