@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import currency from 'currency.js';
 import dayjs from 'dayjs';
+
 import { Budget, Income, Month, Months } from '@/types/month';
+import Year from './Year';
 
 type Props = {
   data: Month[]
@@ -16,7 +18,7 @@ const isItCurrentMonth = (month: number) =>
   (dayjs().month() + 1) === month;
 
 const MonthsWidget = ({ data }: Props) => (
-  <div className='flex flex-row bg-white p-3 rounded-lg h-full'>
+  <div className='flex flex-row bg-white rounded-lg h-full'>
     {data?.map((d, i) => (
       <div key={i} className={`m-2 flex h-fit flex-col border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] ${isItCurrentMonth(d.value) ? 'bg-blue-50' : 'bg-white'}`}>
         <div className='p-4 md:p-5'>
