@@ -2,6 +2,8 @@ import Loading from '@/components/Loading';
 import MonthsWidget from '@/components/MonthsWidget';
 import { useMonths } from '@/hooks/monthHooks';
 import Year from '@/components/Year';
+import CanNotFetchData from '@/components/CanNotFetchData';
+import MonthsEmpty from '@/components/MonthsEmpty';
 
 export default function Index() {
   const { data, isFetching, error } = useMonths();
@@ -12,13 +14,14 @@ export default function Index() {
         Dashboard
       </h3>
 
-      <div className='bg-white p-3 rounded-lg h-full'>
+      <div className='flex flex-col bg-white p-3 rounded-lg'>
         <div className='p-2'>
           <Year />
         </div>
         {isFetching && <Loading />}
-        {!isFetching && error && <span>Sorry, we could not get the data. try again!</span>}
+        {!isFetching && error && <CanNotFetchData />}
         {!isFetching && data && <MonthsWidget data={data.data} />}
+        {!isFetching && data?.data?.length === 0 && <MonthsEmpty /> }
       </div>
     </div>
   )

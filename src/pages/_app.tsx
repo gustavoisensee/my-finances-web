@@ -19,12 +19,13 @@ export default function App({
     <div className='flex flex-1'>
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>
-          <aside className='w-64 flex-none bg-blue-200 p-4'>
+          <div className='bg-gray-50 dark:bg-slate-900 w-full'>
             <SideMenu />
-          </aside>
-          <main className='flex min-w-0 flex-1 overflow-auto bg-blue-50 p-4'>
-            <Component {...pageProps} />
-          </main>
+            <div className='flex flex-1 h-full w-full overflow-auto bg-blue-100 p-4 pt-10 px-4 sm:px-6 md:px-8 lg:ps-72'>
+                <Component {...pageProps} />
+            </div>
+          </div>
+
           <PrelineScript />
         </QueryClientProvider>
       </SessionProvider>

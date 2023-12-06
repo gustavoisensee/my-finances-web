@@ -18,9 +18,9 @@ const isItCurrentMonth = (month: number) =>
   (dayjs().month() + 1) === month;
 
 const MonthsWidget = ({ data }: Props) => (
-  <div className='flex flex-row bg-white rounded-lg h-full'>
+  <div className='flex flex-row bg-white rounded-lg flex-wrap'>
     {data?.map((d, i) => (
-      <div key={i} className={`m-2 flex h-fit flex-col border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] ${isItCurrentMonth(d.value) ? 'bg-blue-50' : 'bg-white'}`}>
+      <div key={i} className={`flex w-64 m-2 flex-col border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] ${isItCurrentMonth(d.value) ? 'bg-blue-50' : 'bg-white'}`}>
         <div className='p-4 md:p-5'>
           <h3 className='text-lg font-bold text-gray-800 dark:text-white'>
             {/* @ts-ignore */}

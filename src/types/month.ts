@@ -3,6 +3,7 @@ export type Income = {
 }
 
 export type Budget = {
+  name: string;
   value: number;
 }
 
