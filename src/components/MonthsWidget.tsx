@@ -1,18 +1,12 @@
 import Link from 'next/link';
-import currency from 'currency.js';
 import dayjs from 'dayjs';
 
-import { Budget, Income, Month, Months } from '@/types/month';
-import Year from './Year';
+import { Month, Months } from '@/types/month';
+import { euro, getTotal } from '@/helpers/currency';
 
 type Props = {
   data: Month[]
 }
-
-const getTotal = (array: Budget[] | Income[]): number =>
-  array?.reduce((p, c) => p + c.value, 0) || 0;
-
-const euro = (value: number) => currency(value, { symbol: '€', decimal: ',', separator: '.' }).format();
 
 const isItCurrentMonth = (month: number) =>
   (dayjs().month() + 1) === month;
