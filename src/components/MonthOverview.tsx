@@ -3,12 +3,14 @@ import MonthBudgets from './MonthBudgets';
 import MonthIncomes from './MonthIncomes';
 import Plus from './svgs/Plus';
 import { euro, getTotal } from '@/helpers/currency';
+import { getTotals } from '@/helpers/totals';
 
 type Props = {
   month: MonthType
 }
 
 export default function MonthOverview({ month }: Props) {
+  const { totalBudgets, totalExpenses } = getTotals(month.budgets);
   return (
     <>
       <div className='bg-white rounded-xl p-4'>
@@ -16,23 +18,34 @@ export default function MonthOverview({ month }: Props) {
           {/* @ts-ignore */}
           Month of {Months[month.value]}
         </h3>
-        <div>
-          Notes: {month.notes}
+        <div className='flex flex-col'>
+          <span className='font-bold'>Description</span>
+          {month.description}
         </div>
-        <div>
-          <span>Make sure your total of incomes is equal to total of budgets</span>
-        </div>
-        <div className='flex mt-2'>
-          <div className='flex flex-col rounded border p-3 mr-4 bg-green-50'>
-            <span>Total income</span>
-            <div>
-              {euro(getTotal(month.incomes))}
-            </div>
+        <div className='flex flex-col my-4'>
+          <span className='font-bold'>Alert</span>
+          <div className='flex w-fit p-2 mt-1 bg-red-100 rounded-lg'>
+            <span>Make sure your total of incomes is equal to total of budgets</span>
           </div>
-          <div className='flex flex-col rounded border p-3 bg-violet-50'>
-            <span>Total budget</span>
-            <div>
-              {euro(getTotal(month.budgets))}
+        </div>
+        <div className='flex flex-col'>
+          <span className='font-bold'>Widgets</span>
+          <div className='flex mt-1'>
+            <div className='flex flex-col rounded border p-3 mr-4 bg-green-50'>
+              <span>Total income</span>
+              <div>
+                {euro(getTotal(month.incomes))}
+              </div>
+            </div>
+            <div className='flex flex-col rounded border p-3 mr-4 bg-violet-50'>
+              <span>Total budget</span>
+              <div>
+                {euro(totalBudgets)}
+              </div>
+            </div>
+            <div className='flex flex-col rounded border p-3 bg-yellow-100 w-fit'>
+              <span>Total budgets left</span>
+              {euro(totalBudgets - totalExpenses)}
             </div>
           </div>
         </div>

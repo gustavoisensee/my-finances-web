@@ -9,12 +9,14 @@ const MonthIncomes = ({ incomes }: Props) => {
   return (
     <>
       {incomes?.map?.((a, i) => (
-        <div key={i} className='mb-2 p-2 border rounded-lg'>
-          {euro(a.value)}
+        <div key={i} className='flex flex-row mb-2 p-2 border rounded-lg'>
+          <div>{a.description} </div>
+          <div>&nbsp;|&nbsp;</div>
+          <div> {euro(a.value)}</div>
         </div>
       ))}
       <div className='mb-2 p-2 border rounded-lg bg-green-50 w-fit'>
-        {euro(getTotal(incomes))}
+        Total incomes {euro(getTotal(incomes))}
       </div>
     </>
   );

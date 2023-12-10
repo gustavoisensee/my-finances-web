@@ -1,16 +1,23 @@
 export type Income = {
+  description: string;
+  value: number;
+}
+
+export type Expense = {
+  description: string;
   value: number;
 }
 
 export type Budget = {
-  name: string;
+  description: string;
   value: number;
+  expenses: Expense[];
 }
 
 export type Month = {
   id: number,
+  description: string;
   value: number;
-  notes: string;
   incomes: Income[];
   budgets: Budget[]
 }
