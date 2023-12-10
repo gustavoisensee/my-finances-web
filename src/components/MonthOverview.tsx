@@ -4,16 +4,20 @@ import MonthIncomes from './MonthIncomes';
 import Plus from './svgs/Plus';
 import { euro, getTotal } from '@/helpers/currency';
 import { getTotals } from '@/helpers/totals';
+import { AddButton } from './AddButton';
+import ThumbsUp from './svgs/ThumbsUp';
+import ThumbsDown from './svgs/ThumbsDown';
 
 type Props = {
   month: MonthType
 }
 
 export default function MonthOverview({ month }: Props) {
+  const totalIncome = getTotal(month.incomes);
   const { totalBudgets, totalExpenses } = getTotals(month.budgets);
   return (
     <>
-      <div className='bg-white rounded-xl p-4'>
+      <div className='bg-white rounded-xl p-4 max-w-4xl'>
         <h3 className='text-2xl dark:text-white mb-4'>
           {/* @ts-ignore */}
           Month of {Months[month.value]}
@@ -24,9 +28,18 @@ export default function MonthOverview({ month }: Props) {
         </div>
         <div className='flex flex-col my-4'>
           <span className='font-bold'>Alert</span>
-          <div className='flex w-fit p-2 mt-1 bg-red-100 rounded-lg'>
-            <span>Make sure your total of incomes is equal to total of budgets</span>
-          </div>
+          {totalIncome === totalBudgets ? (
+            <div className='flex w-fit p-2 mt-1 items-center bg-green-100 rounded-lg'>
+              <ThumbsUp />
+              <span className='ml-2'>You are all set</span>
+            </div>
+          ) : (
+            <div className='flex w-fit p-2 mt-1 items-center bg-red-100 rounded-lg'>
+              <ThumbsDown />
+              <span className='ml-2'>Make sure your total of incomes is equal to total of budgets</span>
+            </div>
+          )}
+
         </div>
         <div className='flex flex-col'>
           <span className='font-bold'>Widgets</span>
@@ -51,32 +64,33 @@ export default function MonthOverview({ month }: Props) {
         </div>
       </div>
 
-
-      {month?.incomes?.length > 0 && (
-        <div className='bg-white rounded-xl p-4 mt-4'>
-          <h3 className='text-2xl dark:text-white mb-4'>
+      <div className='bg-white rounded-xl p-4 mt-4 max-w-4xl'>
+        <div className='flex flex-row items-center mb-2'>
+          <h3 className='text-2xl dark:text-white mr-2'>
             Incomes
           </h3>
-          <div>
-            <MonthIncomes incomes={month.incomes} />
-          </div>
+          <AddButton onClick={() => alert('Income - In Progress!')} />
         </div>
-      )}
+        <div>
+          {month?.incomes?.length > 0 && (
+            <MonthIncomes incomes={month.incomes} />
+          )}
+        </div>
+      </div>
 
-      {month?.budgets?.length > 0 && (
-        <div className='bg-white rounded-xl p-4 mt-4'>
-          <div className='flex flex-row items-center mb-2'>
-            <h3 className='text-2xl dark:text-white mr-2'>
-              Budgets
-            </h3>
-            <button type='button' className='flex flex-shrink-0 justify-center items-center gap-2 h-[2.375rem] w-[2.375rem] text-sm font-semibold rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'>
-              <Plus />
-            </button>
-          </div>
-          <div>
+      <div className='bg-white rounded-xl p-4 mt-4 max-w-4xl'>
+        <div className='flex flex-row items-center mb-2'>
+          <h3 className='text-2xl dark:text-white mr-2'>
+            Budgets
+          </h3>
+          <AddButton onClick={() => alert('Budget - In Progress!')} />
+        </div>
+        <div>
+          {month?.budgets?.length > 0 && (
             <MonthBudgets budgets={month.budgets} />
-          </div>
-        </div>)}
+          )}
+        </div>
+      </div>
     </>
   )
 }

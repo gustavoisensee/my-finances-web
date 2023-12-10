@@ -13,7 +13,7 @@ export default function Index() {
   const month: Month = data?.data;
 
   return (
-    <div className='flex flex-1 flex-col'>
+    <div className='flex flex-1 flex-col align-center'>
       {isLoading && <Loading />}
       {!isLoading && error && <CanNotFetchData />}
       {!isLoading && month && <MonthOverview month={month} />}
