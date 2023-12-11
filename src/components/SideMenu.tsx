@@ -13,7 +13,7 @@ const menuItems = [
 ];
 
 const MobileToggle = () => (
-  <div className='sticky top-0 inset-x-0 z-20 bg-white border-y px-4 lg:hidden dark:bg-gray-800 dark:border-gray-700'>
+  <div className='sticky top-0 inset-x-0 z-20 bg-white border-y px-4 lg:hidden'>
     <div className='flex items-center py-4'>
       <button type='button' className='text-gray-500 hover:text-gray-600' data-hs-overlay='#application-sidebar' aria-controls='application-sidebar' aria-label='Toggle navigation'>
         <span className='sr-only'>Toggle</span>
@@ -22,14 +22,14 @@ const MobileToggle = () => (
         </div>
       </button>
 
-      <a className='flex-none text-xl font-semibold dark:text-white' href='#' aria-label='Brand'>Brand</a>
+      <a className='flex-none text-xl font-semibold' href='#' aria-label='Brand'>Brand</a>
     </div>
   </div>
 )
 
 const BrandTitle = () => (
   <div className='px-6'>
-    <a className='flex-none text-xl font-semibold dark:text-white' href='#' aria-label='Brand'>Brand</a>
+    <a className='flex-none text-xl font-semibold' href='#' aria-label='Brand'>Brand</a>
   </div>
 )
 
@@ -46,8 +46,8 @@ const MenuContainer = ({ children }: { children: ReactElement[] }) => (
 const SideMenu = () => {
   const path = usePathname();
   const isActive = (pathname: string) => pathname === path ? 'bg-gray-100' : '';
-  const menuItemClass = 'flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-100 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600';
-  const appSideBarClass = 'flex flex-col hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-64 bg-white border-e border-gray-200 pt-4 pb-4 overflow-y-auto lg:flex lg:translate-x-0 lg:end-auto lg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-slate-700 dark:[&::-webkit-scrollbar-thumb]:bg-slate-500 dark:bg-gray-800 dark:border-gray-700';
+  const menuItemClass = 'flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-100';
+  const appSideBarClass = 'flex flex-col hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-64 bg-white border-e border-gray-200 pt-4 pb-4 overflow-y-auto lg:flex lg:translate-x-0 lg:end-auto lg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300';
 
   return (
     <>

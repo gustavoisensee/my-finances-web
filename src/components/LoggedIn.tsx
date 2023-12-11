@@ -9,7 +9,9 @@ export default function LoggedIn() {
 
   return (
     <div className='flex flex-col justify-center'>
-      <span className='text-center dark:text-white mb-2'>Welcome {data?.user?.name} </span>
+      <span className='text-center'>
+        Welcome {data?.user?.name}
+      </span>
       <div className='flex justify-center'>
         <button
           onClick={() => signOut()}

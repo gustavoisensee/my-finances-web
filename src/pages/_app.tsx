@@ -19,7 +19,7 @@ export default function App({
     <div className='flex flex-1'>
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>
-          <div className='bg-gray-50 dark:bg-slate-900 w-full'>
+          <div className='bg-gray-50 w-full'>
             <SideMenu />
             <div className='flex flex-1 h-full w-full overflow-auto bg-blue-100 p-4 pt-10 px-4 sm:px-6 md:px-8 lg:ps-72'>
               <Component {...pageProps} />

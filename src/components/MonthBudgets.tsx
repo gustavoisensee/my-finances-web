@@ -18,7 +18,7 @@ const MonthBudgets = ({ budgets }: Props) => {
     <>
       {budgets.map((a, i) => (
         <div key={i} className='mb-2 border rounded-lg cursor-pointer'>
-          <div className='hs-collapse-toggle flex justify-between py-3 px-4 items-center text-sm font-semibold rounded-lg text-black hover:bg-grey-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 w-full' id='hs-basic-collapse' data-hs-collapse={`#hs-basic-collapse-heading-${i}`}>
+          <div className='hs-collapse-toggle flex justify-between py-3 px-4 items-center text-sm font-semibold rounded-lg text-black hover:bg-grey-700 disabled:opacity-50 disabled:pointer-events-none w-full' id='hs-basic-collapse' data-hs-collapse={`#hs-basic-collapse-heading-${i}`}>
             <div>
               {a.description}
             </div>
@@ -41,7 +41,7 @@ const MonthBudgets = ({ budgets }: Props) => {
               <button
                 type='button'
                 onClick={() => alert('Expense Add - In Progress')}
-                className='py-1 px-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'
+                className='py-1 px-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none'
               >
                 <Plus />
                 New expense

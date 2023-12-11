@@ -10,7 +10,7 @@ export default function Index() {
 
   return (
     <div className='flex flex-1 flex-col '>
-      <h3 className='text-2xl dark:text-white mb-4'>
+      <h3 className='text-2xl mb-4'>
         Dashboard
       </h3>
 

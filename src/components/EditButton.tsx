@@ -9,7 +9,7 @@ export function EditButton({ onClick }: Props) {
     <button
       type='button'
       onClick={onClick}
-      className='flex justify-center items-center h-6 w-6 mx-1 text-sm font-semibold rounded-full border border-transparent bg-yellow-400 text-white hover:bg-yellow-500 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'
+      className='flex justify-center items-center h-6 w-6 mx-1 text-sm font-semibold rounded-full border border-transparent bg-yellow-400 text-white hover:bg-yellow-500 disabled:opacity-50 disabled:pointer-events-none'
     >
       <Pencil />
     </button>

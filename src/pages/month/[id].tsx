@@ -5,6 +5,7 @@ import Loading from '@/components/Loading';
 import { Month } from '@/types/month';
 import MonthOverview from '@/components/MonthOverview';
 import CanNotFetchData from '@/components/CanNotFetchData';
+import BackButton from '@/components/BackButton';
 
 export default function Index() {
   const router = useRouter();
@@ -19,13 +20,7 @@ export default function Index() {
       {!isLoading && month && <MonthOverview month={month} />}
 
       <div className='mt-6'>
-        <button
-          onClick={router.back}
-          type='button'
-          className={styles.btnTertiary}
-        >
-          Go back
-        </button>
+        <BackButton />
       </div>
     </div>
   )
