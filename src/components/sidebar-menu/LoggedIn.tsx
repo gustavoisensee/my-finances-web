@@ -1,6 +1,6 @@
 import { signOut, useSession } from 'next-auth/react';
 import styles from '@/styles/buttons.module.css';
-import SignOut from './svgs/SignOut';
+import SignOut from '../svgs/SignOut';
 
 export default function LoggedIn() {
   const { data, status } = useSession({ required: true });

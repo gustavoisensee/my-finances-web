@@ -1,8 +1,8 @@
 import { Month as MonthType } from '@/types/month';
 import { getTotal } from '@/helpers/currency';
 import { getTotals } from '@/helpers/totals';
-import ThumbsUp from './svgs/ThumbsUp';
-import ThumbsDown from './svgs/ThumbsDown';
+import ThumbsUp from '../svgs/ThumbsUp';
+import ThumbsDown from '../svgs/ThumbsDown';
 
 type Props = {
   month: MonthType

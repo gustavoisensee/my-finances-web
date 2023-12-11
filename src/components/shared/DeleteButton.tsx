@@ -1,4 +1,4 @@
-import Trash from './svgs/Trash';
+import Trash from '../svgs/Trash';
 
 type Props = {
   onClick: (x?: unknown) => void | unknown;

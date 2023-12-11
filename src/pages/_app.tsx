@@ -3,8 +3,8 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
-import SideMenu from '@/components/SideMenu';
-import PrelineScript from '@/components/PrelineScript';
+import SideMenu from '@/components/sidebar-menu/SideMenu';
+import PrelineScript from '@/components/shared/PrelineScript';
 import '../styles/globals.css';
 
 const queryClient = new QueryClient();

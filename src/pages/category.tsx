@@ -1,6 +1,6 @@
-import CanNotFetchData from '@/components/CanNotFetchData';
-import CategoryTable from '@/components/CategoryTable';
-import Loading from '@/components/Loading';
+import CanNotFetchData from '@/components/shared/CanNotFetchData';
+import CategoryTable from '@/components/category/CategoryTable';
+import Loading from '@/components/shared/Loading';
 import { useCategories } from '@/hooks/categoryHooks';
 
 export default function Category() {

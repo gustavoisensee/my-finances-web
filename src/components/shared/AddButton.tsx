@@ -1,4 +1,4 @@
-import Plus from './svgs/Plus';
+import Plus from '../svgs/Plus';
 
 type Props = {
   onClick: (x?: unknown) => void | unknown;

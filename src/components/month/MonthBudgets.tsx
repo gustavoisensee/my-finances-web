@@ -3,9 +3,9 @@ import { Budget } from '@/types/month';
 import React from 'react';
 import MonthBudgetExpenses from './MonthBudgetExpenses';
 import { getTotals } from '@/helpers/totals';
-import { EditButton } from './EditButton';
-import { DeleteButton } from './DeleteButton';
-import Plus from './svgs/Plus';
+import { EditButton } from '../shared/EditButton';
+import { DeleteButton } from '../shared/DeleteButton';
+import Plus from '../svgs/Plus';
 
 type Props = {
   budgets: Budget[]

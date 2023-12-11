@@ -1,8 +1,8 @@
 import { euro } from '@/helpers/currency';
 import { Expense } from '@/types/month';
 import { useCallback } from 'react';
-import { EditButton } from './EditButton';
-import { DeleteButton } from './DeleteButton';
+import { EditButton } from '../shared/EditButton';
+import { DeleteButton } from '../shared/DeleteButton';
 
 type Props = {
   expenses: Expense[]

@@ -1,9 +1,9 @@
-import Loading from '@/components/Loading';
-import MonthsWidget from '@/components/MonthsWidget';
+import Loading from '@/components/shared/Loading';
+import MonthsWidget from '@/components/dashboard/MonthsWidget';
 import { useMonths } from '@/hooks/monthHooks';
-import Year from '@/components/Year';
-import CanNotFetchData from '@/components/CanNotFetchData';
-import MonthsEmpty from '@/components/MonthsEmpty';
+import Year from '@/components/shared/Year';
+import CanNotFetchData from '@/components/shared/CanNotFetchData';
+import MonthsEmpty from '@/components/dashboard/MonthsEmpty';
 
 export default function Index() {
   const { data, isFetching, error } = useMonths();

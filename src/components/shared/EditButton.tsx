@@ -1,4 +1,4 @@
-import Pencil from './svgs/Pencil';
+import Pencil from '../svgs/Pencil';
 
 type Props = {
   onClick: (x?: unknown) => void | unknown;

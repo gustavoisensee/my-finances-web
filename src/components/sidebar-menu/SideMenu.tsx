@@ -2,10 +2,10 @@ import React, { ReactElement } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import DocumentChartBar from './svgs/DocumentChartBar';
-import Dashboard from './svgs/Dashboard';
-import LoggedIn from '@/components/LoggedIn';
-import Menu from './svgs/Menu';
+import DocumentChartBar from '../svgs/DocumentChartBar';
+import Dashboard from '../svgs/Dashboard';
+import LoggedIn from '@/components/sidebar-menu/LoggedIn';
+import Menu from '../svgs/Menu';
 
 const menuItems = [
   { name: 'Dashboard', link: '/', Icon: Dashboard },

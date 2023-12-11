@@ -12,7 +12,7 @@ export default function PrelineScript() {
     setTimeout(() => {
       // @ts-ignore
       if (window.HSStaticMethods) HSStaticMethods.autoInit();
-    }, 100);
+    }, 110);
   }, [path]);
 
   return null;

@@ -1,7 +1,7 @@
 import { Month as MonthType, Months } from '@/types/month';
 import MonthBudgets from './MonthBudgets';
 import MonthIncomes from './MonthIncomes';
-import { AddButton } from './AddButton';
+import { AddButton } from '../shared/AddButton';
 import MonthWidget from './MonthWidget';
 import MonthAlert from './MonthAlert';
 

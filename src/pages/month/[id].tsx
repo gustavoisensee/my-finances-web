@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import styles from '@/styles/buttons.module.css';
 import { useMonthById } from '@/hooks/monthHooks';
-import Loading from '@/components/Loading';
+import Loading from '@/components/shared/Loading';
 import { Month } from '@/types/month';
-import MonthOverview from '@/components/MonthOverview';
-import CanNotFetchData from '@/components/CanNotFetchData';
-import BackButton from '@/components/BackButton';
+import MonthOverview from '@/components/month/MonthOverview';
+import CanNotFetchData from '@/components/shared/CanNotFetchData';
+import BackButton from '@/components/shared/BackButton';
 
 export default function Index() {
   const router = useRouter();
