@@ -7,7 +7,7 @@ const MobileMenu = () => (
     {/* Side Menu */}
     <div className='drawer lg:hidden'>
       <input id='my-drawer' type='checkbox' className='drawer-toggle' />
-      <div className='drawer-side z-10'>
+      <div className='drawer-side z-20'>
         <label htmlFor='my-drawer' aria-label='close sidebar' className='drawer-overlay'></label>
         <div className='flex w-64 h-full'>
           <Menu />

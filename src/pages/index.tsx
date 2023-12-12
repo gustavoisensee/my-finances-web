@@ -4,6 +4,7 @@ import { useMonths } from '@/hooks/monthHooks';
 import Year from '@/components/shared/Year';
 import CanNotFetchData from '@/components/shared/CanNotFetchData';
 import MonthsEmpty from '@/components/dashboard/MonthsEmpty';
+import AddNewMonth from '@/components/dashboard/AddNewMonth';
 
 export default function Index() {
   const { data, isFetching, error } = useMonths();
@@ -15,8 +16,9 @@ export default function Index() {
       </h3>
 
       <div className='flex flex-col bg-white p-3 rounded-lg'>
-        <div className='p-2'>
+        <div className='flex items-center p-2'>
           <Year />
+          <AddNewMonth />
         </div>
         {isFetching && <Loading />}
         {!isFetching && error && <CanNotFetchData />}

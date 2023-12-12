@@ -19,7 +19,7 @@ export default function Index() {
       {!isLoading && error && <CanNotFetchData />}
       {!isLoading && month && <MonthOverview month={month} />}
 
-      <div className='mt-6'>
+      <div className='my-8'>
         <BackButton />
       </div>
     </div>

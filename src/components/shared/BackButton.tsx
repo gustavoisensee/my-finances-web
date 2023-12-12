@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import styles from '@/styles/buttons.module.css';
 
 export default function BackButton() {
   const router = useRouter();
@@ -8,7 +7,7 @@ export default function BackButton() {
     <button
       onClick={router.back}
       type='button'
-      className='btn btn-tertiary mb-4'
+      className='btn mb-8'
     >
       Go back
     </button>
