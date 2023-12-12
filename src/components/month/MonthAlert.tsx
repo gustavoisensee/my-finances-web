@@ -15,7 +15,7 @@ export default function MonthAlert({ month }: Props) {
     <div className='flex flex-col my-4'>
       <span className='font-bold'>Alert</span>
       {totalIncome === totalBudgets ? (
-        <div className='flex w-fit p-2 mt-1 items-center bg-green-100 rounded-lg'>
+        <div className='flex w-fit p-2 mt-1 items-center bg-green-50 rounded-lg'>
           <ThumbsUp />
           <span className='ml-2'>You are all set</span>
         </div>

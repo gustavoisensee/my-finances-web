@@ -18,34 +18,38 @@ const MonthBudgets = ({ budgets }: Props) => {
     <>
       {budgets.map((a, i) => (
         <div key={i} className='mb-2 border rounded-lg cursor-pointer'>
-          <div className='hs-collapse-toggle flex justify-between py-3 px-4 items-center text-sm font-semibold rounded-lg text-black hover:bg-grey-700 disabled:opacity-50 disabled:pointer-events-none w-full' id='hs-basic-collapse' data-hs-collapse={`#hs-basic-collapse-heading-${i}`}>
-            <div>
-              {a.description}
+          <div className='collapse bg-white'>
+            <input type='checkbox' name='my-accordion-2' className='min-h-0' />
+
+            <div className='collapse-title flex px-4 py-2 items-center'>
+              <div>
+                {a.description}
+              </div>
+              <div className='flex flex-[1] justify-end mr-2'>
+                <span>
+                  {euro(a.value)}
+                </span>
+              </div>
+              <div className='w-15 sm:w-32 flex justify-end'>
+                <EditButton onClick={() => alert('Budget Edit - In Progress!')} />
+                <DeleteButton onClick={() => alert('Budget Delete - In Progress!')} />
+              </div>
             </div>
-            <div className='flex flex-[1] justify-end mr-2'>
-              <span>
-                {euro(a.value)}
-              </span>
-            </div>
-            <div className='w-15 sm:w-32 flex justify-end'>
-              <EditButton onClick={() => alert('Budget Edit - In Progress!')} />
-              <DeleteButton onClick={() => alert('Budget Delete - In Progress!')} />
-            </div>
-          </div>
-          <div id={`hs-basic-collapse-heading-${i}`} className='hs-collapse hidden w-full overflow-hidden transition-[height] duration-300' aria-labelledby='hs-basic-collapse'>
-            <div className='flex flex-col px-4 pb-1 m-0 text-gray-500 text-sm'>
-              {a.expenses?.length === 0 && <div className='pl-2'>No expenses entered yet!</div>}
-              {a.expenses?.length > 0 && <MonthBudgetExpenses expenses={a.expenses} />}
-            </div>
-            <div className='px-2 pl-6 pb-4'>
-              <button
-                type='button'
-                onClick={() => alert('Expense Add - In Progress')}
-                className='py-1 px-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none'
-              >
-                <Plus />
-                New expense
-              </button>
+            <div className='collapse-content flex flex-col p-0'>
+              <div className='flex flex-col px-4 pb-1 m-0 text-gray-500 text-sm'>
+                {a.expenses?.length === 0 && <div className='pl-2'>No expenses entered yet!</div>}
+                {a.expenses?.length > 0 && <MonthBudgetExpenses expenses={a.expenses} />}
+              </div>
+              <div className='px-2 pl-6'>
+                <button
+                  type='button'
+                  onClick={() => alert('Expense Add - In Progress')}
+                  className='btn btn-primary min-h-0 h-auto py-1 px-2'
+                >
+                  <Plus />
+                  New expense
+                </button>
+              </div>
             </div>
           </div>
 

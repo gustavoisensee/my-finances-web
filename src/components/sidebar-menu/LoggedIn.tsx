@@ -9,17 +9,19 @@ export default function LoggedIn() {
 
   return (
     <div className='flex flex-col justify-center'>
-      <span className='text-center'>
+      <span className='text-center pb-1 text-sm'>
         Welcome {data?.user?.name}
       </span>
       <div className='flex justify-center'>
         <button
           onClick={() => signOut()}
           type='button'
-          className={styles.btnTertiary}
+          className='link link-primary flex items-center'
         >
           <SignOut />
-          Logout
+          <span className='text-sm pl-1'>
+            Logout
+          </span>
         </button>
       </div>
     </div>

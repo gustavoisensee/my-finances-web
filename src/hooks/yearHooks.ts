@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { FormEventHandler, useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query'
 
 import { getSessionYear, setSessionYear } from '@/helpers/year';
@@ -19,7 +19,9 @@ export const useYears = () => {
   const years = useMemo(() => data?.data as Year[] || [], [data?.data]);
   const year = useMemo(() => years.find((y: Year) => y.value === Number(state)), [years, state]);
 
-  const onChange = (_year: number) => {
+  const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const _year = Number(e.target.value);
+    console.log(_year)
     setSessionYear(_year);
     setState(_year);
   };

@@ -8,7 +8,7 @@ export default function BackButton() {
     <button
       onClick={router.back}
       type='button'
-      className={styles.btnTertiary}
+      className='btn btn-tertiary mb-4'
     >
       Go back
     </button>

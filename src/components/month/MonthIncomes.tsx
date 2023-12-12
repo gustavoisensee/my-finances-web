@@ -16,7 +16,7 @@ const MonthIncomes = ({ incomes }: Props) => {
     <>
       <div className='border rounded-lg'>
         {incomes?.map?.((a, i) => (
-          <div key={i} className={`flex flex-row justify-between p-2 hover:bg-gray-50 ${rowClassname(i)}`}>
+          <div key={i} className={`flex flex-row justify-between py-2 px-4 hover:bg-gray-50 ${rowClassname(i)}`}>
             <div>{a.description}</div>
             <div className='flex flex-[1] justify-end mr-2'>
               {euro(a.value)}

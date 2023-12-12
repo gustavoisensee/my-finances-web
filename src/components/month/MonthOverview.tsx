@@ -12,11 +12,12 @@ type Props = {
 export default function MonthOverview({ month }: Props) {
   return (
     <>
+      <h3 className='text-2xl mb-4'>
+        {/* @ts-ignore */}
+        Month of {Months[month.value]}
+      </h3>
+
       <div className='bg-white rounded-xl p-4 max-w-4xl'>
-        <h3 className='text-2xl mb-4'>
-          {/* @ts-ignore */}
-          Month of {Months[month.value]}
-        </h3>
         <div className='flex flex-col'>
           <span className='font-bold'>Description</span>
           {month.description}

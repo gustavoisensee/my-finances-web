@@ -9,7 +9,7 @@ export function AddButton({ onClick }: Props) {
     <button
       type='button'
       onClick={onClick}
-      className='flex justify-center items-center h-6 w-6 text-sm font-semibold rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none'
+      className='btn btn-primary btn-circle btn-xs'
     >
       <Plus />
     </button>

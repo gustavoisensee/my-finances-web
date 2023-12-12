@@ -11,9 +11,15 @@ dependencies:
   axios:
     specifier: ^1.6.2
     version: 1.6.2
+  classnames:
+    specifier: ^2.3.2
+    version: 2.3.2
   currency.js:
     specifier: ^2.0.4
     version: 2.0.4
+  daisyui:
+    specifier: ^4.4.19
+    version: 4.4.19(postcss@8.4.31)
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
@@ -23,9 +29,6 @@ dependencies:
   next-auth:
     specifier: ^4.24.5
     version: 4.24.5(next@14.0.3)(react-dom@18.2.0)(react@18.2.0)
-  preline:
-    specifier: ^2.0.2
-    version: 2.0.2
   react:
     specifier: ^18
     version: 18.2.0
@@ -281,10 +284,6 @@ packages:
 
   /@panva/hkdf@1.1.1:
     resolution: {integrity: sha512-dhPeilub1NuIG0X5Kvhh9lH4iW3ZsHlnzwgwbOlgwQ2wG1IqFzsgHqmKPk3WzsdWAeaxKJxgM0+W433RmN45GA==}
-    dev: false
-
-  /@popperjs/core@2.11.8:
-    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
     dev: false
 
   /@rushstack/eslint-patch@1.6.0:
@@ -660,7 +659,6 @@ packages:
   /camelcase-css@2.0.1:
     resolution: {integrity: sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==}
     engines: {node: '>= 6'}
-    dev: true
 
   /caniuse-lite@1.0.30001565:
     resolution: {integrity: sha512-xrE//a3O7TP0vaJ8ikzkD2c2NgcVUvsEe2IvFTntV4Yd1Z9FVzh+gW+enX96L0psrbaFMcVcH2l90xNuGDWc8w==}
@@ -687,6 +685,10 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
+
+  /classnames@2.3.2:
+    resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
+    dev: false
 
   /client-only@0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
@@ -733,19 +735,42 @@ packages:
       which: 2.0.2
     dev: true
 
+  /css-selector-tokenizer@0.8.0:
+    resolution: {integrity: sha512-Jd6Ig3/pe62/qe5SBPTN8h8LeUg/pT4lLgtavPf7updwwHpvFzxvOQBHYj2LZDMjUnBzgvIUSjRcf6oT5HzHFg==}
+    dependencies:
+      cssesc: 3.0.0
+      fastparse: 1.1.2
+    dev: false
+
   /cssesc@3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
     engines: {node: '>=4'}
     hasBin: true
-    dev: true
 
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
     dev: true
 
+  /culori@3.3.0:
+    resolution: {integrity: sha512-pHJg+jbuFsCjz9iclQBqyL3B2HLCBF71BwVNujUYEvCeQMvV97R59MNK3R2+jgJ3a1fcZgI9B3vYgz8lzr/BFQ==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dev: false
+
   /currency.js@2.0.4:
     resolution: {integrity: sha512-6/OplJYgJ0RUlli74d93HJ/OsKVBi8lB1+Z6eJYS1YZzBuIp4qKKHpJ7ad+GvTlWmLR/hLJOWTykN5Nm8NJ7+w==}
     engines: {node: '>=4'}
+    dev: false
+
+  /daisyui@4.4.19(postcss@8.4.31):
+    resolution: {integrity: sha512-IjOLWwnndD4N7Ut5CDxbUsaVtbqXPeVHM92IcgxGFxpuOd3CCKW/PAXZH6JoBTHFRaN57vB9XqEhdWm5yC+bPA==}
+    engines: {node: '>=16.9.0'}
+    dependencies:
+      css-selector-tokenizer: 0.8.0
+      culori: 3.3.0
+      picocolors: 1.0.0
+      postcss-js: 4.0.1(postcss@8.4.31)
+    transitivePeerDependencies:
+      - postcss
     dev: false
 
   /damerau-levenshtein@1.0.8:
@@ -1251,6 +1276,10 @@ packages:
   /fast-levenshtein@2.0.6:
     resolution: {integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==}
     dev: true
+
+  /fastparse@1.1.2:
+    resolution: {integrity: sha512-483XLLxTVIwWK3QTrMGRqUfUpoOs/0hbQrl2oz4J0pAcm3A3bu84wxTFqGqkJzewCLdME38xJLJAxBABfQT8sQ==}
+    dev: false
 
   /fastq@1.15.0:
     resolution: {integrity: sha512-wBrocU2LCXXa+lWBt8RoIRD89Fi8OdABODa/kEnyeyjS5aZO5/GNvI5sEINADqP/h8M29UHTHUb53sUu5Ihqdw==}
@@ -2165,7 +2194,6 @@ packages:
     dependencies:
       camelcase-css: 2.0.1
       postcss: 8.4.31
-    dev: true
 
   /postcss-load-config@4.0.2(postcss@8.4.31):
     resolution: {integrity: sha512-bSVhyJGL00wMVoPUzAVAnbEoWyqRxkjv64tUl427SKnPrENtq6hJwUojroMz2VB+Q1edmi4IfrAPpami5VVgMQ==}
@@ -2225,12 +2253,6 @@ packages:
 
   /preact@10.19.2:
     resolution: {integrity: sha512-UA9DX/OJwv6YwP9Vn7Ti/vF80XL+YA5H2l7BpCtUr3ya8LWHFzpiO5R+N7dN16ujpIxhekRFuOOF82bXX7K/lg==}
-    dev: false
-
-  /preline@2.0.2:
-    resolution: {integrity: sha512-CDBUb7TpJ5C3UbW3ynuC82MWs34o9jW9vgbyn4wiYRbHspLi6hff9R2Ug9tLVkQgdyjKXotI7RB9Sm71+3v+jQ==}
-    dependencies:
-      '@popperjs/core': 2.11.8
     dev: false
 
   /prelude-ls@1.2.1:
