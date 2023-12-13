@@ -2,18 +2,22 @@ import cn from 'classnames';
 
 import Plus from '../svgs/Plus';
 import { useAddNewMonth } from '@/hooks/dashboardHooks';
-import TextInput from '../form/TextInput';
+
+import AddNewMonthForm from './AddNewMonthForm';
+import Divider from '../shared/Divider';
 
 export default function AddNewMonth() {
   const {
-    openModal, onClickOpen, onClickClose,
-    register, handleSubmit, onSubmit, errors
+    openModal, onClickOpen, onClickClose
   } = useAddNewMonth();
 
   return (
     <>
       <div className='tooltip tooltip-right' data-tip='Add new month'>
-        <button className='btn btn-primary btn-circle btn-sm ml-2' onClick={onClickOpen}>
+        <button
+          className='btn btn-primary btn-circle btn-sm ml-2'
+          onClick={onClickOpen}
+        >
           <Plus />
         </button>
       </div>
@@ -24,17 +28,9 @@ export default function AddNewMonth() {
       })}>
         <div className='modal-box'>
           <h3 className='font-bold text-lg'>Add new month</h3>
+          <Divider className='-ml-6 -mr-6' />
           {openModal && (
-            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>
-
-              <TextInput title='First name' keyName='firstName' register={register} errors={errors} required />
-              <TextInput title='Last name' keyName='lastName' register={register} errors={errors} required />
-
-              <div className='flex'>
-                <button className='btn btn-primary' type='submit'>Submit</button>
-                <button className='btn ml-2' onClick={onClickClose}>Close</button>
-              </div>
-            </form>
+            <AddNewMonthForm onClickClose={onClickClose} />
           )}
         </div>
       </dialog>

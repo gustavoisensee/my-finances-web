@@ -17,7 +17,6 @@ const MonthsWidget = ({ data }: Props) => (
       <div key={i} className={`flex w-64 m-2 flex-col border shadow-sm rounded-xl ${isItCurrentMonth(d.value) ? 'bg-blue-50' : 'bg-white'}`}>
         <div className='p-4 md:p-5'>
           <h3 className='text-lg font-bold text-gray-800'>
-            {/* @ts-ignore */}
             {Months[d.value]}
           </h3>
           <p className='mt-2 text-gray-500'>

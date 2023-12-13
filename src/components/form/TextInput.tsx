@@ -1,23 +1,34 @@
-import { Inputs, useAddNewMonth } from '@/hooks/dashboardHooks';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import cn from 'classnames';
+
+import { InputTypes } from '@/types/form';
 
 type Props = {
   title: string;
-  keyName: 'firstName' | 'lastName';
-  required?: boolean;
-  register: UseFormRegister<Inputs>;
-  errors: FieldErrors<Inputs>;
+  keyName: 'value' | 'yearId' | 'description' | 'createdAt';
+  register: UseFormRegister<InputTypes>;
+  errors?: FieldErrors<InputTypes>;
 }
 
-export default function TextInput({ title, keyName, required, register, errors }: Props) {
+export default function TextInput({ title, keyName, register, errors }: Props) {
   return (
-    <label className='form-control w-full max-w-xs'>
+    <label className='form-control w-full'>
       <div className='label'>
         <span className='label-text'>{title}</span>
       </div>
-      <input {...register(keyName, { required })} className='input input-bordered w-full max-w-xs' />
+      <input
+        {...register(keyName)}
+        className={cn({
+          'input input-bordered w-full': true,
+          'input-error': !!errors?.[keyName]
+        })}
+      />
       <div className='label'>
-        {errors?.[keyName] && <span className='label-text-alt'>It is required</span>}
+        {errors?.[keyName] && (
+          <span className='label-text-alt text-red-500'>
+            {errors?.[keyName]?.message}
+          </span>
+        )}
       </div>
     </label>
   )

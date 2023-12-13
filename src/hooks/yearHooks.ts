@@ -21,7 +21,6 @@ export const useYears = () => {
 
   const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const _year = Number(e.target.value);
-    console.log(_year)
     setSessionYear(_year);
     setState(_year);
   };

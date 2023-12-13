@@ -13,7 +13,6 @@ export default function MonthOverview({ month }: Props) {
   return (
     <>
       <h3 className='text-2xl mb-4'>
-        {/* @ts-ignore */}
         Month of {Months[month.value]}
       </h3>
 

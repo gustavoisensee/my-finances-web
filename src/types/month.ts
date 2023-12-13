@@ -22,7 +22,11 @@ export type Month = {
   budgets: Budget[]
 }
 
-export const Months = {
+type MonthsType = {
+  [x: string]: string;
+}
+
+export const Months: MonthsType = {
   '1': 'January',
   '2': 'February',
   '3': 'March',
