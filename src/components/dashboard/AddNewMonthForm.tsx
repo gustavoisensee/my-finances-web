@@ -13,12 +13,12 @@ type Props = {
 export default function AddNewMonthForm({ onClickClose }: Props) {
   const {
     register, handleSubmit, onSubmit, errors
-  } = useAddNewMonthForm();
+  } = useAddNewMonthForm({ onClickClose });
   const { isFetching, years } = useYears();
   const yearOptions = useMemo(() =>
     years.map((y) => ({ value: y.id, label: y.value })), [years]);
   const months = useMemo(() =>
-    Object.keys(Months).map(key => ({ value: key, label: Months[key] })), []) ;
+    Object.keys(Months).map(key => ({ value: key, label: Months[key] })), []);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>

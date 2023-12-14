@@ -3,6 +3,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { InputTypes } from '@/types/form';
+import { createMonth } from '@/services/month';
+import { Month } from '@/types/month';
 
 const monthRequired = 'Month is required!';
 const yearRequired = 'Year is required!';
@@ -27,7 +29,11 @@ export const useAddNewMonth = () => {
   }
 };
 
-export const useAddNewMonthForm = () => {
+type Props = {
+  onClickClose: () => void;
+}
+
+export const useAddNewMonthForm = ({ onClickClose }: Props) => {
   const {
     register,
     handleSubmit,
@@ -43,7 +49,21 @@ export const useAddNewMonthForm = () => {
     resolver: yupResolver(schema)
   });
 
-  const onSubmit: SubmitHandler<InputTypes> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<InputTypes> = async (data) => {
+    try {
+      const d = await createMonth(data);
+      if (d) {
+        onClickClose();
+        alert('all created!');
+        // TODO update Months overview
+      } else {
+        alert('Something went wrong!');  
+      }
+      
+    } catch {
+      alert('Something went wrong!');
+    }
+  };
 
   return {
     register,
