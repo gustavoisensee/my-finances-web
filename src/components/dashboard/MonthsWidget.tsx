@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 
 import { Month, Months } from '@/types/month';
 import { euro, getTotal } from '@/helpers/currency';
+import Options from '../svgs/Options';
 
 type Props = {
   data: Month[]
@@ -16,9 +17,20 @@ const MonthsWidget = ({ data }: Props) => (
     {data?.map((d, i) => (
       <div key={i} className={`flex w-64 m-2 flex-col border shadow-sm rounded-xl ${isItCurrentMonth(d.value) ? 'bg-blue-50' : 'bg-white'}`}>
         <div className='p-4 md:p-5'>
-          <h3 className='text-lg font-bold text-gray-800'>
-            {Months[d.value]}
-          </h3>
+          <div className='flex items-top justify-between'>
+            <h3 className='text-lg font-bold text-gray-800'>
+              {Months[d.value]}
+            </h3>
+            <details className='dropdown -mr-1 cursor-pointer active:bg-slate-100 rounded-lg transition-all'>
+              <summary className='list-none'>
+                <Options />
+              </summary>
+              <ul className='p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52'>
+                <li><a>Item 1</a></li>
+                <li><a>Item 2</a></li>
+              </ul>
+            </details>
+          </div>
           <p className='mt-2 text-gray-500'>
             {d.description}
           </p>
@@ -38,6 +50,8 @@ const MonthsWidget = ({ data }: Props) => (
             <svg className='flex-shrink-0 w-4 h-4' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'><path d='m9 18 6-6-6-6' /></svg>
           </Link>
         </div>
+
+
       </div>
     ))}
   </div>
