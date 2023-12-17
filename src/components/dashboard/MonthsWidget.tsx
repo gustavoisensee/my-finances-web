@@ -15,7 +15,7 @@ const isItCurrentMonth = (month: number) =>
 const MonthsWidget = ({ data }: Props) => (
   <div className='flex flex-row bg-white rounded-lg flex-wrap'>
     {data?.map((d, i) => (
-      <div key={i} className={`flex w-64 m-2 flex-col border shadow-sm rounded-xl ${isItCurrentMonth(d.value) ? 'bg-blue-50' : 'bg-white'}`}>
+      <div key={i} className={`flex flex-1 min-w-min m-2 flex-col border shadow-sm rounded-xl ${isItCurrentMonth(d.value) ? 'bg-blue-50' : 'bg-white'}`}>
         <div className='p-4 md:p-5'>
           <div className='flex items-top justify-between'>
             <h3 className='text-lg font-bold text-gray-800'>
