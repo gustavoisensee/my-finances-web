@@ -9,7 +9,7 @@ class Observable {
     this.observers = this.observers?.filter?.((observer) => observer !== func);
   }
 
-  notify(data?: any): void {
+  notify<T>(data?: T): void {
     this.observers?.forEach?.((observer) => observer(data));
   }
 }

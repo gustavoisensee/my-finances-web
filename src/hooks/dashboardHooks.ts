@@ -1,10 +1,14 @@
+import * as yup from 'yup';
 import { useCallback, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+
 import { InputTypes } from '@/types/form';
 import { createMonth } from '@/services/month';
-import { Month } from '@/types/month';
+import { obsDashboard } from '@/helpers/month';
+import { obsAlert } from '@/helpers/alert';
+import { StateProps } from '@/components/shared/Toast';
 
 const monthRequired = 'Month is required!';
 const yearRequired = 'Year is required!';
@@ -33,11 +37,24 @@ type Props = {
   onClickClose: () => void;
 }
 
+const successMessage: StateProps = {
+  open: true,
+  type: 'success',
+  message: 'Month has been created successfully!'
+};
+
+const errorMessage: StateProps = {
+  open: true,
+  type: 'error',
+  message: 'Something went wrong, please try again!'
+};
+
 export const useAddNewMonthForm = ({ onClickClose }: Props) => {
+  const { push } = useRouter();
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitting },
   } = useForm<InputTypes>({
     defaultValues: {
       value: 0,
@@ -51,17 +68,17 @@ export const useAddNewMonthForm = ({ onClickClose }: Props) => {
 
   const onSubmit: SubmitHandler<InputTypes> = async (data) => {
     try {
-      const d = await createMonth(data);
-      if (d) {
+      const r = await createMonth(data);
+      if (r?.data) {
         onClickClose();
-        alert('all created!');
-        // TODO update Months overview
+        obsAlert.notify<StateProps>(successMessage);
+        obsDashboard.notify();
+        push(`/month/${r?.data?.id}`);
       } else {
-        alert('Something went wrong!');  
+        obsAlert.notify<StateProps>(errorMessage);
       }
-      
-    } catch {
-      alert('Something went wrong!');
+    } catch (e) {
+      obsAlert.notify<StateProps>(errorMessage);
     }
   };
 
@@ -69,6 +86,7 @@ export const useAddNewMonthForm = ({ onClickClose }: Props) => {
     register,
     handleSubmit,
     onSubmit,
-    errors
+    errors,
+    isSubmitting
   }
 };

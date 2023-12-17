@@ -8,6 +8,7 @@ import {
 import SideMenu from '@/components/sidebar-menu/SideMenu';
 import '@/styles/globals.css';
 import { Session } from 'next-auth';
+import Toast from '@/components/shared/Toast';
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ export default function App({
             )}>
               <Component {...pageProps} />
             </div>
+            <Toast />
           </div>
         </QueryClientProvider>
       </SessionProvider>

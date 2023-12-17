@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query'
 
-import { obs } from '@/helpers/month';
+import { obs, obsDashboard } from '@/helpers/month';
 import { getMonthByIdWithAllData, getMonths } from '@/services/month';
 import { Year as YearType } from '@/types/year';
 
 export const useMonths = () => {
   const [yearId, setYearId] = useState(0);
 
-  const { data, error, isFetching } = useQuery({
+  const { data, error, isFetching, refetch } = useQuery({
     queryKey: ['months', yearId],
     queryFn: () => getMonths(yearId),
     staleTime: 2 * 60 * 1000, // 2 min
@@ -19,8 +19,13 @@ export const useMonths = () => {
   useEffect(() => {
     const fn = (_year: YearType) => setYearId(_year.id);
     obs.subscribe(fn);
-    return () => obs.unsubscribe(fn);
-  }, []);
+    obsDashboard.subscribe(refetch);
+
+    return () => {
+      obs.unsubscribe(fn);
+      obsDashboard.unsubscribe(refetch);
+    }
+  }, [refetch]);
 
   return {
     data, error, isFetching

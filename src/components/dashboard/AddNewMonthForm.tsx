@@ -12,7 +12,7 @@ type Props = {
 
 export default function AddNewMonthForm({ onClickClose }: Props) {
   const {
-    register, handleSubmit, onSubmit, errors
+    register, handleSubmit, onSubmit, errors, isSubmitting
   } = useAddNewMonthForm({ onClickClose });
   const { isFetching, years } = useYears();
   const yearOptions = useMemo(() =>
@@ -31,8 +31,13 @@ export default function AddNewMonthForm({ onClickClose }: Props) {
       <Divider className='-ml-6 -mr-6' />
 
       <div className='flex'>
-        <button className='btn btn-primary' type='submit'>Submit</button>
-        <button className='btn ml-2' onClick={onClickClose}>Close</button>
+        <button className='btn btn-primary' type={isSubmitting ? 'button' : 'submit'}>
+          {isSubmitting && <span className='loading loading-spinner' />}
+          Submit
+        </button>
+        <button className='btn ml-2' onClick={!isSubmitting ? onClickClose : undefined}>
+          Close
+        </button>
       </div>
     </form>
   )
