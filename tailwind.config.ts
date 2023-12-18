@@ -22,10 +22,17 @@ const config: Config = {
           // 'error': '#ffffff',
           '.collapse-title, :where(.collapse > input[type="checkbox"])': {
             'min-height': '0px'
-          }
+          },
         }
       }
     ]
+  },
+  theme: {
+    extend: {
+      minWidth: {
+        '24': '12rem',
+      },
+    },
   },
   plugins: [
     require('daisyui'),
