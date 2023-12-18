@@ -20,8 +20,6 @@ const MonthWidget = ({ month }: Props) => {
     alert(`Delete month id: ${month.id} - working in progress`);
   }, [month]);
 
-  console.log('Re-rendering');
-
   return (
     <div className={`flex flex-1 min-w-24 lg:max-w-[35%] m-2 flex-col border shadow-sm rounded-xl ${isItCurrentMonth(month.value) ? 'bg-blue-50' : 'bg-white'}`}>
       <div className='p-4 md:p-5'>
