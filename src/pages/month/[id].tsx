@@ -15,13 +15,12 @@ export default function Index() {
 
   return (
     <div className='flex flex-1 flex-col align-center'>
+      <div className='my-1'>
+        <BackButton label='Dashboard' />
+      </div>
       {isLoading && <Loading />}
       {!isLoading && error && <CanNotFetchData />}
       {!isLoading && month && <MonthOverview month={month} />}
-
-      <div className='my-8'>
-        <BackButton />
-      </div>
     </div>
   )
 }

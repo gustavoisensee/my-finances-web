@@ -1,15 +1,19 @@
 import { useRouter } from 'next/router';
 
-export default function BackButton() {
+type Props = {
+  label?: string;
+}
+
+export default function BackButton({ label = 'Go back' }: Props) {
   const router = useRouter();
 
   return (
     <button
       onClick={router.back}
       type='button'
-      className='btn mb-8'
+      className='link link-primary'
     >
-      Go back
+      {label}
     </button>
   )
 }
