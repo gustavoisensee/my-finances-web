@@ -6,8 +6,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { MonthFormType } from '@/types/form';
 import { createMonth } from '@/services/month';
-import { obsDashboard } from '@/helpers/month';
-import { obsAlert } from '@/helpers/alert';
+import { obsDashboard, refreshDashboard } from '@/helpers/month';
+import { obsAlert, openAlert } from '@/helpers/alert';
 import { StateProps } from '@/components/shared/Toast';
 
 const monthRequired = 'Month is required!';
@@ -72,14 +72,14 @@ export const useAddNewMonthForm = ({ onClickClose }: Props) => {
       const r = await createMonth(data);
       if (r?.data) {
         onClickClose();
-        obsAlert.notify<StateProps>(successMessage);
-        obsDashboard.notify();
+        openAlert(successMessage);
+        refreshDashboard();
         push(`/month/${r?.data?.id}`);
       } else {
-        obsAlert.notify<StateProps>(errorMessage);
+        openAlert(errorMessage);
       }
     } catch (e) {
-      obsAlert.notify<StateProps>(errorMessage);
+      openAlert(errorMessage);
     }
   };
 
@@ -91,3 +91,63 @@ export const useAddNewMonthForm = ({ onClickClose }: Props) => {
     isSubmitting
   }
 };
+
+// @@@@@@@@@@@@@@@@@@@@@@
+
+// import { useCallback, useState } from 'react';
+import { Month } from '@/types/month';
+import { deleteMonth } from '@/services/month';
+// import { obsAlert } from '@/helpers/alert';
+
+// import { StateProps } from '../shared/Toast';
+// import { obsDashboard } from '@/helpers/month';
+
+
+
+const successDeleteMonth: StateProps = {
+  open: true,
+  type: 'success',
+  message: 'Month has been deleted successfully!'
+};
+
+const errorDeleteMonth: StateProps = {
+  open: true,
+  type: 'error',
+  message: 'Something went wrong, please try again!'
+};
+
+type UseMonthDeleteConfirmation = {
+  month: Month
+};
+
+export default function useMonthDeleteConfirmation({ month }: UseMonthDeleteConfirmation) {
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpenModal = useCallback(() => {
+    setOpenModal(true);
+  }, []);
+
+  const handleNoClick = useCallback(() => {
+    setOpenModal(false);
+  }, []);
+
+  const handleYesClick = useCallback(async() => {
+    try {
+      const r = await deleteMonth(month.id)
+      if (r?.data) {
+        handleNoClick();
+        openAlert(successDeleteMonth);
+        refreshDashboard();
+      } else {
+        openAlert(errorDeleteMonth);
+      }
+    } catch (e) {
+      openAlert(errorDeleteMonth);
+    }
+  }, [month, handleNoClick]);
+
+  return {
+    openModal,
+    handleYesClick, handleNoClick, handleOpenModal
+  }
+}

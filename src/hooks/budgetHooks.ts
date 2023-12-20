@@ -4,10 +4,10 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { BudgetFormType } from '@/types/form';
-import { obsAlert } from '@/helpers/alert';
+import { openAlert } from '@/helpers/alert';
 import { StateProps } from '@/components/shared/Toast';
 import { createBudget } from '@/services/budget';
-import { obsMonthById } from '@/helpers/month';
+import { refreshMonthById } from '@/helpers/month';
 import { useRouter } from 'next/router';
 
 const monthRequired = 'Month is required!';
@@ -72,13 +72,13 @@ export const useAddBudgetForm = ({ onClickClose }: Props) => {
       const r = await createBudget(data);
       if (r?.data) {
         onClickClose();
-        obsAlert.notify<StateProps>(successMessage);
-        obsMonthById.notify();
+        openAlert(successMessage);
+        refreshMonthById();
       } else {
-        obsAlert.notify<StateProps>(errorMessage);
+        openAlert(errorMessage);
       }
     } catch (e) {
-      obsAlert.notify<StateProps>(errorMessage);
+      openAlert(errorMessage);
     }
   };
 

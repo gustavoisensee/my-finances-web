@@ -1,10 +1,10 @@
-import { FormEventHandler, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query'
 
 import { getSessionYear, setSessionYear } from '@/helpers/year';
 import { getYears } from '@/services/year';
 import { Year } from '@/types/year';
-import { obs as obsMonth } from '@/helpers/month';
+import { obsMonth } from '@/helpers/month';
 
 export const useYears = () => {
   const { data, isFetching } = useQuery({

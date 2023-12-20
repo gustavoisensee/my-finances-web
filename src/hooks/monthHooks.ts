@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query'
 
-import { obs, obsDashboard, obsMonthById } from '@/helpers/month';
+import { obsMonth, obsDashboard, obsMonthById } from '@/helpers/month';
 import { getMonthByIdWithAllData, getMonths } from '@/services/month';
 import { Year as YearType } from '@/types/year';
 
@@ -18,11 +18,11 @@ export const useMonths = () => {
 
   useEffect(() => {
     const fn = (_year: YearType) => setYearId(_year.id);
-    obs.subscribe(fn);
+    obsMonth.subscribe(fn);
     obsDashboard.subscribe(refetch);
 
     return () => {
-      obs.unsubscribe(fn);
+      obsMonth.unsubscribe(fn);
       obsDashboard.unsubscribe(refetch);
     }
   }, [refetch]);
