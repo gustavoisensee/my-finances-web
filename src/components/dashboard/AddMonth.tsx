@@ -1,31 +1,29 @@
 import cn from 'classnames';
 
-import Plus from '../svgs/Plus';
 import { useAddNewMonth } from '@/hooks/dashboardHooks';
 
-import AddNewMonthForm from './AddNewMonthForm';
+import AddNewMonthForm from './AddMonthForm';
 import Divider from '../shared/Divider';
+import { AddButton } from '../shared/AddButton';
 
-export default function AddNewMonth() {
+export default function AddMonth() {
   const {
     openModal, onClickOpen, onClickClose
   } = useAddNewMonth();
 
   return (
     <>
-      <div className='tooltip tooltip-right' data-tip='Add new month'>
-        <button
-          className='btn btn-primary btn-circle btn-sm ml-2'
-          onClick={onClickOpen}
-        >
-          <Plus />
-        </button>
+      <div className='ml-2'>
+        <div className='tooltip tooltip-right' data-tip='Add new month'>
+          <AddButton onClick={onClickOpen} />
+        </div>
       </div>
 
-      <dialog className={cn({
-        'modal': true,
-        'modal-open': openModal
-      })}>
+      <dialog className={cn(
+        'modal',
+        {
+          'modal-open': openModal
+        })}>
         <div className='modal-box'>
           <h3 className='font-bold text-lg'>Add new month</h3>
           <Divider className='-ml-6 -mr-6' />

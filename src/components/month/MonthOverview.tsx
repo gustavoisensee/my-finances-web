@@ -4,6 +4,7 @@ import MonthIncomes from './MonthIncomes';
 import { AddButton } from '../shared/AddButton';
 import MonthWidget from './MonthWidget';
 import MonthAlert from './MonthAlert';
+import AddBudget from './AddBudget';
 
 type Props = {
   month: MonthType
@@ -44,7 +45,7 @@ export default function MonthOverview({ month }: Props) {
           <h3 className='text-2xl mr-2'>
             Budgets
           </h3>
-          <AddButton onClick={() => alert('Budget - In Progress!')} />
+          <AddBudget />
         </div>
         <div>
           {month?.budgets?.length > 0 && (

@@ -1,26 +1,27 @@
 import * as yup from 'yup';
 import { useCallback, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { MonthFormType } from '@/types/form';
-import { createMonth } from '@/services/month';
-import { obsDashboard } from '@/helpers/month';
+import { BudgetFormType } from '@/types/form';
 import { obsAlert } from '@/helpers/alert';
 import { StateProps } from '@/components/shared/Toast';
+import { createBudget } from '@/services/budget';
+import { obsMonthById } from '@/helpers/month';
+import { useRouter } from 'next/router';
 
 const monthRequired = 'Month is required!';
-const yearRequired = 'Year is required!';
+const valueRequired = 'Cost is required!';
+const descriptionRequired = 'Description is required!';
 
 const schema = yup.object({
-  value: yup.number().min(1, monthRequired).required(monthRequired),
-  description: yup.string().optional(),
+  value: yup.number().typeError(valueRequired).required(valueRequired),
+  description: yup.string().required(descriptionRequired),
   createdAt: yup.string().required('Create date is required!'),
-  yearId: yup.number().min(1, yearRequired).required(yearRequired)
+  monthId: yup.number().min(1, monthRequired).required(monthRequired)
 });
 
-export const useAddNewMonth = () => {
+export const useAddBudget = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const onClickOpen = useCallback(() => setOpenModal(true), []);
@@ -40,7 +41,7 @@ type Props = {
 const successMessage: StateProps = {
   open: true,
   type: 'success',
-  message: 'Month has been created successfully!'
+  message: 'Budget has been created successfully!'
 };
 
 const errorMessage: StateProps = {
@@ -49,31 +50,30 @@ const errorMessage: StateProps = {
   message: 'Something went wrong, please try again!'
 };
 
-export const useAddNewMonthForm = ({ onClickClose }: Props) => {
-  const { push } = useRouter();
+export const useAddBudgetForm = ({ onClickClose }: Props) => {
+  const route = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<MonthFormType>({
+  } = useForm<BudgetFormType>({
     defaultValues: {
       value: 0,
       description: '',
       createdAt: new Date().toISOString(),
-      yearId: 0
+      monthId: (route.query?.id || 0) as number
     },
     reValidateMode: 'onChange',
     resolver: yupResolver(schema)
   });
 
-  const onSubmit: SubmitHandler<MonthFormType> = async (data) => {
+  const onSubmit: SubmitHandler<BudgetFormType> = async (data) => {
     try {
-      const r = await createMonth(data);
+      const r = await createBudget(data);
       if (r?.data) {
         onClickClose();
         obsAlert.notify<StateProps>(successMessage);
-        obsDashboard.notify();
-        push(`/month/${r?.data?.id}`);
+        obsMonthById.notify();
       } else {
         obsAlert.notify<StateProps>(errorMessage);
       }

@@ -1,15 +1,20 @@
+import cn from 'classnames';
 import Plus from '../svgs/Plus';
 
 type Props = {
   onClick: (x?: unknown) => void | unknown;
+  className?: string;
 }
 
-export function AddButton({ onClick }: Props) {
+export function AddButton({ onClick, className = 'btn-sm' }: Props) {
   return (
     <button
       type='button'
       onClick={onClick}
-      className='btn btn-primary btn-circle btn-xs'
+      className={cn(
+        className,
+        'btn btn-primary btn-circle'
+      )}
     >
       <Plus />
     </button>

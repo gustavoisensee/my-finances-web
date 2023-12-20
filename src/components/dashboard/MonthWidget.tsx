@@ -45,7 +45,7 @@ const MonthWidget = ({ month }: Props) => {
             'text-blue-600 hover:text-blue-800',
             'disabled:opacity-50 disabled:pointer-events-none'
           )}
-          href={`/ month / ${month.id} `}
+          href={`/month/${month.id}`}
         >
           Open month
           <svg
