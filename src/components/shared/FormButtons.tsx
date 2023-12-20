@@ -3,7 +3,7 @@ type Props = {
   onClickClose: () => void;
 }
 
-export default function AddMonthFormActions({ isSubmitting, onClickClose }: Props) {
+export default function FormButtons({ isSubmitting, onClickClose }: Props) {
   return (
     <div className='flex'>
       <button className='btn btn-primary' type={isSubmitting ? 'button' : 'submit'}>

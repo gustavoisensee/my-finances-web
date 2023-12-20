@@ -6,7 +6,7 @@ import { useYears } from '@/hooks/yearHooks';
 import { Months } from '@/types/month';
 import Divider from '../shared/Divider';
 import { getError } from '@/helpers/form';
-import AddNewMonthFormActions from './AddMonthFormActions';
+import FormButtons from '../shared/FormButtons';
 
 type Props = {
   onClickClose: () => void;
@@ -39,7 +39,7 @@ export default function AddMonthForm({ onClickClose }: Props) {
 
       <Divider className='-ml-6 -mr-6' />
 
-      <AddNewMonthFormActions
+      <FormButtons
         isSubmitting={isSubmitting}
         onClickClose={onClickClose}
       />

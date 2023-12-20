@@ -1,19 +1,19 @@
 import cn from 'classnames';
 
-import { useAddBudget } from '@/hooks/budgetHooks';
+import { useAddIncome } from '@/hooks/incomeHooks';
 
-import AddBudgetForm from './AddBudgetForm';
+import AddIncomeForm from './AddIncomeForm';
 import Divider from '../shared/Divider';
 import { AddButton } from '../shared/AddButton';
 
-export default function AddBudget() {
+export default function AddIncome() {
   const {
     openModal, onClickOpen, onClickClose
-  } = useAddBudget();
+  } = useAddIncome();
 
   return (
     <>
-      <div className='tooltip tooltip-right flex items-center' data-tip='Add budget'>
+      <div className='tooltip tooltip-right' data-tip='Add income'>
         <AddButton onClick={onClickOpen} className='btn-xs' />
       </div>
 
@@ -23,10 +23,10 @@ export default function AddBudget() {
           'modal-open': openModal
         })}>
         <div className='modal-box'>
-          <h3 className='font-bold text-lg'>Add new budget</h3>
+          <h3 className='font-bold text-lg'>Add new income</h3>
           <Divider className='-ml-6 -mr-6' />
           {openModal && (
-            <AddBudgetForm onClickClose={onClickClose} />
+            <AddIncomeForm onClickClose={onClickClose} />
           )}
         </div>
       </dialog>

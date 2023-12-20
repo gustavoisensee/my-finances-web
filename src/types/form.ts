@@ -5,7 +5,7 @@ export type Option = {
   label: string | number;
 };
 
-export type MonthFormType = {
+export interface MonthFormType extends FieldValues {
   value: number;
   description?: string;
   createdAt: string;
@@ -13,6 +13,13 @@ export type MonthFormType = {
 };
 
 export interface BudgetFormType extends FieldValues {
+  value: number;
+  description: string;
+  createdAt: string;
+  monthId: number;
+};
+
+export interface IncomeFormType extends FieldValues {
   value: number;
   description: string;
   createdAt: string;

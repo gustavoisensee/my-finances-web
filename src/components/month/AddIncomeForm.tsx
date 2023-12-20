@@ -1,6 +1,6 @@
 import TextInput from '../form/TextInput';
 import Divider from '../shared/Divider';
-import { useAddBudgetForm } from '@/hooks/budgetHooks';
+import { useAddIncomeForm } from '@/hooks/incomeHooks';
 import { getError } from '@/helpers/form';
 import FormButtons from '../shared/FormButtons';
 
@@ -11,7 +11,7 @@ type Props = {
 export default function AddBudgetForm({ onClickClose }: Props) {
   const {
     register, handleSubmit, onSubmit, errors, isSubmitting
-  } = useAddBudgetForm({ onClickClose });
+  } = useAddIncomeForm({ onClickClose });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>
