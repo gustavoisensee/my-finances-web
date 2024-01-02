@@ -9,13 +9,13 @@ import { getError } from '@/helpers/form';
 import FormButtons from '../shared/FormButtons';
 
 type Props = {
-  onClickClose: () => void;
+  handleCloseModal: () => void;
 }
 
-export default function AddMonthForm({ onClickClose }: Props) {
+export default function AddMonthForm({ handleCloseModal }: Props) {
   const {
     register, handleSubmit, onSubmit, errors, isSubmitting
-  } = useAddNewMonthForm({ onClickClose });
+  } = useAddNewMonthForm({ handleCloseModal });
 
   const { isFetching, years } = useYears();
 
@@ -41,7 +41,7 @@ export default function AddMonthForm({ onClickClose }: Props) {
 
       <FormButtons
         isSubmitting={isSubmitting}
-        onClickClose={onClickClose}
+        handleCloseModal={handleCloseModal}
       />
     </form>
   )

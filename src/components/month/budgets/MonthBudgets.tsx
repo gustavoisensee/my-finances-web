@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react';
+
 import { euro, getTotal } from '@/helpers/currency';
 import { Budget } from '@/types/month';
-import MonthBudgetExpenses from './MonthBudgetExpenses';
+import MonthBudgetExpenses from './expenses/MonthBudgetExpenses';
 import { getTotals } from '@/helpers/totals';
-import { EditButton } from '../shared/EditButton';
-import { DeleteButton } from '../shared/DeleteButton';
-import Plus from '../svgs/Plus';
+import DeleteButton from '../../shared/DeleteButton';
+import EditBudget from './MonthBudgetEditButton';
+import AddExpense from './expenses/MonthBudgetExpenseAddButton';
 
 type Props = {
   budgets: Budget[]
@@ -14,34 +15,35 @@ type Props = {
 const MonthBudgets = ({ budgets }: Props) => {
   const { totalExpenses, totalBudgets } = getTotals(budgets);
   const lastIndex = budgets.length - 1;
-  const rowClassname = useCallback((index: number) => lastIndex !== index ? 'border-b' : '', [lastIndex]);
+  const rowClassname = useCallback((index: number) =>
+    lastIndex !== index ? 'border-b' : '', [lastIndex]);
 
   return (
     <>
       <div className='border rounded-lg mb-2'>
-        {budgets.map((a, i) => (
+        {budgets.map((b, i) => (
           <div key={i} className={`cursor-pointer ${rowClassname(i)}`}>
             <div className='collapse bg-white'>
               <input type='checkbox' name='my-accordion-2' className='min-h-0' />
 
               <div className='collapse-title flex px-4 py-2 items-center'>
                 <div>
-                  {a.description}
+                  {b.description}
                 </div>
                 <div className='flex flex-[1] justify-end mr-2'>
                   <span>
-                    {euro(a.value)}
+                    {euro(b.value)}
                   </span>
                 </div>
                 <div className='w-15 sm:w-32 flex justify-end'>
-                  <EditButton onClick={() => alert('Budget Edit - In Progress!')} />
+                  {b.id && <EditBudget id={b.id} />}
                   <DeleteButton onClick={() => alert('Budget Delete - In Progress!')} />
                 </div>
               </div>
               <div className='collapse-content flex flex-col p-0 bg-slate-50'>
                 <div className='flex flex-col px-4 pb-0 m-0 text-gray-500 text-sm'>
-                  {a.expenses?.length === 0 && <div className='pl-2 py-2'>No expenses entered yet!</div>}
-                  {a.expenses?.length > 0 && <MonthBudgetExpenses expenses={a.expenses} />}
+                  {b.expenses?.length === 0 && <div className='pl-2 py-2'>No expenses entered yet!</div>}
+                  {b.expenses?.length > 0 && <MonthBudgetExpenses budgetId={b.id || 0} expenses={b.expenses} />}
                 </div>
 
                 <div className='flex justify-between px-4 pb-2 pl-7 py-2'>
@@ -52,21 +54,14 @@ const MonthBudgets = ({ budgets }: Props) => {
                   </div>
                   <div className='flex flex-[1] justify-end mr-2'>
                     <span className='text-sm text-yellow-700'>
-                      {euro(a.value - getTotal(a.expenses))}
+                      {euro(b.value - getTotal(b.expenses))}
                     </span>
                   </div>
                   <div className='w-14 sm:w-32 flex justify-end'>&nbsp;</div>
                 </div>
 
                 <div className='px-2 pl-6'>
-                  <button
-                    type='button'
-                    onClick={() => alert('Expense Add - In Progress')}
-                    className='btn btn-primary min-h-0 h-auto py-1 px-2'
-                  >
-                    <Plus />
-                    New expense
-                  </button>
+                  <AddExpense budgetId={b.id || 0} />
                 </div>
               </div>
             </div>

@@ -25,3 +25,11 @@ export interface IncomeFormType extends FieldValues {
   createdAt: string;
   monthId: number;
 };
+
+export interface ExpenseFormType extends FieldValues {
+  value: number;
+  description: string;
+  createdAt: string;
+  budgetId: number;
+  categoryId?: number;
+};

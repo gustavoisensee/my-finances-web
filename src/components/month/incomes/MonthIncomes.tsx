@@ -1,8 +1,9 @@
+import { useCallback } from 'react';
+
 import { euro, getTotal } from '@/helpers/currency';
 import { Income } from '@/types/month';
-import { useCallback } from 'react';
-import { EditButton } from '../shared/EditButton';
-import { DeleteButton } from '../shared/DeleteButton';
+import DeleteButton from '../../shared/DeleteButton';
+import MonthIncomeEditButton from './MonthIncomeEditButton';
 
 type Props = {
   incomes: Income[]
@@ -22,7 +23,7 @@ const MonthIncomes = ({ incomes }: Props) => {
               {euro(a.value)}
             </div>
             <div className='w-14 sm:w-32 flex justify-end'>
-              <EditButton onClick={() => alert('Edit Income - In Progress')} />
+              <MonthIncomeEditButton id={a.id}  />
               <DeleteButton onClick={() => alert('Delete Income - In Progrss')} />
             </div>
           </div>

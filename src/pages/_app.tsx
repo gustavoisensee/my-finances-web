@@ -4,6 +4,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import Head from 'next/head'
 
 import SideMenu from '@/components/sidebar-menu/SideMenu';
 import '@/styles/globals.css';
@@ -25,6 +26,9 @@ export default function App({
 }: Props) {
   return (
     <div className='flex flex-1'>
+      <Head>
+        <title>My Finances</title>
+      </Head>
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>
           <div className='bg-gray-50 w-full'>

@@ -1,5 +1,4 @@
 import * as yup from 'yup';
-import { useCallback, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -21,21 +20,8 @@ const schema = yup.object({
   monthId: yup.number().min(1, monthRequired).required(monthRequired)
 });
 
-export const useAddBudget = () => {
-  const [openModal, setOpenModal] = useState(false);
-
-  const onClickOpen = useCallback(() => setOpenModal(true), []);
-  const onClickClose = useCallback(() => setOpenModal(false), []);
-
-  return {
-    openModal,
-    onClickOpen,
-    onClickClose,
-  }
-};
-
 type Props = {
-  onClickClose: () => void;
+  handleCloseModal: () => void;
 }
 
 const successMessage: StateProps = {
@@ -50,7 +36,7 @@ const errorMessage: StateProps = {
   message: 'Something went wrong, please try again!'
 };
 
-export const useAddBudgetForm = ({ onClickClose }: Props) => {
+export const useAddBudgetForm = ({ handleCloseModal }: Props) => {
   const route = useRouter();
   const {
     register,
@@ -71,7 +57,7 @@ export const useAddBudgetForm = ({ onClickClose }: Props) => {
     try {
       const r = await createBudget(data);
       if (r?.data) {
-        onClickClose();
+        handleCloseModal();
         openAlert(successMessage);
         refreshMonthById();
       } else {

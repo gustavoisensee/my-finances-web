@@ -4,7 +4,7 @@ type Props = {
   onClick: (x?: unknown) => void | unknown;
 }
 
-export function EditButton({ onClick }: Props) {
+export default function EditButton({ onClick }: Props) {
   return (
     <button
       type='button'

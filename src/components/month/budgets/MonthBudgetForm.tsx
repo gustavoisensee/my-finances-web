@@ -1,17 +1,17 @@
-import TextInput from '../form/TextInput';
-import Divider from '../shared/Divider';
-import { useAddIncomeForm } from '@/hooks/incomeHooks';
+import TextInput from '../../form/TextInput';
+import Divider from '../../shared/Divider';
+import { useAddBudgetForm } from '@/hooks/budgetHooks';
 import { getError } from '@/helpers/form';
-import FormButtons from '../shared/FormButtons';
+import FormButtons from '../../shared/FormButtons';
 
 type Props = {
-  onClickClose: () => void;
+  handleCloseModal: () => void;
 }
 
-export default function AddBudgetForm({ onClickClose }: Props) {
+export default function MonthBudgetForm({ handleCloseModal }: Props) {
   const {
     register, handleSubmit, onSubmit, errors, isSubmitting
-  } = useAddIncomeForm({ onClickClose });
+  } = useAddBudgetForm({ handleCloseModal });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>
@@ -30,7 +30,7 @@ export default function AddBudgetForm({ onClickClose }: Props) {
       <Divider className='-ml-6 -mr-6' />
 
       <FormButtons
-        onClickClose={onClickClose}
+        handleCloseModal={handleCloseModal}
         isSubmitting={isSubmitting}
       />
     </form>

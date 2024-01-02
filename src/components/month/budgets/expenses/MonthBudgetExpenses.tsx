@@ -1,13 +1,14 @@
 import { euro } from '@/helpers/currency';
 import { Expense } from '@/types/month';
-import { EditButton } from '../shared/EditButton';
-import { DeleteButton } from '../shared/DeleteButton';
+import DeleteButton from '../../../shared/DeleteButton';
+import MonthBudgetExpenseEditButton from './MonthBudgetExpenseEditButton';
 
 type Props = {
+  budgetId: number;
   expenses: Expense[]
 }
 
-const MonthBudgetExpenses = ({ expenses }: Props) => {
+const MonthBudgetExpenses = ({ budgetId, expenses }: Props) => {
   return (
     <>
       {expenses.map((e, i) => (
@@ -17,7 +18,7 @@ const MonthBudgetExpenses = ({ expenses }: Props) => {
             {euro(e.value)}
           </div>
           <div className='w-14 sm:w-32 flex justify-end'>
-            <EditButton onClick={() => alert('Expense Edit - In Progress!')} />
+            <MonthBudgetExpenseEditButton budgetId={budgetId} />
             <DeleteButton onClick={() => alert('Expense Delete - In Progress!')} />
           </div>
         </div>

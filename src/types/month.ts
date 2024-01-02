@@ -1,4 +1,5 @@
 export type Income = {
+  id?: number;
   description: string;
   value: number;
 }
@@ -9,6 +10,7 @@ export type Expense = {
 }
 
 export type Budget = {
+  id?: number;
   description: string;
   value: number;
   expenses: Expense[];

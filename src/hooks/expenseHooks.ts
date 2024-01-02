@@ -1,34 +1,35 @@
 import * as yup from 'yup';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-
-import { IncomeFormType } from '@/types/form';
-import { openAlert } from '@/helpers/alert';
-import { StateProps } from '@/components/shared/Toast';
-import { createIncome } from '@/services/income';
-import { refreshMonthById } from '@/helpers/month';
 import { useRouter } from 'next/router';
 
-const monthRequired = 'Month is required!';
+import { ExpenseFormType } from '@/types/form';
+import { openAlert } from '@/helpers/alert';
+import { StateProps } from '@/components/shared/Toast';
+import { createExpense } from '@/services/expense';
+import { refreshMonthById } from '@/helpers/month';
+
 const valueRequired = 'Cost is required!';
 const descriptionRequired = 'Description is required!';
 const createdAtRequired = 'Create date is required!';
+const budgetIdRequired = 'Budget is required!';
 
 const schema = yup.object({
   value: yup.number().typeError(valueRequired).required(valueRequired),
   description: yup.string().required(descriptionRequired),
   createdAt: yup.string().required(createdAtRequired),
-  monthId: yup.number().min(1, monthRequired).required(monthRequired)
+  budgetId: yup.number().min(1, budgetIdRequired).required(budgetIdRequired)
 });
 
 type Props = {
+  budgetId: number;
   handleCloseModal: () => void;
 }
 
 const successMessage: StateProps = {
   open: true,
   type: 'success',
-  message: 'Income has been created successfully!'
+  message: 'Expense has been created successfully!'
 };
 
 const errorMessage: StateProps = {
@@ -37,26 +38,27 @@ const errorMessage: StateProps = {
   message: 'Something went wrong, please try again!'
 };
 
-export const useAddIncomeForm = ({ handleCloseModal }: Props) => {
+export const useExpenseForm = ({ budgetId, handleCloseModal }: Props) => {
   const route = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<IncomeFormType>({
+  } = useForm<ExpenseFormType>({
     defaultValues: {
       value: 0,
       description: '',
       createdAt: new Date().toISOString(),
-      monthId: (route.query?.id || 0) as number
+      budgetId,
+      categoryId: 0
     },
     reValidateMode: 'onChange',
     resolver: yupResolver(schema)
   });
 
-  const onSubmit: SubmitHandler<IncomeFormType> = async (data) => {
+  const onSubmit: SubmitHandler<ExpenseFormType> = async (data) => {
     try {
-      const r = await createIncome(data);
+      const r = await createExpense(data);
       if (r?.data) {
         handleCloseModal();
         openAlert(successMessage);

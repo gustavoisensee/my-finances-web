@@ -4,7 +4,7 @@ type Props = {
   onClick: (x?: unknown) => void | unknown;
 }
 
-export function DeleteButton({ onClick }: Props) {
+export default function DeleteButton({ onClick }: Props) {
   return (
     <button
       type='button'

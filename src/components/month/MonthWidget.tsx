@@ -8,6 +8,7 @@ type Props = {
 
 export default function MonthWidget({ month }: Props) {
   const { totalBudgets, totalExpenses } = getTotals(month.budgets);
+
   return (
     <div className='flex flex-col'>
       <span className='font-bold'>Widgets</span>

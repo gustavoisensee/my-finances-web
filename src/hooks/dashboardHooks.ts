@@ -6,8 +6,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { MonthFormType } from '@/types/form';
 import { createMonth } from '@/services/month';
-import { obsDashboard, refreshDashboard } from '@/helpers/month';
-import { obsAlert, openAlert } from '@/helpers/alert';
+import { refreshDashboard } from '@/helpers/month';
+import { openAlert } from '@/helpers/alert';
 import { StateProps } from '@/components/shared/Toast';
 
 const monthRequired = 'Month is required!';
@@ -21,21 +21,8 @@ const schema = yup.object({
   yearId: yup.number().typeError(yearRequired).min(1, yearRequired).required(yearRequired)
 });
 
-export const useAddNewMonth = () => {
-  const [openModal, setOpenModal] = useState(false);
-
-  const onClickOpen = useCallback(() => setOpenModal(true), []);
-  const onClickClose = useCallback(() => setOpenModal(false), []);
-
-  return {
-    openModal,
-    onClickOpen,
-    onClickClose,
-  }
-};
-
 type Props = {
-  onClickClose: () => void;
+  handleCloseModal: () => void;
 }
 
 const successMessage: StateProps = {
@@ -50,7 +37,7 @@ const errorMessage: StateProps = {
   message: 'Something went wrong, please try again!'
 };
 
-export const useAddNewMonthForm = ({ onClickClose }: Props) => {
+export const useAddNewMonthForm = ({ handleCloseModal }: Props) => {
   const { push } = useRouter();
   const {
     register,
@@ -71,7 +58,7 @@ export const useAddNewMonthForm = ({ onClickClose }: Props) => {
     try {
       const r = await createMonth(data);
       if (r?.data) {
-        onClickClose();
+        handleCloseModal();
         openAlert(successMessage);
         refreshDashboard();
         push(`/month/${r?.data?.id}`);

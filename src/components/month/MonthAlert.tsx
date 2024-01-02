@@ -11,6 +11,7 @@ type Props = {
 export default function MonthAlert({ month }: Props) {
   const totalIncome = getTotal(month.incomes);
   const { totalBudgets } = getTotals(month.budgets);
+  
   return (
     <div className='flex flex-col my-4'>
       <span className='font-bold'>Alert</span>
