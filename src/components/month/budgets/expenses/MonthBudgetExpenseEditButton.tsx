@@ -15,7 +15,7 @@ export default function MonthBudgetExpenseEditButton({ id, budgetId }: Props) {
 
   return (
     <>
-      <div className='tooltip tooltip-top flex items-center' data-tip='Edit expense'>
+      <div className='tooltip tooltip-top flex items-center z-10' data-tip='Edit expense'>
         <EditButton onClick={handleOpenModal} />
       </div>
 
