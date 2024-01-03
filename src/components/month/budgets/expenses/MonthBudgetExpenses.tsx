@@ -1,7 +1,7 @@
 import { euro } from '@/helpers/currency';
 import { Expense } from '@/types/month';
-import DeleteButton from '../../../shared/DeleteButton';
-import MonthBudgetExpenseEditButton from './MonthBudgetExpenseEditButton';
+import EditButton from './MonthBudgetExpenseEditButton';
+import DeleteButton from './MonthBudgetExpenseDeleteButton';
 
 type Props = {
   budgetId: number;
@@ -18,8 +18,8 @@ const MonthBudgetExpenses = ({ budgetId, expenses }: Props) => {
             {euro(e.value)}
           </div>
           <div className='w-14 sm:w-32 flex justify-end'>
-            <MonthBudgetExpenseEditButton expense={e} budgetId={budgetId} />
-            <DeleteButton onClick={() => alert('Expense Delete - In Progress!')} />
+            {e.id && <EditButton expense={e} budgetId={budgetId} />}
+            {e.id && <DeleteButton id={e.id} />}
           </div>
         </div>
       ))}

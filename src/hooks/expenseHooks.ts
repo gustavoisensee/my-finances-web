@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ExpenseFormType } from '@/types/form';
 import { openAlert } from '@/helpers/alert';
 import { StateProps } from '@/components/shared/Toast';
-import { createExpense, updateExpense } from '@/services/expense';
+import { createExpense, deleteExpense, updateExpense } from '@/services/expense';
 import { refreshMonthById } from '@/helpers/month';
 import { Expense } from '@/types/month';
 
@@ -37,6 +37,12 @@ const updateSuccessMsg: StateProps = {
   open: true,
   type: 'success',
   message: 'Expense has been updated successfully!'
+};
+
+const deleteSuccessMsg: StateProps = {
+  open: true,
+  type: 'success',
+  message: 'Expense has been deleted successfully!'
 };
 
 const errorMessage: StateProps = {
@@ -85,6 +91,40 @@ export const useExpenseForm = ({ expense, budgetId, handleCloseModal }: Props) =
     handleSubmit,
     onSubmit,
     errors,
+    isSubmitting
+  }
+};
+
+type DeleteProps = {
+  id: number;
+  handleCloseModal: () => void;
+}
+
+export const useExpenseDeleteConfirmation = ({ id, handleCloseModal }: DeleteProps) => {
+  const {
+    handleSubmit,
+    formState: { isSubmitting }
+  } = useForm();
+
+  const onSubmit = async () => {
+    try {
+      const r = await deleteExpense(id);
+
+      if (r?.data) {
+        handleCloseModal();
+        openAlert(deleteSuccessMsg);
+        refreshMonthById();
+      } else {
+        openAlert(errorMessage);
+      }
+    } catch (e) {
+      openAlert(errorMessage);
+    }
+  };
+
+  return {
+    handleSubmit,
+    onSubmit,
     isSubmitting
   }
 };

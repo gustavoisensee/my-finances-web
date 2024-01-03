@@ -1,5 +1,4 @@
 import EditButton from '../../shared/EditButton';
-
 import Form from './MonthBudgetForm';
 import Modal from '../../shared/Modal';
 import { useModal } from '@/hooks/modalHooks';

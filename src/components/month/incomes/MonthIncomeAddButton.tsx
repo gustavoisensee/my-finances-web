@@ -1,4 +1,4 @@
-import MonthIncomeForm from './MonthIncomeForm';
+import Form from './MonthIncomeForm';
 import { AddButton } from '../../shared/AddButton';
 import { useModal } from '@/hooks/modalHooks';
 import Modal from '../../shared/Modal';
@@ -16,7 +16,7 @@ export default function MonthIncomeAddButton() {
 
       <Modal openModal={openModal} title='Add new income'>
         {openModal && (
-          <MonthIncomeForm handleCloseModal={handleCloseModal} />
+          <Form handleCloseModal={handleCloseModal} />
         )}
       </Modal>
     </>
