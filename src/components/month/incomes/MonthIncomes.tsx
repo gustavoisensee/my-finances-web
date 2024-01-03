@@ -23,7 +23,7 @@ const MonthIncomes = ({ incomes }: Props) => {
               {euro(a.value)}
             </div>
             <div className='w-14 sm:w-32 flex justify-end'>
-              <MonthIncomeEditButton id={a.id}  />
+              <MonthIncomeEditButton income={a}  />
               <DeleteButton onClick={() => alert('Delete Income - In Progrss')} />
             </div>
           </div>

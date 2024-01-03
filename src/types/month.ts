@@ -2,6 +2,7 @@ export type Income = {
   id?: number;
   description: string;
   value: number;
+  createdAt: string;
 }
 
 export type Expense = {

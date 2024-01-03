@@ -2,12 +2,13 @@ import Form from './MonthIncomeForm';
 import { useModal } from '@/hooks/modalHooks';
 import Modal from '../../shared/Modal';
 import EditButton from '@/components/shared/EditButton';
+import { Income } from '@/types/month';
 
 type Props = {
-  id?: number;
+  income: Income
 }
 
-export default function MonthIncomeEditButton({ id }: Props) {
+export default function MonthIncomeEditButton({ income }: Props) {
   const {
     openModal, handleOpenModal, handleCloseModal
   } = useModal();
@@ -20,7 +21,7 @@ export default function MonthIncomeEditButton({ id }: Props) {
 
       <Modal openModal={openModal} title='Edit income'>
         {openModal && (
-          <Form id={id} handleCloseModal={handleCloseModal} />
+          <Form income={income} handleCloseModal={handleCloseModal} />
         )}
       </Modal>
     </>

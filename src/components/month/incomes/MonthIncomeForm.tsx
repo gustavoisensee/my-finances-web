@@ -1,18 +1,19 @@
 import TextInput from '../../form/TextInput';
 import Divider from '../../shared/Divider';
-import { useAddIncomeForm } from '@/hooks/incomeHooks';
+import { useIncomeForm } from '@/hooks/incomeHooks';
 import { getError } from '@/helpers/form';
 import FormButtons from '../../shared/FormButtons';
+import { Income } from '@/types/month';
 
 type Props = {
-  id?: number;
+  income?: Income,
   handleCloseModal: () => void;
 }
 
-export default function MonthIncomeForm({ id, handleCloseModal }: Props) {
+export default function MonthIncomeForm({ income, handleCloseModal }: Props) {
   const {
     register, handleSubmit, onSubmit, errors, isSubmitting
-  } = useAddIncomeForm({ handleCloseModal });
+  } = useIncomeForm({ income, handleCloseModal });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>

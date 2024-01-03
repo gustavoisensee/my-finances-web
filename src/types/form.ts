@@ -20,6 +20,7 @@ export interface BudgetFormType extends FieldValues {
 };
 
 export interface IncomeFormType extends FieldValues {
+  id?: number;
   value: number;
   description: string;
   createdAt: string;
