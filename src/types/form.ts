@@ -13,6 +13,7 @@ export interface MonthFormType extends FieldValues {
 };
 
 export interface BudgetFormType extends FieldValues {
+  id?: number;
   value: number;
   description: string;
   createdAt: string;

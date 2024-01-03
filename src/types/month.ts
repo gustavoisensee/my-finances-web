@@ -14,6 +14,7 @@ export type Budget = {
   id?: number;
   description: string;
   value: number;
+  createdAt: string;
   expenses: Expense[];
 }
 

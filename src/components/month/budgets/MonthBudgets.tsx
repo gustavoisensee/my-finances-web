@@ -36,7 +36,7 @@ const MonthBudgets = ({ budgets }: Props) => {
                   </span>
                 </div>
                 <div className='w-15 sm:w-32 flex justify-end'>
-                  {b.id && <EditBudget id={b.id} />}
+                  {b.id && <EditBudget budget={b} />}
                   <DeleteButton onClick={() => alert('Budget Delete - In Progress!')} />
                 </div>
               </div>

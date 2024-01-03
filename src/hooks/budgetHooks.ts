@@ -5,9 +5,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { BudgetFormType } from '@/types/form';
 import { openAlert } from '@/helpers/alert';
 import { StateProps } from '@/components/shared/Toast';
-import { createBudget } from '@/services/budget';
+import { createBudget, updateBudget } from '@/services/budget';
 import { refreshMonthById } from '@/helpers/month';
 import { useRouter } from 'next/router';
+import { Budget } from '@/types/month';
 
 const monthRequired = 'Month is required!';
 const valueRequired = 'Cost is required!';
@@ -21,13 +22,20 @@ const schema = yup.object({
 });
 
 type Props = {
+  budget?: Budget,
   handleCloseModal: () => void;
 }
 
-const successMessage: StateProps = {
+const createSuccessMsg: StateProps = {
   open: true,
   type: 'success',
   message: 'Budget has been created successfully!'
+};
+
+const updateSuccessMsg: StateProps = {
+  open: true,
+  type: 'success',
+  message: 'Budget has been updated successfully!'
 };
 
 const errorMessage: StateProps = {
@@ -36,7 +44,7 @@ const errorMessage: StateProps = {
   message: 'Something went wrong, please try again!'
 };
 
-export const useAddBudgetForm = ({ handleCloseModal }: Props) => {
+export const useBudgetForm = ({ budget, handleCloseModal }: Props) => {
   const route = useRouter();
   const {
     register,
@@ -44,9 +52,10 @@ export const useAddBudgetForm = ({ handleCloseModal }: Props) => {
     formState: { errors, isSubmitting },
   } = useForm<BudgetFormType>({
     defaultValues: {
-      value: 0,
-      description: '',
-      createdAt: new Date().toISOString(),
+      id: budget?.id || 0,
+      value: budget?.value || 0,
+      description: budget?.description || '',
+      createdAt: budget?.createdAt || new Date().toISOString(),
       monthId: (route.query?.id || 0) as number
     },
     reValidateMode: 'onChange',
@@ -55,10 +64,12 @@ export const useAddBudgetForm = ({ handleCloseModal }: Props) => {
 
   const onSubmit: SubmitHandler<BudgetFormType> = async (data) => {
     try {
-      const r = await createBudget(data);
+      const action = data?.id ? updateBudget : createBudget;
+      const r = await action(data);
+
       if (r?.data) {
         handleCloseModal();
-        openAlert(successMessage);
+        openAlert(data?.id ? updateSuccessMsg : createSuccessMsg);
         refreshMonthById();
       } else {
         openAlert(errorMessage);

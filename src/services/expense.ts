@@ -5,6 +5,6 @@ export const createExpense = (expense: ExpenseFormType) =>
   requests.post('/expense', expense);
 
 export const updateExpense = (id: number, expense: ExpenseFormType) =>
-  requests.post(`/expense/${id}`, expense);
+  requests.put(`/expense/${id}`, expense);
 
 export const deleteExpense = (id: number) => requests.delete(`/expense/${id}`);

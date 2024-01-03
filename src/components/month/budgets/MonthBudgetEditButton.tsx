@@ -1,14 +1,15 @@
 import EditButton from '../../shared/EditButton';
 
-import MonthBudgetForm from './MonthBudgetForm';
+import Form from './MonthBudgetForm';
 import Modal from '../../shared/Modal';
 import { useModal } from '@/hooks/modalHooks';
+import { Budget } from '@/types/month';
 
 type Props = {
-  id: number;
+  budget: Budget
 }
 
-export default function MonthBudgetEditButton({ id }: Props) {
+export default function MonthBudgetEditButton({ budget }: Props) {
   const {
     openModal, handleOpenModal, handleCloseModal
   } = useModal();
@@ -21,7 +22,7 @@ export default function MonthBudgetEditButton({ id }: Props) {
 
       <Modal openModal={openModal} title='Edit budget'>
         {openModal && (
-          <MonthBudgetForm handleCloseModal={handleCloseModal} />
+          <Form budget={budget} handleCloseModal={handleCloseModal} />
         )}
       </Modal>
     </>
