@@ -7,17 +7,18 @@ import { getError } from '@/helpers/form';
 import FormButtons from '../../../shared/FormButtons';
 import { useCategories } from '@/hooks/categoryHooks';
 import Select from '../../../form/Select';
+import { Expense } from '@/types/month';
 
 type Props = {
-  id?: number;
+  expense?: Expense,
   budgetId: number;
   handleCloseModal: () => void;
 }
 
-export default function MonthBudgetExpenseForm({ id, budgetId, handleCloseModal }: Props) {
+export default function MonthBudgetExpenseForm({ expense, budgetId, handleCloseModal }: Props) {
   const {
     register, handleSubmit, onSubmit, errors, isSubmitting
-  } = useExpenseForm({ budgetId, handleCloseModal });
+  } = useExpenseForm({ expense, budgetId, handleCloseModal });
 
   const { isFetching, data: categories } = useCategories();
 

@@ -29,6 +29,7 @@ export interface IncomeFormType extends FieldValues {
 };
 
 export interface ExpenseFormType extends FieldValues {
+  id?: number,
   value: number;
   description: string;
   createdAt: string;

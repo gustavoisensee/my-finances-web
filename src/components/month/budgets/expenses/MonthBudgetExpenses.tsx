@@ -18,7 +18,7 @@ const MonthBudgetExpenses = ({ budgetId, expenses }: Props) => {
             {euro(e.value)}
           </div>
           <div className='w-14 sm:w-32 flex justify-end'>
-            <MonthBudgetExpenseEditButton budgetId={budgetId} />
+            <MonthBudgetExpenseEditButton expense={e} budgetId={budgetId} />
             <DeleteButton onClick={() => alert('Expense Delete - In Progress!')} />
           </div>
         </div>

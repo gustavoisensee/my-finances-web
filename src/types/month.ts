@@ -6,8 +6,11 @@ export type Income = {
 }
 
 export type Expense = {
+  id?: number;
   description: string;
   value: number;
+  createdAt: string;
+  categoryId?: number;
 }
 
 export type Budget = {
