@@ -10,5 +10,8 @@ export const getMonthByIdWithAllData = (monthId: number) =>
 export const createMonth = (month: MonthFormType) =>
   requests.post('/month', month);
 
+export const updateMonth = (month: MonthFormType) =>
+  requests.put(`/month/${month.id}`, month);
+
 export const deleteMonth = (id: number) =>
   requests.delete(`/month/${id}`);

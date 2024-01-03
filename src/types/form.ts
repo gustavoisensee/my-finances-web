@@ -6,6 +6,7 @@ export type Option = {
 };
 
 export interface MonthFormType extends FieldValues {
+  id?: number;
   value: number;
   description?: string;
   createdAt: string;

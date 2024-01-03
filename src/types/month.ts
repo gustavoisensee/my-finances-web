@@ -25,8 +25,10 @@ export type Month = {
   id: number,
   description: string;
   value: number;
+  yearId: number;
+  createdAt: string;
   incomes: Income[];
-  budgets: Budget[]
+  budgets: Budget[];
 }
 
 type MonthsType = {

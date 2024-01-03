@@ -1,21 +1,22 @@
 import { useMemo } from 'react';
-import { useAddNewMonthForm } from '@/hooks/dashboardHooks';
+import { useMonthForm } from '@/hooks/dashboardHooks';
 import TextInput from '../form/TextInput';
 import Select from '../form/Select';
 import { useYears } from '@/hooks/yearHooks';
-import { Months } from '@/types/month';
+import { Month, Months } from '@/types/month';
 import Divider from '../shared/Divider';
 import { getError } from '@/helpers/form';
 import FormButtons from '../shared/FormButtons';
 
 type Props = {
+  month?: Month;
   handleCloseModal: () => void;
 }
 
-export default function AddMonthForm({ handleCloseModal }: Props) {
+export default function MonthForm({ month, handleCloseModal }: Props) {
   const {
     register, handleSubmit, onSubmit, errors, isSubmitting
-  } = useAddNewMonthForm({ handleCloseModal });
+  } = useMonthForm({ month, handleCloseModal });
 
   const { isFetching, years } = useYears();
 

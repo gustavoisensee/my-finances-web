@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { MonthFormType } from '@/types/form';
-import { createMonth } from '@/services/month';
+import { createMonth, updateMonth } from '@/services/month';
 import { refreshDashboard } from '@/helpers/month';
 import { openAlert } from '@/helpers/alert';
 import { StateProps } from '@/components/shared/Toast';
@@ -22,13 +22,20 @@ const schema = yup.object({
 });
 
 type Props = {
+  month?: Month;
   handleCloseModal: () => void;
 }
 
-const successMessage: StateProps = {
+const createSuccessMsg: StateProps = {
   open: true,
   type: 'success',
   message: 'Month has been created successfully!'
+};
+
+const updateSuccessMsg: StateProps = {
+  open: true,
+  type: 'success',
+  message: 'Month has been updated successfully!'
 };
 
 const errorMessage: StateProps = {
@@ -37,7 +44,7 @@ const errorMessage: StateProps = {
   message: 'Something went wrong, please try again!'
 };
 
-export const useAddNewMonthForm = ({ handleCloseModal }: Props) => {
+export const useMonthForm = ({ month, handleCloseModal }: Props) => {
   const { push } = useRouter();
   const {
     register,
@@ -45,10 +52,11 @@ export const useAddNewMonthForm = ({ handleCloseModal }: Props) => {
     formState: { errors, isSubmitting },
   } = useForm<MonthFormType>({
     defaultValues: {
-      value: 0,
-      description: '',
-      createdAt: new Date().toISOString(),
-      yearId: 0
+      id: month?.id || 0,
+      value: month?.value || 0,
+      description: month?.description || '',
+      createdAt: month?.createdAt || new Date().toISOString(),
+      yearId: month?.yearId || 0
     },
     reValidateMode: 'onChange',
     resolver: yupResolver(schema)
@@ -56,12 +64,16 @@ export const useAddNewMonthForm = ({ handleCloseModal }: Props) => {
 
   const onSubmit: SubmitHandler<MonthFormType> = async (data) => {
     try {
-      const r = await createMonth(data);
+      const action = data?.id ? updateMonth : createMonth;
+      const r = await action(data);
+
       if (r?.data) {
         handleCloseModal();
-        openAlert(successMessage);
+        openAlert(data?.id ? updateSuccessMsg : createSuccessMsg);
         refreshDashboard();
-        push(`/month/${r?.data?.id}`);
+        if (!data?.id) {
+          push(`/month/${r?.data?.id}`);
+        }
       } else {
         openAlert(errorMessage);
       }
@@ -104,25 +116,16 @@ const errorDeleteMonth: StateProps = {
 };
 
 type UseMonthDeleteConfirmation = {
-  month: Month
+  month: Month;
+  handleCloseModal: () => void;
 };
 
-export default function useMonthDeleteConfirmation({ month }: UseMonthDeleteConfirmation) {
-  const [openModal, setOpenModal] = useState(false);
-
-  const handleOpenModal = useCallback(() => {
-    setOpenModal(true);
-  }, []);
-
-  const handleNoClick = useCallback(() => {
-    setOpenModal(false);
-  }, []);
-
-  const handleYesClick = useCallback(async() => {
+export default function useMonthDeleteConfirmation({ month, handleCloseModal }: UseMonthDeleteConfirmation) {
+  const handleSubmit = useCallback(async() => {
     try {
       const r = await deleteMonth(month.id)
       if (r?.data) {
-        handleNoClick();
+        handleCloseModal();
         openAlert(successDeleteMonth);
         refreshDashboard();
       } else {
@@ -131,10 +134,9 @@ export default function useMonthDeleteConfirmation({ month }: UseMonthDeleteConf
     } catch (e) {
       openAlert(errorDeleteMonth);
     }
-  }, [month, handleNoClick]);
+  }, [month, handleCloseModal]);
 
   return {
-    openModal,
-    handleYesClick, handleNoClick, handleOpenModal
+    handleSubmit
   }
 }

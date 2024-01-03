@@ -1,7 +1,4 @@
-import cn from 'classnames';
-
-import AddNewMonthForm from './AddMonthForm';
-import Divider from '../shared/Divider';
+import Form from './MonthForm';
 import { AddButton } from '../shared/AddButton';
 import Modal from '../shared/Modal';
 import { useModal } from '@/hooks/modalHooks';
@@ -21,7 +18,7 @@ export default function AddMonth() {
 
       <Modal openModal={openModal} title='Add new month'>
         {openModal && (
-          <AddNewMonthForm handleCloseModal={handleCloseModal} />
+          <Form handleCloseModal={handleCloseModal} />
         )}
       </Modal>
     </>

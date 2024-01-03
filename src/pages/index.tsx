@@ -4,7 +4,7 @@ import { useMonths } from '@/hooks/monthHooks';
 import Year from '@/components/shared/Year';
 import CanNotFetchData from '@/components/shared/CanNotFetchData';
 import MonthsEmpty from '@/components/dashboard/MonthsEmpty';
-import AddNewMonth from '@/components/dashboard/AddMonth';
+import AddNewMonth from '@/components/dashboard/MonthAddButton';
 
 export default function Index() {
   const { data, isFetching, error } = useMonths();

@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { Month, Months } from '@/types/month';
 import { euro, getTotal } from '@/helpers/currency';
-import MonthDeleteConfirmation from './MonthDeleteConfirmation';
+import MonthDeleteConfirmation from './MonthContextMenu';
 
 type Props = {
   month: Month
