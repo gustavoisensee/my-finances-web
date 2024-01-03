@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { BudgetFormType } from '@/types/form';
 import { openAlert } from '@/helpers/alert';
 import { StateProps } from '@/components/shared/Toast';
-import { createBudget, updateBudget } from '@/services/budget';
+import { createBudget, deleteBudget, updateBudget } from '@/services/budget';
 import { refreshMonthById } from '@/helpers/month';
 import { useRouter } from 'next/router';
 import { Budget } from '@/types/month';
@@ -36,6 +36,12 @@ const updateSuccessMsg: StateProps = {
   open: true,
   type: 'success',
   message: 'Budget has been updated successfully!'
+};
+
+const deleteSuccessMsg: StateProps = {
+  open: true,
+  type: 'success',
+  message: 'Budget has been deleted successfully!'
 };
 
 const errorMessage: StateProps = {
@@ -84,6 +90,40 @@ export const useBudgetForm = ({ budget, handleCloseModal }: Props) => {
     handleSubmit,
     onSubmit,
     errors,
+    isSubmitting
+  }
+};
+
+type DeleteProps = {
+  id: number;
+  handleCloseModal: () => void; 
+}
+
+export const useBudgetDeleteConfirmation = ({ id, handleCloseModal }: DeleteProps) => {
+  const {
+    handleSubmit,
+    formState: { isSubmitting }
+  } = useForm();
+
+  const onSubmit = async () => {
+    try {
+      const r = await deleteBudget(id);
+
+      if (r?.data) {
+        handleCloseModal();
+        openAlert(deleteSuccessMsg);
+        refreshMonthById();
+      } else {
+        openAlert(errorMessage);
+      }
+    } catch (e) {
+      openAlert(errorMessage);
+    }
+  };
+
+  return {
+    handleSubmit,
+    onSubmit,
     isSubmitting
   }
 };

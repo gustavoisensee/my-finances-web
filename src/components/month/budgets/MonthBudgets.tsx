@@ -2,11 +2,11 @@ import React, { useCallback } from 'react';
 
 import { euro, getTotal } from '@/helpers/currency';
 import { Budget } from '@/types/month';
-import MonthBudgetExpenses from './expenses/MonthBudgetExpenses';
 import { getTotals } from '@/helpers/totals';
-import DeleteButton from '../../shared/DeleteButton';
+import MonthBudgetExpenses from './expenses/MonthBudgetExpenses';
 import EditBudget from './MonthBudgetEditButton';
 import AddExpense from './expenses/MonthBudgetExpenseAddButton';
+import DeleteBudget from './MonthBudgetDeleteButton';
 
 type Props = {
   budgets: Budget[]
@@ -37,7 +37,7 @@ const MonthBudgets = ({ budgets }: Props) => {
                 </div>
                 <div className='w-15 sm:w-32 flex justify-end'>
                   {b.id && <EditBudget budget={b} />}
-                  <DeleteButton onClick={() => alert('Budget Delete - In Progress!')} />
+                  {b.id && <DeleteBudget id={b.id} />}
                 </div>
               </div>
               <div className='collapse-content flex flex-col p-0 bg-slate-50'>
