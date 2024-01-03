@@ -4,6 +4,7 @@ import { euro, getTotal } from '@/helpers/currency';
 import { Income } from '@/types/month';
 import DeleteButton from '../../shared/DeleteButton';
 import MonthIncomeEditButton from './MonthIncomeEditButton';
+import MonthIncomeDeleteButton from './MonthIncomeDeleteButton';
 
 type Props = {
   incomes: Income[]
@@ -24,7 +25,7 @@ const MonthIncomes = ({ incomes }: Props) => {
             </div>
             <div className='w-14 sm:w-32 flex justify-end'>
               <MonthIncomeEditButton income={a}  />
-              <DeleteButton onClick={() => alert('Delete Income - In Progrss')} />
+              {a.id && <MonthIncomeDeleteButton id={a.id} />}
             </div>
           </div>
         ))}

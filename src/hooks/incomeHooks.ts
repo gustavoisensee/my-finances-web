@@ -1,11 +1,11 @@
 import * as yup from 'yup';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { IncomeFormType } from '@/types/form';
 import { openAlert } from '@/helpers/alert';
 import { StateProps } from '@/components/shared/Toast';
-import { createIncome, updateIncome } from '@/services/income';
+import { createIncome, deleteIncome, updateIncome } from '@/services/income';
 import { refreshMonthById } from '@/helpers/month';
 import { useRouter } from 'next/router';
 import { Income } from '@/types/month';
@@ -37,6 +37,12 @@ const updateSuccessMsg: StateProps = {
   open: true,
   type: 'success',
   message: 'Income has been updated successfully!'
+};
+
+const deleteSuccessMsg: StateProps = {
+  open: true,
+  type: 'success',
+  message: 'Income has been deleted successfully!'
 };
 
 const errorMessage: StateProps = {
@@ -85,6 +91,40 @@ export const useIncomeForm = ({ income, handleCloseModal }: Props) => {
     handleSubmit,
     onSubmit,
     errors,
+    isSubmitting
+  }
+};
+
+type DeleteProps = {
+  id: number;
+  handleCloseModal: () => void;
+}
+
+export const useIncomeDeleteConfirmation = ({ id, handleCloseModal }: DeleteProps) => {
+  const {
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm();
+
+  const onSubmit = async () => {
+    try {
+      const r = await deleteIncome(id);
+
+      if (r?.data) {
+        handleCloseModal();
+        openAlert(deleteSuccessMsg);
+        refreshMonthById();
+      } else {
+        openAlert(errorMessage);
+      }
+    } catch (e) {
+      openAlert(errorMessage);
+    }
+  };
+
+  return {
+    handleSubmit,
+    onSubmit,
     isSubmitting
   }
 };
