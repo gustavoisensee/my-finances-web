@@ -1,5 +1,5 @@
 import { useYears } from '@/hooks/yearHooks';
-import { Year } from '@/types/year'
+import { Year as YearType } from '@/types/year'
 import Loading from './Loading';
 
 const Year = () => {
@@ -9,7 +9,7 @@ const Year = () => {
 
   return years && (
     <select className='select select-bordered max-w-xs' onChange={onChange} defaultValue={state}>
-      {(years as Year[])?.map((y, i) => (
+      {(years as YearType[])?.map((y, i) => (
         <option key={i} value={y.value}>{y.value}</option>
       ))}
     </select>

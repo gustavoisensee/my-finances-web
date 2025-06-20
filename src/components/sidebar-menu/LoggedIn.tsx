@@ -14,7 +14,7 @@ export default function LoggedIn() {
       </span>
       <div className='flex justify-center'>
         <button
-          onClick={() => signOut()}
+          onClick={() => signOut({ callbackUrl: '/signin' })}
           type='button'
           className='link link-primary flex items-center'
         >

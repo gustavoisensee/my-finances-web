@@ -2,16 +2,16 @@ import requests from './requests';
 import { MonthFormType } from '@/types/form';
 
 export const getMonths = (yearId: number) =>
-  requests.get(`/month?iIncomes=true&yearId=${yearId}`);
+  requests.get(`/api/month?iIncomes=true&yearId=${yearId}`);
 
 export const getMonthByIdWithAllData = (monthId: number) =>
-  requests.get(`/month/${monthId}?iIncomes=true&iBudgets=true&iExpenses=true`);
+  requests.get(`/api/month/${monthId}?iIncomes=true&iBudgets=true&iExpenses=true`);
 
 export const createMonth = (month: MonthFormType) =>
-  requests.post('/month', month);
+  requests.post('/api/month', month);
 
 export const updateMonth = (month: MonthFormType) =>
-  requests.put(`/month/${month.id}`, month);
+  requests.put(`/api/month/${month.id}`, month);
 
 export const deleteMonth = (id: number) =>
-  requests.delete(`/month/${id}`);
+  requests.delete(`/api/month/${id}`);

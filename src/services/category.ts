@@ -1,3 +1,3 @@
 import requests from './requests';
 
-export const getCategories = () => requests.get('/category');
+export const getCategories = () => requests.get('/api/category');

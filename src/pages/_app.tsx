@@ -10,6 +10,7 @@ import SideMenu from '@/components/sidebar-menu/SideMenu';
 import '@/styles/globals.css';
 import { Session } from 'next-auth';
 import Toast from '@/components/shared/Toast';
+import { useRouter } from 'next/router';
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,14 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: Props) {
+  const router = useRouter();
+  const isAuthPage = ['/signin', '/signup', '/login'].includes(router.pathname);
+
+  // TODO perhaps check for !session as well
+  if (isAuthPage) {
+    return <Component {...pageProps} />;
+  }
+
   return (
     <div className='flex flex-1'>
       <Head>
