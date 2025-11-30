@@ -7,7 +7,7 @@ type Props = {
 
 const MonthsWidget = ({ data }: Props) => (
   <div className='flex flex-row bg-white rounded-lg flex-wrap'>
-    {data?.map((d, i) => (
+    {data?.map?.((d, i) => (
       <MonthWidget key={i} month={d} />
     ))}
   </div>

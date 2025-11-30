@@ -74,7 +74,7 @@ export const useExpenseForm = ({ expense, budgetId, handleCloseModal }: Props) =
       const action = data?.id ? updateExpense : createExpense;
       const r = await action(data);
 
-      if (r?.data) {
+      if (r) {
         handleCloseModal();
         openAlert(data?.id ? updateSuccessMsg : createSuccessMsg);
         refreshMonthById();
@@ -110,7 +110,7 @@ export const useExpenseDeleteConfirmation = ({ id, handleCloseModal }: DeletePro
     try {
       const r = await deleteExpense(id);
 
-      if (r?.data) {
+      if (r) {
         handleCloseModal();
         openAlert(deleteSuccessMsg);
         refreshMonthById();

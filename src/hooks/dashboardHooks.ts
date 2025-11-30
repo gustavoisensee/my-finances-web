@@ -67,12 +67,12 @@ export const useMonthForm = ({ month, handleCloseModal }: Props) => {
       const action = data?.id ? updateMonth : createMonth;
       const r = await action(data);
 
-      if (r?.data) {
+      if (r) {
         handleCloseModal();
         openAlert(data?.id ? updateSuccessMsg : createSuccessMsg);
         refreshDashboard();
         if (!data?.id) {
-          navigate(`/month/${r?.data?.id}`);
+          navigate(`/month/${r?.id}`);
         }
       } else {
         openAlert(errorMessage);
@@ -124,7 +124,7 @@ export default function useMonthDeleteConfirmation({ month, handleCloseModal }: 
   const handleSubmit = useCallback(async() => {
     try {
       const r = await deleteMonth(month.id)
-      if (r?.data) {
+      if (r) {
         handleCloseModal();
         openAlert(successDeleteMonth);
         refreshDashboard();

@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { IncomeFormType } from '@/types/form';
@@ -74,7 +74,7 @@ export const useIncomeForm = ({ income, handleCloseModal }: Props) => {
       const action = data?.id ? updateIncome : createIncome;
       const r = await action(data);
 
-      if (r?.data) {
+      if (r) {
         handleCloseModal();
         openAlert(data?.id ? updateSuccessMsg : createSuccessMsg);
         refreshMonthById();
@@ -110,7 +110,7 @@ export const useIncomeDeleteConfirmation = ({ id, handleCloseModal }: DeleteProp
     try {
       const r = await deleteIncome(id);
 
-      if (r?.data) {
+      if (r) {
         handleCloseModal();
         openAlert(deleteSuccessMsg);
         refreshMonthById();

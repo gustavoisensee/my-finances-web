@@ -73,7 +73,7 @@ export const useBudgetForm = ({ budget, handleCloseModal }: Props) => {
       const action = data?.id ? updateBudget : createBudget;
       const r = await action(data);
 
-      if (r?.data) {
+      if (r) {
         handleCloseModal();
         openAlert(data?.id ? updateSuccessMsg : createSuccessMsg);
         refreshMonthById();
@@ -109,7 +109,7 @@ export const useBudgetDeleteConfirmation = ({ id, handleCloseModal }: DeleteProp
     try {
       const r = await deleteBudget(id);
 
-      if (r?.data) {
+      if (r) {
         handleCloseModal();
         openAlert(deleteSuccessMsg);
         refreshMonthById();

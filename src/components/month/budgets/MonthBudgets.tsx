@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 
 import { euro, getTotal } from '@/helpers/currency';
 import { Budget } from '@/types/month';

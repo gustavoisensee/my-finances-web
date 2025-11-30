@@ -1,5 +1,4 @@
 import { getCategories } from '@/services/category';
-import { Category } from '@/types/category';
 import { useQuery } from '@tanstack/react-query'
 
 export const useCategories = () => {
@@ -11,7 +10,7 @@ export const useCategories = () => {
   });
 
   return {
-    data: data as Category[] || [],
+    data: data || [],
     error,
     isFetching
   }

@@ -22,8 +22,8 @@ export default function DashboardPage() {
         </div>
         {isFetching && <Loading />}
         {!isFetching && error && <CanNotFetchData />}
-        {!isFetching && data && <MonthsWidget data={data.data} />}
-        {!isFetching && data?.data?.length === 0 && <MonthsEmpty /> }
+        {!isFetching && data && <MonthsWidget data={data} />}
+        {!isFetching && data?.length === 0 && <MonthsEmpty /> }
       </div>
     </div>
   )

@@ -1,12 +1,6 @@
-import cn from 'classnames';
-
-import { useCallback, useState } from 'react';
 import { Month } from '@/types/month';
-import Options from '../svgs/Options';
 import Divider from '../shared/Divider';
 import useMonthDeleteConfirmation from '@/hooks/dashboardHooks';
-import Modal from '../shared/Modal';
-import { useModal } from '@/hooks/modalHooks';
 
 type Props = {
   month: Month;

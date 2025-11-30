@@ -16,12 +16,9 @@ class ApiClient {
     // Request interceptor to add auth token
     this.client.interceptors.request.use(
       async (config) => {
-        // Get Clerk session token
+        // Get Clerk session token from sessionStorage
         if (typeof window !== 'undefined') {
-          const { getToken } = await import('@clerk/clerk-react')
           try {
-            // This will be called through useAuth hook in components
-            // For now, we'll handle it in the service layer
             const token = sessionStorage.getItem('clerk_token')
             if (token) {
               config.headers.Authorization = `Bearer ${token}`
