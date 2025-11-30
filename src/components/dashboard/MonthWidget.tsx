@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import cn from 'classnames';
 
@@ -45,7 +45,7 @@ const MonthWidget = ({ month }: Props) => {
             'text-blue-600 hover:text-blue-800',
             'disabled:opacity-50 disabled:pointer-events-none'
           )}
-          href={`/month/${month.id}`}
+          to={`/month/${month.id}`}
         >
           Open month
           <svg

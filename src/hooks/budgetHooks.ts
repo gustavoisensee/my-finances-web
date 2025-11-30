@@ -7,7 +7,7 @@ import { openAlert } from '@/helpers/alert';
 import { StateProps } from '@/components/shared/Toast';
 import { createBudget, deleteBudget, updateBudget } from '@/services/budget';
 import { refreshMonthById } from '@/helpers/month';
-import { useRouter } from 'next/router';
+import { useParams } from 'react-router-dom';
 import { Budget } from '@/types/month';
 
 const monthRequired = 'Month is required!';
@@ -51,7 +51,7 @@ const errorMessage: StateProps = {
 };
 
 export const useBudgetForm = ({ budget, handleCloseModal }: Props) => {
-  const route = useRouter();
+  const { id } = useParams<{ id: string }>();
   const {
     register,
     handleSubmit,
@@ -62,7 +62,7 @@ export const useBudgetForm = ({ budget, handleCloseModal }: Props) => {
       value: budget?.value || 0,
       description: budget?.description || '',
       createdAt: budget?.createdAt || new Date().toISOString(),
-      monthId: (route.query?.id || 0) as number
+      monthId: Number(id) || 0
     },
     reValidateMode: 'onChange',
     resolver: yupResolver(schema)

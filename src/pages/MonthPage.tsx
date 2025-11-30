@@ -1,5 +1,4 @@
-import { useRouter } from 'next/router';
-import styles from '@/styles/buttons.module.css';
+import { useParams } from 'react-router-dom';
 import { useMonthById } from '@/hooks/monthHooks';
 import Loading from '@/components/shared/Loading';
 import { Month } from '@/types/month';
@@ -7,9 +6,8 @@ import MonthOverview from '@/components/month/MonthOverview';
 import CanNotFetchData from '@/components/shared/CanNotFetchData';
 import BackButton from '@/components/shared/BackButton';
 
-export default function Index() {
-  const router = useRouter();
-  const id = router.query?.id || 0;
+export default function MonthPage() {
+  const { id } = useParams<{ id: string }>();
   const { data, isLoading, error } = useMonthById(Number(id));
   const month: Month = data?.data;
 
@@ -24,3 +22,5 @@ export default function Index() {
     </div>
   )
 }
+
+

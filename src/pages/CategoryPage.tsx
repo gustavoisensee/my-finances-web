@@ -3,7 +3,7 @@ import CategoryTable from '@/components/category/CategoryTable';
 import Loading from '@/components/shared/Loading';
 import { useCategories } from '@/hooks/categoryHooks';
 
-export default function Category() {
+export default function CategoryPage() {
   const { data, isFetching, error } = useCategories();
 
   return (
@@ -18,3 +18,5 @@ export default function Category() {
     </div>
   )
 }
+
+

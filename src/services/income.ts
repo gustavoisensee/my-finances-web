@@ -1,10 +1,11 @@
-import requests from './requests';
+import { apiClient } from '@/lib/api-client';
 import { IncomeFormType } from '@/types/form';
 
 export const createIncome = (income: IncomeFormType) =>
-  requests.post('/api/income', income);
+  apiClient.post('/income', income);
 
 export const updateIncome = (income: IncomeFormType) =>
-  requests.put(`/api/income/${income.id}`, income);
+  apiClient.put(`/income/${income.id}`, income);
 
-export const deleteIncome = (id: number) => requests.delete(`/api/income/${id}`);
+export const deleteIncome = (id: number) => 
+  apiClient.delete(`/income/${id}`);

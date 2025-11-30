@@ -11,7 +11,7 @@ export const useCategories = () => {
   });
 
   return {
-    data: data?.data as Category[] || [],
+    data: data as Category[] || [],
     error,
     isFetching
   }

@@ -1,7 +1,7 @@
 import * as yup from 'yup';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { MonthFormType } from '@/types/form';
@@ -45,7 +45,7 @@ const errorMessage: StateProps = {
 };
 
 export const useMonthForm = ({ month, handleCloseModal }: Props) => {
-  const { push } = useRouter();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -72,7 +72,7 @@ export const useMonthForm = ({ month, handleCloseModal }: Props) => {
         openAlert(data?.id ? updateSuccessMsg : createSuccessMsg);
         refreshDashboard();
         if (!data?.id) {
-          push(`/month/${r?.data?.id}`);
+          navigate(`/month/${r?.data?.id}`);
         }
       } else {
         openAlert(errorMessage);

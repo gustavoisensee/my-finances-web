@@ -7,7 +7,7 @@ import { openAlert } from '@/helpers/alert';
 import { StateProps } from '@/components/shared/Toast';
 import { createIncome, deleteIncome, updateIncome } from '@/services/income';
 import { refreshMonthById } from '@/helpers/month';
-import { useRouter } from 'next/router';
+import { useParams } from 'react-router-dom';
 import { Income } from '@/types/month';
 
 const monthRequired = 'Month is required!';
@@ -52,7 +52,7 @@ const errorMessage: StateProps = {
 };
 
 export const useIncomeForm = ({ income, handleCloseModal }: Props) => {
-  const route = useRouter();
+  const { id } = useParams<{ id: string }>();
   const {
     register,
     handleSubmit,
@@ -63,7 +63,7 @@ export const useIncomeForm = ({ income, handleCloseModal }: Props) => {
       value: income?.value || 0,
       description: income?.description || '',
       createdAt: income?.createdAt || new Date().toISOString(),
-      monthId: (route.query?.id || 0) as number
+      monthId: Number(id) || 0
     },
     reValidateMode: 'onChange',
     resolver: yupResolver(schema)

@@ -16,7 +16,7 @@ export const useYears = () => {
 
   const defaultYear = getSessionYear();
   const [state, setState] = useState(defaultYear);
-  const years = useMemo(() => data?.data as Year[] || [], [data?.data]);
+  const years = useMemo(() => data as Year[] || [], [data]);
   const year = useMemo(() => years.find((y: Year) => y.value === Number(state)), [years, state]);
 
   const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

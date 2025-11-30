@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, useLocation } from 'react-router-dom';
 
 import LoggedIn from '@/components/sidebar-menu/LoggedIn';
 import DocumentChartBar from '../svgs/DocumentChartBar';
@@ -10,12 +9,12 @@ import classNames from 'classnames';
 
 const Menu = () => {
   const menuItems = useMemo(() => [
-    { name: 'Dashboard', link: '/', icon: <Dashboard className='w-5 h-5' /> },
+    { name: 'Dashboard', link: '/dashboard', icon: <Dashboard className='w-5 h-5' /> },
     { name: 'Category', link: '/category', icon: <DocumentChartBar className='w-5 h-5' /> }
   ], []);
 
-  const path = usePathname();
-  const isActive = (pathname: string) => pathname === path ? 'bg-gray-100' : '';
+  const location = useLocation();
+  const isActive = (pathname: string) => pathname === location.pathname ? 'bg-gray-100' : '';
 
   return (
     <div className='flex flex-1 flex-col bg-white w-full pb-4 pt-4'>
@@ -28,7 +27,7 @@ const Menu = () => {
           {menuItems.map(({ name, link, icon }, i) => (
             <li key={i}>
               <Link
-                href={link}
+                to={link}
                 className={classNames(
                   'flex items-center gap-x-3.5 py-2 px-2.5',
                   'text-slate-700 rounded-lg hover:bg-gray-100',

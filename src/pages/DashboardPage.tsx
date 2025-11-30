@@ -6,7 +6,7 @@ import CanNotFetchData from '@/components/shared/CanNotFetchData';
 import MonthsEmpty from '@/components/dashboard/MonthsEmpty';
 import AddNewMonth from '@/components/dashboard/MonthAddButton';
 
-export default function Index() {
+export default function DashboardPage() {
   const { data, isFetching, error } = useMonths();
 
   return (
@@ -28,3 +28,5 @@ export default function Index() {
     </div>
   )
 }
+
+

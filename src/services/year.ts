@@ -1,3 +1,3 @@
-import requests from './requests';
+import { apiClient } from '@/lib/api-client';
 
-export const getYears = () => requests.get('/api/year');
+export const getYears = () => apiClient.get('/year');

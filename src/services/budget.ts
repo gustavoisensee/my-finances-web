@@ -1,10 +1,11 @@
-import requests from './requests';
+import { apiClient } from '@/lib/api-client';
 import { BudgetFormType } from '@/types/form';
 
 export const createBudget = (budget: BudgetFormType) =>
-  requests.post('/api/budget', budget);
+  apiClient.post('/budget', budget);
 
 export const updateBudget = (budget: BudgetFormType) =>
-  requests.put(`/api/budget/${budget.id}`, budget);
+  apiClient.put(`/budget/${budget.id}`, budget);
 
-export const deleteBudget = (id: number) => requests.delete(`/api/budget/${id}`);
+export const deleteBudget = (id: number) => 
+  apiClient.delete(`/budget/${id}`);

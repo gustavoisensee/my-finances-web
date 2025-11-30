@@ -1,36 +1,145 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# My Finances Web
+
+A personal finance management application built with **Vite**, **React**, **TypeScript**, **React Router**, **TanStack Query**, and **Clerk** for authentication.
+
+## Tech Stack
+
+- **Frontend Framework**: React 18 with TypeScript
+- **Build Tool**: Vite 5
+- **Routing**: React Router v6
+- **State Management**: TanStack Query (React Query) for server state
+- **Authentication**: Clerk
+- **Styling**: Tailwind CSS + DaisyUI
+- **Form Handling**: React Hook Form + Yup validation
+- **HTTP Client**: Axios (centralized API client)
+- **Backend API**: External REST API at https://my-finances-api-v4.onrender.com
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js >= 23.0.0 <= 23.3.0
+- pnpm (recommended) or npm
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
 
 ```bash
-npm run dev
+pnpm install
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Create a `.env` file in the root directory with the following variables:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
+VITE_API_BASE_URL=https://my-finances-api-v4.onrender.com
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+> **Note**: Get your Clerk Publishable Key from the [Clerk Dashboard](https://dashboard.clerk.com/~/api-keys)
+
+### Development
+
+Run the development server:
+
+```bash
+pnpm dev
+# or
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Build
+
+Build the application for production:
+
+```bash
+pnpm build
+# or
+npm run build
+```
+
+### Preview Production Build
+
+Preview the production build locally:
+
+```bash
+pnpm preview
+# or
+npm run preview
+```
+
+## Project Structure
+
+```
+src/
+├── components/       # React components
+│   ├── category/    # Category-related components
+│   ├── dashboard/   # Dashboard components
+│   ├── form/        # Reusable form components
+│   ├── month/       # Month management components
+│   ├── shared/      # Shared/common components
+│   ├── sidebar-menu/# Navigation components
+│   └── svgs/        # SVG icon components
+├── helpers/         # Utility functions
+├── hooks/           # Custom React hooks
+├── layouts/         # Layout components
+├── lib/             # Core libraries (API client)
+├── pages/           # Page components (routes)
+├── services/        # API service layer
+├── styles/          # Global styles
+└── types/           # TypeScript type definitions
+```
+
+## Features
+
+- **Dashboard**: Overview of monthly finances
+- **Month Management**: Create, edit, and delete financial months
+- **Income Tracking**: Manage income sources
+- **Budget Management**: Set and track budgets
+- **Expense Tracking**: Record and categorize expenses
+- **Category Management**: Organize transactions by category
+- **User Authentication**: Secure login with Clerk
+- **Responsive Design**: Mobile-friendly interface
+
+## API Integration
+
+The application connects to an external REST API. All API calls are centralized through the `apiClient` in `src/lib/api-client.ts`, which handles:
+
+- Authentication token injection
+- Base URL configuration
+- Error handling
+- Request/response interceptors
+
+## Authentication
+
+This application uses [Clerk](https://clerk.com/) for authentication. Clerk provides:
+
+- Sign in / Sign up flows
+- User management
+- Session handling
+- JWT token management
+
+## Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `VITE_CLERK_PUBLISHABLE_KEY` | Clerk publishable key for authentication | Yes |
+| `VITE_API_BASE_URL` | Base URL for the REST API backend | Yes |
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+- [Vite Documentation](https://vitejs.dev/)
+- [React Documentation](https://react.dev/)
+- [React Router Documentation](https://reactrouter.com/)
+- [TanStack Query Documentation](https://tanstack.com/query/latest)
+- [Clerk Documentation](https://clerk.com/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is private.

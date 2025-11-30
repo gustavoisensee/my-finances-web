@@ -1,3 +1,3 @@
-import requests from './requests';
+import { apiClient } from '@/lib/api-client';
 
-export const getCategories = () => requests.get('/api/category');
+export const getCategories = () => apiClient.get('/category');
