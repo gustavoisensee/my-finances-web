@@ -1,25 +1,29 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://my-finances-api-v4.onrender.com'
 
+type GetTokenFn = () => Promise<string | null>
+
 class ApiClient {
   private client: AxiosInstance
+  private getTokenFn: GetTokenFn | null = null
 
   constructor() {
     this.client = axios.create({
       baseURL: API_BASE_URL,
       headers: {
         'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
       },
     })
 
-    // Request interceptor to add auth token
+    // Request interceptor to add fresh auth token on every request
     this.client.interceptors.request.use(
-      async (config) => {
-        // Get Clerk session token from sessionStorage
-        if (typeof window !== 'undefined') {
+      async (config: InternalAxiosRequestConfig) => {
+        if (this.getTokenFn) {
           try {
-            const token = sessionStorage.getItem('clerk_token')
+            // Get fresh token for every request - Clerk handles refresh automatically
+            const token = await this.getTokenFn()
             if (token) {
               config.headers.Authorization = `Bearer ${token}`
             }
@@ -49,6 +53,14 @@ class ApiClient {
     )
   }
 
+  /**
+   * Set the token provider function from Clerk's useAuth hook.
+   * This function will be called on every request to get a fresh token.
+   */
+  setTokenProvider(getTokenFn: GetTokenFn) {
+    this.getTokenFn = getTokenFn
+  }
+
   async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
     const response = await this.client.get<T>(url, config)
     return response.data
@@ -73,18 +85,6 @@ class ApiClient {
     const response = await this.client.delete<T>(url, config)
     return response.data
   }
-
-  setAuthToken(token: string | null) {
-    if (token) {
-      sessionStorage.setItem('clerk_token', token)
-      this.client.defaults.headers.common['Authorization'] = `Bearer ${token}`
-    } else {
-      sessionStorage.removeItem('clerk_token')
-      delete this.client.defaults.headers.common['Authorization']
-    }
-  }
 }
 
 export const apiClient = new ApiClient()
-
-

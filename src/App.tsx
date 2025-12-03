@@ -17,16 +17,9 @@ function AppContent() {
   const { getToken } = useAuth()
 
   useEffect(() => {
-    const updateToken = async () => {
-      try {
-        const token = await getToken()
-        apiClient.setAuthToken(token)
-      } catch (error) {
-        console.error('Error getting token:', error)
-      }
-    }
-
-    updateToken()
+    // Pass the getToken function to apiClient
+    // This will be called on every request to get a fresh token
+    apiClient.setTokenProvider(getToken)
   }, [getToken])
 
   return (
@@ -55,5 +48,3 @@ function AppContent() {
 export default function App() {
   return <AppContent />
 }
-
-
