@@ -1,4 +1,5 @@
-import Pencil from '../svgs/Pencil';
+import { Pencil } from 'lucide-react';
+import cn from 'classnames';
 
 type Props = {
   onClick: (x?: unknown) => void | unknown;
@@ -9,9 +10,15 @@ export default function EditButton({ onClick }: Props) {
     <button
       type='button'
       onClick={onClick}
-      className='flex z-10 justify-center items-center h-6 w-6 mx-1 text-sm font-semibold rounded-full border border-transparent bg-yellow-400 text-white hover:bg-yellow-500 disabled:opacity-50 disabled:pointer-events-none'
+      className={cn(
+        'flex z-10 justify-center items-center h-8 w-8',
+        'text-sm font-semibold rounded-lg',
+        'text-slate-400 hover:text-primary hover:bg-primary/10',
+        'transition-colors duration-200',
+        'disabled:opacity-50 disabled:pointer-events-none'
+      )}
     >
-      <Pencil />
+      <Pencil className='w-4 h-4' />
     </button>
   )
 }

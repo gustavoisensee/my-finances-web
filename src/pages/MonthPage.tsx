@@ -11,15 +11,11 @@ export default function MonthPage() {
   const month = data;
 
   return (
-    <div className='flex flex-1 flex-col align-center'>
-      <div className='my-1'>
-        <BackButton label='Dashboard' />
-      </div>
+    <div className='flex flex-1 flex-col gap-4'>
+      <BackButton label='Back to Dashboard' />
       {isLoading && <Loading />}
       {!isLoading && error && <CanNotFetchData />}
       {!isLoading && month && <MonthOverview month={month} />}
     </div>
   )
 }
-
-

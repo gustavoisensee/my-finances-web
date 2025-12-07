@@ -1,7 +1,6 @@
-import { useCallback } from 'react';
-
 import { euro, getTotal } from '@/helpers/currency';
 import { Income } from '@/types/month';
+import { Banknote } from 'lucide-react';
 import EditButton from './MonthIncomeEditButton';
 import DeleteButton from './MonthIncomeDeleteButton';
 
@@ -10,29 +9,40 @@ type Props = {
 }
 
 const MonthIncomes = ({ incomes }: Props) => {
-  const lastIndex = incomes.length - 1;
-  const rowClassname = useCallback((index: number) => lastIndex !== index ? 'border-b' : '', [lastIndex]);
+  const total = getTotal(incomes);
 
   return (
-    <>
-      <div className='border rounded-lg'>
-        {incomes?.map?.((a, i) => (
-          <div key={i} className={`flex flex-row justify-between py-2 px-4 hover:bg-gray-50 ${rowClassname(i)}`}>
-            <div>{a.description}</div>
-            <div className='flex flex-[1] justify-end mr-2'>
-              {euro(a.value)}
+    <div className='flex flex-col gap-4'>
+      {/* Income List */}
+      <div className='divide-y divide-base-200 border border-base-300 rounded-xl overflow-hidden'>
+        {incomes?.map?.((income, i) => (
+          <div 
+            key={i} 
+            className='flex items-center gap-4 p-4 bg-base-100 hover:bg-base-200/50 transition-colors'
+          >
+            <div className='flex items-center justify-center w-10 h-10 rounded-lg bg-success/10'>
+              <Banknote className='w-5 h-5 text-success' />
             </div>
-            <div className='w-14 sm:w-32 flex justify-end'>
-              {a.id && <EditButton income={a}  />}
-              {a.id && <DeleteButton id={a.id} />}
+            <div className='flex-1 min-w-0'>
+              <p className='font-medium text-base-content truncate'>{income.description}</p>
+            </div>
+            <div className='text-right'>
+              <p className='font-semibold text-base-content'>{euro(income.value)}</p>
+            </div>
+            <div className='flex items-center gap-1'>
+              {income.id && <EditButton income={income} />}
+              {income.id && <DeleteButton id={income.id} />}
             </div>
           </div>
         ))}
       </div>
-      <div className='mt-2 p-2 border rounded-lg bg-green-50 w-fit'>
-        Total incomes {euro(getTotal(incomes))}
+
+      {/* Total */}
+      <div className='flex items-center justify-between p-4 bg-success/10 rounded-xl border border-success/20'>
+        <span className='font-medium text-success'>Total Incomes</span>
+        <span className='text-xl font-bold text-success'>{euro(total)}</span>
       </div>
-    </>
+    </div>
   );
 };
 

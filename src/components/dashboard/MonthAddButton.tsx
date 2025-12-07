@@ -10,10 +10,8 @@ export default function AddMonth() {
 
   return (
     <>
-      <div className='ml-2'>
-        <div className='tooltip tooltip-right' data-tip='Add new month'>
-          <AddButton onClick={handleOpenModal} />
-        </div>
+      <div className='ml-4'>
+        <AddButton onClick={handleOpenModal} label="New Month" />
       </div>
 
       <Modal openModal={openModal} title='Add new month'>
@@ -24,7 +22,3 @@ export default function AddMonth() {
     </>
   )
 }
-
-
-
-

@@ -1,8 +1,8 @@
-import { useCallback } from 'react';
-
 import { euro, getTotal } from '@/helpers/currency';
 import { Budget } from '@/types/month';
 import { getTotals } from '@/helpers/totals';
+import { ChevronDown, Wallet, Receipt } from 'lucide-react';
+import cn from 'classnames';
 import MonthBudgetExpenses from './expenses/MonthBudgetExpenses';
 import EditBudget from './MonthBudgetEditButton';
 import AddExpense from './expenses/MonthBudgetExpenseAddButton';
@@ -14,70 +14,93 @@ type Props = {
 
 const MonthBudgets = ({ budgets }: Props) => {
   const { totalExpenses, totalBudgets } = getTotals(budgets);
-  const lastIndex = budgets.length - 1;
-  const rowClassname = useCallback((index: number) =>
-    lastIndex !== index ? 'border-b' : '', [lastIndex]);
+  const remaining = totalBudgets - totalExpenses;
 
   return (
-    <>
-      <div className='border rounded-lg mb-2'>
-        {budgets.map((b, i) => (
-          <div key={i} className={`cursor-pointer ${rowClassname(i)}`}>
-            <div className='collapse bg-white'>
-              <input type='checkbox' name='my-accordion-2' className='min-h-0' />
-
-              <div className='collapse-title flex px-4 py-2 items-center'>
-                <div>
-                  {b.description}
-                </div>
-                <div className='flex flex-[1] justify-end mr-2'>
-                  <span>
-                    {euro(b.value)}
-                  </span>
-                </div>
-                <div className='w-15 sm:w-32 flex justify-end'>
-                  {b.id && <EditBudget budget={b} />}
-                  {b.id && <DeleteBudget id={b.id} />}
-                </div>
-              </div>
-              <div className='collapse-content flex flex-col p-0 bg-slate-50'>
-                <div className='flex flex-col px-4 pb-0 m-0 text-gray-500 text-sm'>
-                  {b.expenses?.length === 0 && <div className='pl-2 py-2'>No expenses entered yet!</div>}
-                  {b.expenses?.length > 0 && <MonthBudgetExpenses budgetId={b.id || 0} expenses={b.expenses} />}
-                </div>
-
-                <div className='flex justify-between px-4 pb-2 pl-7 py-2'>
-                  <div>
-                    <span className='text-sm text-yellow-700'>
-                      Total left
-                    </span>
+    <div className='flex flex-col gap-4'>
+      {/* Budget List */}
+      <div className='space-y-3'>
+        {budgets.map((budget, i) => {
+          const budgetRemaining = budget.value - getTotal(budget.expenses);
+          const expenseCount = budget.expenses?.length || 0;
+          
+          return (
+            <div key={i} className='border border-base-300 rounded-xl overflow-hidden bg-base-100'>
+              <div className='collapse'>
+                <input type='checkbox' name={`budget-${i}`} className='min-h-0' />
+                
+                {/* Budget Header */}
+                <div className='collapse-title flex items-center gap-4 p-4 min-h-0'>
+                  <div className='flex items-center justify-center w-10 h-10 rounded-lg bg-secondary/10'>
+                    <Wallet className='w-5 h-5 text-secondary' />
                   </div>
-                  <div className='flex flex-[1] justify-end mr-2'>
-                    <span className='text-sm text-yellow-700'>
-                      {euro(b.value - getTotal(b.expenses))}
-                    </span>
+                  <div className='flex-1 min-w-0'>
+                    <p className='font-medium text-base-content'>{budget.description}</p>
+                    <p className='text-xs text-base-content/50'>{expenseCount} expense{expenseCount !== 1 ? 's' : ''}</p>
                   </div>
-                  <div className='w-14 sm:w-32 flex justify-end'>&nbsp;</div>
+                  <div className='text-right mr-2'>
+                    <p className='font-semibold text-base-content'>{euro(budget.value)}</p>
+                    <p className={cn(
+                      'text-xs font-medium',
+                      budgetRemaining >= 0 ? 'text-success' : 'text-error'
+                    )}>
+                      {budgetRemaining >= 0 ? `${euro(budgetRemaining)} left` : `${euro(Math.abs(budgetRemaining))} over`}
+                    </p>
+                  </div>
+                  <div className='flex items-center gap-1'>
+                    {budget.id && <EditBudget budget={budget} />}
+                    {budget.id && <DeleteBudget id={budget.id} />}
+                  </div>
+                  <ChevronDown className='w-5 h-5 text-base-content/40 transition-transform' />
                 </div>
 
-                <div className='px-2 pl-6'>
-                  <AddExpense budgetId={b.id || 0} />
+                {/* Expenses Content */}
+                <div className='collapse-content p-0 bg-base-200/30'>
+                  <div className='p-4 pt-2'>
+                    {expenseCount === 0 ? (
+                      <div className='text-center py-6 text-base-content/50'>
+                        <Receipt className='w-6 h-6 mx-auto mb-2 opacity-30' />
+                        <p className='text-sm'>No expenses recorded</p>
+                      </div>
+                    ) : (
+                      <MonthBudgetExpenses budgetId={budget.id || 0} expenses={budget.expenses} />
+                    )}
+
+                    {/* Add Expense Button */}
+                    <div className='mt-3 pt-3 border-t border-base-300'>
+                      <AddExpense budgetId={budget.id || 0} />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      <div className='flex flex-row justify-between'>
-        <div className='mb-2 p-2 border rounded-lg bg-violet-50 w-fit'>
-          Total budgets {euro(totalBudgets)}
+      {/* Totals */}
+      <div className='grid grid-cols-2 gap-3'>
+        <div className='flex items-center justify-between p-4 bg-secondary/10 rounded-xl border border-secondary/20'>
+          <span className='font-medium text-secondary'>Total Budgets</span>
+          <span className='text-xl font-bold text-secondary'>{euro(totalBudgets)}</span>
         </div>
-        <div className='mb-2 p-2 ml-2 border rounded-lg bg-yellow-100 w-fit'>
-          Total budgets left {euro(totalBudgets - totalExpenses)}
+        <div className={cn(
+          'flex items-center justify-between p-4 rounded-xl border',
+          remaining >= 0 
+            ? 'bg-warning/10 border-warning/20' 
+            : 'bg-error/10 border-error/20'
+        )}>
+          <span className={cn(
+            'font-medium',
+            remaining >= 0 ? 'text-warning' : 'text-error'
+          )}>Remaining</span>
+          <span className={cn(
+            'text-xl font-bold',
+            remaining >= 0 ? 'text-warning' : 'text-error'
+          )}>{euro(remaining)}</span>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

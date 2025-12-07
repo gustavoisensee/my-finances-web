@@ -10,9 +10,7 @@ export default function MonthBudgetAddButton() {
 
   return (
     <>
-      <div className='tooltip tooltip-right flex items-center' data-tip='Add budget'>
-        <AddButton onClick={handleOpenModal} className='btn-xs' />
-      </div>
+      <AddButton onClick={handleOpenModal} label="Add Budget" />
 
       <Modal openModal={openModal} title='Add budget'>
         {openModal && (
@@ -22,7 +20,3 @@ export default function MonthBudgetAddButton() {
     </>
   )
 }
-
-
-
-

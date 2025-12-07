@@ -10,9 +10,7 @@ export default function MonthIncomeAddButton() {
 
   return (
     <>
-      <div className='tooltip tooltip-right' data-tip='Add income'>
-        <AddButton onClick={handleOpenModal} className='btn-xs' />
-      </div>
+      <AddButton onClick={handleOpenModal} label="Add Income" />
 
       <Modal openModal={openModal} title='Add new income'>
         {openModal && (
@@ -22,7 +20,3 @@ export default function MonthIncomeAddButton() {
     </>
   )
 }
-
-
-
-

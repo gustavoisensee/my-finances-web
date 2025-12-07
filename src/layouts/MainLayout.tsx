@@ -3,22 +3,36 @@ import { SignedIn, SignedOut } from '@clerk/clerk-react'
 import classNames from 'classnames'
 import SideMenu from '@/components/sidebar-menu/SideMenu'
 import Toast from '@/components/shared/Toast'
+import { useSidebarStore } from '@/stores/sidebarStore'
 
 export default function MainLayout() {
+  const isCollapsed = useSidebarStore((state) => state.isCollapsed);
+
   return (
     <>
       <SignedIn>
-        <div className='flex flex-1'>
-          <div className='bg-gray-50 w-full'>
-            <SideMenu />
+        <div className='relative min-h-screen w-screen max-w-full bg-base-100'>
+          <SideMenu />
+          <main className={classNames(
+            'flex flex-col min-h-screen',
+            'transition-all duration-300 ease-in-out',
+            'pt-20 lg:pt-0',
+            isCollapsed ? 'lg:pl-16' : 'lg:pl-64'
+          )}>
+            {/* Floating content card */}
             <div className={classNames(
-              'flex flex-1 h-full w-full overflow-auto bg-blue-100',
-              'p-4 px-4 sm:px-6 md:px-8 lg:ps-72 pt-20 lg:pt-4'
+              'flex flex-1 flex-col m-3 lg:m-4',
+              'bg-base-200/50',
+              'rounded-2xl lg:rounded-3xl',
+              'shadow-lg shadow-base-content/5',
+              'border border-base-300/50',
+              'p-5 sm:p-6 lg:p-8',
+              'overflow-auto'
             )}>
               <Outlet />
             </div>
-            <Toast />
-          </div>
+          </main>
+          <Toast />
         </div>
       </SignedIn>
       <SignedOut>
@@ -27,5 +41,3 @@ export default function MainLayout() {
     </>
   )
 }
-
-
