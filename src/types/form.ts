@@ -13,6 +13,11 @@ export interface MonthFormType extends FieldValues {
   yearId: number;
 };
 
+export interface MonthCopyFormType extends FieldValues {
+  value: number;
+  yearId: number;
+};
+
 export interface BudgetFormType extends FieldValues {
   id?: number;
   value: number;

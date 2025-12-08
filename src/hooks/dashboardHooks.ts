@@ -1,14 +1,15 @@
 import * as yup from 'yup';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { MonthFormType } from '@/types/form';
-import { createMonth, updateMonth } from '@/services/month';
+import { MonthFormType, MonthCopyFormType } from '@/types/form';
+import { createMonth, updateMonth, copyMonth } from '@/services/month';
 import { refreshDashboard } from '@/helpers/month';
 import { openAlert } from '@/helpers/alert';
 import { StateProps } from '@/components/shared/Toast';
+import { useYears } from '@/hooks/yearHooks';
 
 const monthRequired = 'Month is required!';
 const yearRequired = 'Year is required!';
@@ -46,14 +47,20 @@ const errorMessage: StateProps = {
 
 export const useMonthForm = ({ month, handleCloseModal }: Props) => {
   const navigate = useNavigate();
+  const { year } = useYears();
+
+  // Get current month (1-12)
+  const currentMonth = new Date().getMonth() + 1;
+
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<MonthFormType>({
     defaultValues: {
       id: month?.id || 0,
-      value: month?.value || 0,
+      value: month?.value || currentMonth,
       description: month?.description || '',
       createdAt: month?.createdAt || new Date().toISOString(),
       yearId: month?.yearId || 0
@@ -61,6 +68,13 @@ export const useMonthForm = ({ month, handleCloseModal }: Props) => {
     reValidateMode: 'onChange',
     resolver: yupResolver(schema)
   });
+
+  // Set yearId when year data becomes available (only for new months)
+  useEffect(() => {
+    if (!month && year?.id) {
+      setValue('yearId', year.id);
+    }
+  }, [month, year?.id, setValue]);
 
   const onSubmit: SubmitHandler<MonthFormType> = async (data) => {
     try {
@@ -91,17 +105,9 @@ export const useMonthForm = ({ month, handleCloseModal }: Props) => {
   }
 };
 
-// @@@@@@@@@@@@@@@@@@@@@@
 
-// import { useCallback, useState } from 'react';
 import { Month } from '@/types/month';
 import { deleteMonth } from '@/services/month';
-// import { obsAlert } from '@/helpers/alert';
-
-// import { StateProps } from '../shared/Toast';
-// import { obsDashboard } from '@/helpers/month';
-
-
 
 const successDeleteMonth: StateProps = {
   open: true,
@@ -140,3 +146,69 @@ export default function useMonthDeleteConfirmation({ month, handleCloseModal }: 
     handleSubmit
   }
 }
+
+// Copy Month Hook
+
+const copyMonthRequired = 'Month is required!';
+const copyYearRequired = 'Year is required!';
+
+const copySchema = yup.object({
+  value: yup.number().typeError(copyMonthRequired).min(1, copyMonthRequired).required(copyMonthRequired),
+  yearId: yup.number().typeError(copyYearRequired).min(1, copyYearRequired).required(copyYearRequired)
+});
+
+type UseMonthCopyForm = {
+  month: Month;
+  handleCloseModal: () => void;
+};
+
+const copySuccessMsg: StateProps = {
+  open: true,
+  type: 'success',
+  message: 'Month has been copied successfully!'
+};
+
+const copyErrorMsg: StateProps = {
+  open: true,
+  type: 'error',
+  message: 'Something went wrong, please try again!'
+};
+
+export const useMonthCopyForm = ({ month, handleCloseModal }: UseMonthCopyForm) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<MonthCopyFormType>({
+    defaultValues: {
+      value: month.value,
+      yearId: month.yearId
+    },
+    reValidateMode: 'onChange',
+    resolver: yupResolver(copySchema)
+  });
+
+  const onSubmit: SubmitHandler<MonthCopyFormType> = async (data) => {
+    try {
+      const r = await copyMonth(month.id, { value: data.value, yearId: data.yearId });
+
+      if (r) {
+        handleCloseModal();
+        openAlert(copySuccessMsg);
+        refreshDashboard();
+      } else {
+        openAlert(copyErrorMsg);
+      }
+    } catch (e) {
+      openAlert(copyErrorMsg);
+    }
+  };
+
+  return {
+    register,
+    handleSubmit,
+    onSubmit,
+    errors,
+    isSubmitting
+  }
+};

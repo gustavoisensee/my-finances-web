@@ -23,6 +23,7 @@ export default function Modal({ openModal, title, children }: Props) {
           children
         )}
       </div>
+      <div className='modal-backdrop bg-black/10 backdrop-blur-md transition-all duration-300 ease-out' />
     </dialog>
   )
 }

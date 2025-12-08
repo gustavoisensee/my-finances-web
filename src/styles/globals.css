@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Override DaisyUI modal scrollbar-gutter that creates empty space on the right */
+:root:has(:is(.modal-open, .modal:target, .modal-toggle:checked + .modal, .modal[open])) {
+  scrollbar-gutter: auto;
+}
+
+/* Smooth modal backdrop transitions */
+.modal-backdrop {
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+
+.modal-open .modal-backdrop {
+  opacity: 1;
+}
+
 html {
   height: 100%;
   overflow-x: hidden;

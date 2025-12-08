@@ -20,7 +20,7 @@ export default function MonthDeleteForm({ month, handleCloseModal }: Props) {
         <Divider className='-ml-6 -mr-6' />
 
         <div className='flex'>
-          <button className='btn btn-primary mr-2' onClick={handleSubmit}>Yes</button>
+          <button className='btn btn-error mr-2' onClick={handleSubmit}>Yes</button>
           <button className='btn' onClick={handleCloseModal}>No</button>
         </div>
       </>

@@ -4,6 +4,7 @@ import Modal from '../shared/Modal';
 import { useModal } from '@/hooks/modalHooks';
 import MonthDeleteForm from './MonthDeleteForm';
 import MonthForm from './MonthForm';
+import MonthCopyForm from './MonthCopyForm';
 
 type Props = {
   month: Month
@@ -22,6 +23,12 @@ export default function MonthContextMenu({ month }: Props) {
     handleCloseModal: handleCloseModalDelete
   } = useModal();
 
+  const {
+    openModal: openModalCopy,
+    handleOpenModal: handleOpenModalCopy,
+    handleCloseModal: handleCloseModalCopy
+  } = useModal();
+
   return (
     <>
       <div className='dropdown dropdown-left dropdown-start'>
@@ -30,6 +37,7 @@ export default function MonthContextMenu({ month }: Props) {
         </div>
         <ul tabIndex={0} className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52'>
           <li><button onClick={handleOpenModalEdit}>Edit</button></li>
+          <li><button onClick={handleOpenModalCopy}>Copy</button></li>
           <li><button onClick={handleOpenModalDelete}>Delete</button></li>
         </ul>
       </div>
@@ -40,6 +48,10 @@ export default function MonthContextMenu({ month }: Props) {
 
       <Modal openModal={openModalDelete} title='Delete month'>
         {openModalDelete && <MonthDeleteForm month={month} handleCloseModal={handleCloseModalDelete} />}
+      </Modal>
+
+      <Modal openModal={openModalCopy} title='Copy month'>
+        {openModalCopy && <MonthCopyForm month={month} handleCloseModal={handleCloseModalCopy} />}
       </Modal>
     </>
   );

@@ -16,3 +16,6 @@ export const updateMonth = (month: MonthFormType) =>
 
 export const deleteMonth = (id: number) =>
   apiClient.delete<{ id: number }>(`/month/${id}`);
+
+export const copyMonth = (monthId: number, data: { value: number; yearId: number }) =>
+  apiClient.post<Month>(`/month/${monthId}/copy`, data);
