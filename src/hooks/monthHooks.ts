@@ -5,12 +5,12 @@ import { obsMonth, obsDashboard, obsMonthById } from '@/helpers/month';
 import { getMonthByIdWithAllData, getMonths } from '@/services/month';
 import { Year as YearType } from '@/types/year';
 
-export const useMonths = () => {
+export const useMonths = (iBudgets: boolean = false, iExpenses: boolean = false) => {
   const [yearId, setYearId] = useState(0);
 
   const { data, error, isFetching, refetch } = useQuery({
     queryKey: ['months', yearId],
-    queryFn: () => getMonths(yearId),
+    queryFn: () => getMonths(yearId, iBudgets, iExpenses),
     staleTime: 2 * 60 * 1000, // 2 min
     retry: 3,
     enabled: yearId > 0

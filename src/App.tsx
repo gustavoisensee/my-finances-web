@@ -10,6 +10,7 @@ import MainLayout from '@/layouts/MainLayout'
 // Pages
 import LoginPage from '@/pages/LoginPage'
 import DashboardPage from '@/pages/DashboardPage'
+import ReportsPage from '@/pages/ReportsPage'
 import CategoryPage from '@/pages/CategoryPage'
 import MonthPage from '@/pages/MonthPage'
 
@@ -34,6 +35,7 @@ function AppContent() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/reports" element={<ReportsPage />} />
           <Route path="/category" element={<CategoryPage />} />
           <Route path="/month/:id" element={<MonthPage />} />
         </Route>

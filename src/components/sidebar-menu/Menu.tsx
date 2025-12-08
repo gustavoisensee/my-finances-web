@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { PanelLeftClose, LayoutDashboard, FolderKanban, Moon, Sun } from 'lucide-react';
+import { PanelLeftClose, LayoutDashboard, BarChart3, FolderKanban, Moon, Sun } from 'lucide-react';
 import classNames from 'classnames';
 
 import LoggedIn from '@/components/sidebar-menu/LoggedIn';
@@ -11,6 +11,7 @@ import { useThemeStore } from '@/stores/themeStore';
 const Menu = () => {
   const menuItems = useMemo(() => [
     { name: 'Dashboard', link: '/dashboard', icon: LayoutDashboard },
+    { name: 'Reports', link: '/reports', icon: BarChart3 },
     { name: 'Category', link: '/category', icon: FolderKanban }
   ], []);
 
