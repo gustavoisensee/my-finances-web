@@ -21,12 +21,13 @@ export default function MainLayout() {
           )}>
             {/* Floating content card */}
             <div className={classNames(
-              'flex flex-1 flex-col m-3 lg:m-4',
+              'flex flex-1 flex-col m-0',
+              isCollapsed ? 'sm:my-3 sm:mr-3 lg:my-4 lg:mr-4' : 'sm:m-3 lg:m-4',
               'bg-base-200/50',
-              'rounded-2xl lg:rounded-3xl',
+              'rounded-none sm:rounded-2xl lg:rounded-3xl',
               'shadow-lg shadow-base-content/5',
-              'border border-base-300/50',
-              'p-5 sm:p-6 lg:p-8',
+              'border-0 sm:border border-base-300/50',
+              'p-3 sm:p-5 lg:p-8',
               'overflow-auto'
             )}>
               <Outlet />

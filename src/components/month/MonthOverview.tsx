@@ -113,8 +113,8 @@ export default function MonthOverview({ month }: Props) {
       </div>
 
       {/* Incomes Section */}
-      <div className='bg-base-100 rounded-2xl border border-base-300 shadow-sm overflow-hidden'>
-        <div className='flex items-center justify-between p-5 border-b border-base-200 bg-base-200/30'>
+      <div className='bg-base-100 rounded-xl sm:rounded-2xl border border-base-300 shadow-sm overflow-hidden'>
+        <div className='flex items-center justify-between p-3 sm:p-5 border-b border-base-200 bg-base-200/30'>
           <div className='flex items-center gap-3'>
             <div className='flex items-center justify-center w-10 h-10 rounded-lg bg-success/20'>
               <TrendingUp className='w-5 h-5 text-success' />
@@ -126,7 +126,7 @@ export default function MonthOverview({ month }: Props) {
           </div>
           <AddIncome />
         </div>
-        <div className='p-5'>
+        <div className='p-3 sm:p-5'>
           {month?.incomes?.length > 0 ? (
             <MonthIncomes incomes={month.incomes} />
           ) : (
@@ -139,8 +139,8 @@ export default function MonthOverview({ month }: Props) {
       </div>
 
       {/* Budgets Section */}
-      <div className='bg-base-100 rounded-2xl border border-base-300 shadow-sm overflow-hidden'>
-        <div className='flex items-center justify-between p-5 border-b border-base-200 bg-base-200/30'>
+      <div className='bg-base-100 rounded-xl sm:rounded-2xl border border-base-300 shadow-sm overflow-hidden'>
+        <div className='flex items-center justify-between p-3 sm:p-5 border-b border-base-200 bg-base-200/30'>
           <div className='flex items-center gap-3'>
             <div className='flex items-center justify-center w-10 h-10 rounded-lg bg-secondary/20'>
               <Wallet className='w-5 h-5 text-secondary' />
@@ -152,7 +152,7 @@ export default function MonthOverview({ month }: Props) {
           </div>
           <AddBudget />
         </div>
-        <div className='p-5'>
+        <div className='p-3 sm:p-5'>
           {month?.budgets?.length > 0 ? (
             <MonthBudgets budgets={month.budgets} />
           ) : (

@@ -82,7 +82,7 @@ export default function DashboardPage() {
       {/* Months Section */}
       <div className='flex flex-col gap-5'>
         {/* Controls */}
-        <div className='flex items-center'>
+        <div className='flex items-center pt-5 border-t border-base-300'>
           <Year />
           <AddNewMonth />
         </div>

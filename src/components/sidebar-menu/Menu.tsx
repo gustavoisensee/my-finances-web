@@ -22,7 +22,7 @@ const Menu = () => {
   return (
     <div className='flex flex-1 flex-col bg-base-100 w-full'>
       {/* Header */}
-      <div className='px-5 py-5 flex items-center justify-between border-b border-base-200'>
+      <div className='px-3 py-4 lg:pr-0 flex items-center justify-between border-b border-base-200'>
         <BrandTitle />
         <button
           onClick={toggleSidebar}
@@ -38,7 +38,7 @@ const Menu = () => {
       </div>
 
       {/* Navigation */}
-      <div className='flex flex-1 flex-col px-3 py-4'>
+      <div className='flex flex-1 flex-col px-3 py-4 lg:pr-0'>
         <p className='px-3 mb-2 text-xs font-semibold text-base-content/40 uppercase tracking-wider'>
           Menu
         </p>
