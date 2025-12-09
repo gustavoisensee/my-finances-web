@@ -5,9 +5,10 @@ import Form from './MonthBudgetExpenseForm';
 
 type Props = {
   budgetId: number;
+  budgetName: string;
 }
 
-export default function MonthBudgetExpenseAddButton({ budgetId }: Props) {
+export default function MonthBudgetExpenseAddButton({ budgetId, budgetName }: Props) {
   const {
     openModal, handleOpenModal, handleCloseModal
   } = useModal();
@@ -27,6 +28,7 @@ export default function MonthBudgetExpenseAddButton({ budgetId }: Props) {
         {openModal && (
           <Form
             budgetId={budgetId}
+            budgetName={budgetName}
             handleCloseModal={handleCloseModal}
           />
         )}

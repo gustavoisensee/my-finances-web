@@ -24,6 +24,7 @@ const schema = yup.object({
 type Props = {
   expense?: Expense,
   budgetId: number;
+  budgetName?: string;
   handleCloseModal: () => void;
 }
 
@@ -51,7 +52,7 @@ const errorMessage: StateProps = {
   message: 'Something went wrong, please try again!'
 };
 
-export const useExpenseForm = ({ expense, budgetId, handleCloseModal }: Props) => {
+export const useExpenseForm = ({ expense, budgetId, budgetName, handleCloseModal }: Props) => {
   const {
     register,
     handleSubmit,
@@ -60,7 +61,7 @@ export const useExpenseForm = ({ expense, budgetId, handleCloseModal }: Props) =
     defaultValues: {
       id: expense?.id,
       value: expense?.value || 0,
-      description: expense?.description || '',
+      description: expense?.description || budgetName || '',
       createdAt: expense?.createdAt || new Date().toISOString(),
       budgetId,
       categoryId: expense?.categoryId || 0

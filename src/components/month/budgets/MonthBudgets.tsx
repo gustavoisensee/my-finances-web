@@ -83,7 +83,7 @@ const MonthBudgets = ({ budgets }: Props) => {
 
                     {/* Add Expense Button */}
                     <div className='mt-3'>
-                      <AddExpense budgetId={budget.id || 0} />
+                      <AddExpense budgetId={budget.id || 0} budgetName={budget.description} />
                     </div>
                   </div>
                 </div>

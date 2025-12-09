@@ -12,13 +12,14 @@ import { Expense } from '@/types/month';
 type Props = {
   expense?: Expense,
   budgetId: number;
+  budgetName?: string;
   handleCloseModal: () => void;
 }
 
-export default function MonthBudgetExpenseForm({ expense, budgetId, handleCloseModal }: Props) {
+export default function MonthBudgetExpenseForm({ expense, budgetId, budgetName, handleCloseModal }: Props) {
   const {
     register, handleSubmit, onSubmit, errors, isSubmitting
-  } = useExpenseForm({ expense, budgetId, handleCloseModal });
+  } = useExpenseForm({ expense, budgetId, budgetName, handleCloseModal });
 
   const { isFetching, data: categories } = useCategories();
 
