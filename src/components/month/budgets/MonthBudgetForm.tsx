@@ -1,4 +1,5 @@
 import TextInput from '../../form/TextInput';
+import ColorPicker from '../../form/ColorPicker';
 import Divider from '../../shared/Divider';
 import { useBudgetForm } from '@/hooks/budgetHooks';
 import { getError } from '@/helpers/form';
@@ -12,7 +13,7 @@ type Props = {
 
 export default function MonthBudgetForm({ budget, handleCloseModal }: Props) {
   const {
-    register, handleSubmit, onSubmit, errors, isSubmitting
+    register, handleSubmit, onSubmit, errors, isSubmitting, color, setColor
   } = useBudgetForm({ budget, handleCloseModal });
 
   return (
@@ -27,6 +28,12 @@ export default function MonthBudgetForm({ budget, handleCloseModal }: Props) {
         type='number'
         title='Cost'
         error={getError(errors, 'value')}
+      />
+
+      <ColorPicker
+        value={color}
+        onChange={setColor}
+        title='Color'
       />
 
       <Divider className='-ml-6 -mr-6' />

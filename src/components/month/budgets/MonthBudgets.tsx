@@ -23,9 +23,17 @@ const MonthBudgets = ({ budgets }: Props) => {
         {budgets.map((budget, i) => {
           const budgetRemaining = budget.value - getTotal(budget.expenses);
           const expenseCount = budget.expenses?.length || 0;
+          const hasColor = !!budget.color;
           
           return (
-            <div key={i} className='border border-base-300 rounded-xl overflow-hidden bg-base-100'>
+            <div 
+              key={i} 
+              className={cn(
+                'rounded-xl overflow-hidden bg-base-100 border',
+                !hasColor && 'border-base-300'
+              )}
+              style={hasColor ? { borderColor: `${budget.color}40` } : undefined}
+            >
               <div className='collapse'>
                 <input type='checkbox' name={`budget-${i}`} className='min-h-0' />
                 
@@ -33,8 +41,17 @@ const MonthBudgets = ({ budgets }: Props) => {
                 <div className='collapse-title flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 p-3 sm:p-4 min-h-0'>
                   {/* Top row on mobile: Icon, Title, Actions */}
                   <div className='flex items-center gap-3 w-full sm:w-auto sm:flex-1 sm:min-w-0'>
-                    <div className='flex items-center justify-center w-10 h-10 shrink-0 rounded-lg bg-secondary/10'>
-                      <Wallet className='w-5 h-5 text-secondary' />
+                    <div 
+                      className={cn(
+                        'flex items-center justify-center w-10 h-10 shrink-0 rounded-lg',
+                        !hasColor && 'bg-secondary/10'
+                      )}
+                      style={hasColor ? { backgroundColor: `${budget.color}20` } : undefined}
+                    >
+                      <Wallet 
+                        className={cn('w-5 h-5', !hasColor && 'text-secondary')} 
+                        style={hasColor ? { color: budget.color } : undefined}
+                      />
                     </div>
                     <div className='flex-1 min-w-0'>
                       <p className='font-medium text-base-content truncate'>{budget.description}</p>

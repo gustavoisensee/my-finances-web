@@ -22,6 +22,7 @@ export interface BudgetFormType extends FieldValues {
   id?: number;
   value: number;
   description: string;
+  color?: string;
   createdAt: string;
   monthId: number;
 };

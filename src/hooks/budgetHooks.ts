@@ -17,6 +17,7 @@ const descriptionRequired = 'Description is required!';
 const schema = yup.object({
   value: yup.number().typeError(valueRequired).required(valueRequired),
   description: yup.string().required(descriptionRequired),
+  color: yup.string().optional(),
   createdAt: yup.string().required('Create date is required!'),
   monthId: yup.number().min(1, monthRequired).required(monthRequired)
 });
@@ -55,18 +56,24 @@ export const useBudgetForm = ({ budget, handleCloseModal }: Props) => {
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<BudgetFormType>({
     defaultValues: {
       id: budget?.id || 0,
       value: budget?.value || 0,
       description: budget?.description || '',
+      color: budget?.color || undefined,
       createdAt: budget?.createdAt || new Date().toISOString(),
       monthId: Number(id) || 0
     },
     reValidateMode: 'onChange',
     resolver: yupResolver(schema)
   });
+
+  const color = watch('color');
+  const setColor = (value: string | undefined) => setValue('color', value);
 
   const onSubmit: SubmitHandler<BudgetFormType> = async (data) => {
     try {
@@ -90,7 +97,9 @@ export const useBudgetForm = ({ budget, handleCloseModal }: Props) => {
     handleSubmit,
     onSubmit,
     errors,
-    isSubmitting
+    isSubmitting,
+    color,
+    setColor
   }
 };
 
