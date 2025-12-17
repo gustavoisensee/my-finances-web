@@ -10,3 +10,6 @@ export const updateBudget = (budget: BudgetFormType) =>
 
 export const deleteBudget = (id: number) => 
   apiClient.delete<{ id: number }>(`/budget/${id}`);
+
+export const reorderBudgets = (monthId: number, budgetIds: number[]) =>
+  apiClient.put<void>('/budget/reorder', { monthId, budgetIds });

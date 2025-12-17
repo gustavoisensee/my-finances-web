@@ -10,3 +10,6 @@ export const updateIncome = (income: IncomeFormType) =>
 
 export const deleteIncome = (id: number) => 
   apiClient.delete<{ id: number }>(`/income/${id}`);
+
+export const reorderIncomes = (monthId: number, incomeIds: number[]) =>
+  apiClient.put<void>('/income/reorder', { monthId, incomeIds });

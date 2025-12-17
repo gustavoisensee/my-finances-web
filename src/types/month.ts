@@ -3,6 +3,7 @@ export type Income = {
   description: string;
   value: number;
   createdAt: string;
+  index?: number;
 }
 
 export type Expense = {
@@ -20,6 +21,7 @@ export type Budget = {
   color?: string;
   createdAt: string;
   expenses: Expense[];
+  index?: number;
 }
 
 export type Month = {
