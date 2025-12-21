@@ -18,8 +18,7 @@ type Props = {
 }
 
 const MonthBudgets = ({ budgets }: Props) => {
-  const { totalExpenses, totalBudgets } = getTotals(budgets);
-  const remaining = totalBudgets - totalExpenses;
+  const { totalBudgets } = getTotals(budgets);
   const { orderedBudgets, handleDragEnd } = useReorderBudgets(budgets);
 
   const sensors = useSensors(
@@ -77,7 +76,7 @@ const MonthBudgets = ({ budgets }: Props) => {
                             />
                           </div>
                           <div className='flex-1 min-w-0'>
-                            <p className='font-medium text-base-content truncate'>{budget.description}</p>
+                            <p className='font-medium text-base-content line-clamp-2'>{budget.description}</p>
                             <p className='text-xs text-base-content/50'>{expenseCount} expense{expenseCount !== 1 ? 's' : ''}</p>
                           </div>
                           {/* Actions visible only on mobile in top row */}
@@ -141,21 +140,6 @@ const MonthBudgets = ({ budgets }: Props) => {
         <div className='flex items-center justify-between p-3 sm:p-4 bg-secondary/10 rounded-xl border border-secondary/20'>
           <span className='font-medium text-secondary'>Total Budgets</span>
           <span className='text-xl font-bold text-secondary'>{euro(totalBudgets)}</span>
-        </div>
-        <div className={cn(
-          'flex items-center justify-between p-3 sm:p-4 rounded-xl border',
-          remaining >= 0 
-            ? 'bg-warning/10 border-warning/20' 
-            : 'bg-error/10 border-error/20'
-        )}>
-          <span className={cn(
-            'font-medium',
-            remaining >= 0 ? 'text-warning' : 'text-error'
-          )}>Remaining</span>
-          <span className={cn(
-            'text-xl font-bold',
-            remaining >= 0 ? 'text-warning' : 'text-error'
-          )}>{euro(remaining)}</span>
         </div>
       </div>
     </div>
