@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import TextInput from '../../../form/TextInput';
 import Divider from '../../../shared/Divider';
@@ -18,10 +18,18 @@ type Props = {
 
 export default function MonthBudgetExpenseForm({ expense, budgetId, budgetName, handleCloseModal }: Props) {
   const {
-    register, handleSubmit, onSubmit, errors, isSubmitting
+    register, handleSubmit, onSubmit, errors, isSubmitting, setValue, watch
   } = useExpenseForm({ expense, budgetId, budgetName, handleCloseModal });
 
   const { isFetching, data: categories } = useCategories();
+  const currentCategoryId = watch('categoryId');
+
+  // Pre-select first category when adding new expense
+  useEffect(() => {
+    if (!expense && categories.length > 0 && !currentCategoryId) {
+      setValue('categoryId', categories[0].id);
+    }
+  }, [expense, categories, currentCategoryId, setValue]);
 
   const categoryOptions = useMemo(() =>
     categories.map((y) => ({ value: y.id, label: y.name })), [categories]);

@@ -28,7 +28,8 @@ export default function MainLayout() {
               'shadow-lg shadow-base-content/5',
               'border-0 sm:border border-base-300/50',
               'p-3 sm:p-5 lg:p-8',
-              'overflow-auto'
+              'overflow-auto',
+              'max-w-[1920px]'
             )}>
               <Outlet />
             </div>

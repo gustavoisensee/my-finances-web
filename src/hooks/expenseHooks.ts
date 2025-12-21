@@ -56,6 +56,8 @@ export const useExpenseForm = ({ expense, budgetId, budgetName, handleCloseModal
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<ExpenseFormType>({
     defaultValues: {
@@ -92,7 +94,9 @@ export const useExpenseForm = ({ expense, budgetId, budgetName, handleCloseModal
     handleSubmit,
     onSubmit,
     errors,
-    isSubmitting
+    isSubmitting,
+    setValue,
+    watch
   }
 };
 
