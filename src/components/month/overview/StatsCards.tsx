@@ -84,7 +84,7 @@ export default function StatsCards({
       {/* Budget Remaining - Mobile only (sticky with React) */}
       <div
         ref={remainingCardRef}
-        className="sm:hidden flex items-center gap-4 p-4 bg-base-100 relative rounded-2xl border border-base-300 shadow-sm"
+        className="sm:hidden flex items-center gap-4 p-4 bg-base-100 relative rounded-2xl border-t border-b border-base-300 shadow-sm"
       >
         <div
           className={cn(
