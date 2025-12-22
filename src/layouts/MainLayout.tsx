@@ -16,7 +16,7 @@ export default function MainLayout() {
           <main className={classNames(
             'flex flex-col min-h-screen',
             'transition-all duration-300 ease-in-out',
-            'pt-20 lg:pt-0',
+            'pt-16 lg:pt-0',
             isCollapsed ? 'lg:pl-16' : 'lg:pl-64'
           )}>
             {/* Floating content card */}

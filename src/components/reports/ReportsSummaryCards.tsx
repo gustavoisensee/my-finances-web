@@ -9,7 +9,7 @@ type Props = {
 
 export default function ReportsSummaryCards({ totalExpenses, netSavings, totalBudgets }: Props) {
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
+    <div className='grid grid-cols-2 lg:grid-cols-3 gap-4'>
       {/* Total Expenses Card */}
       <div className='group relative overflow-hidden rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 p-5 text-white shadow-lg shadow-rose-500/20 transition-all hover:shadow-xl hover:shadow-rose-500/30'>
         <div className='absolute -right-4 -top-4 h-24 w-24 rounded-full bg-white/10 blur-2xl' />
@@ -41,7 +41,7 @@ export default function ReportsSummaryCards({ totalExpenses, netSavings, totalBu
       </div>
 
       {/* Budget Count Card */}
-      <div className='group relative overflow-hidden rounded-2xl bg-gradient-to-br from-cyan-500 to-teal-600 p-5 text-white shadow-lg shadow-cyan-500/20 transition-all hover:shadow-xl hover:shadow-cyan-500/30 sm:col-span-2 lg:col-span-1'>
+      <div className='group relative overflow-hidden rounded-2xl bg-gradient-to-br from-cyan-500 to-teal-600 p-5 text-white shadow-lg shadow-cyan-500/20 transition-all hover:shadow-xl hover:shadow-cyan-500/30 col-span-1'>
         <div className='absolute -right-4 -top-4 h-24 w-24 rounded-full bg-white/10 blur-2xl' />
         <div className='relative'>
           <div className='flex items-center gap-3 mb-3'>

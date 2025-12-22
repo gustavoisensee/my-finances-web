@@ -20,6 +20,14 @@ const Menu = () => {
   const toggleSidebar = useSidebarStore((state) => state.toggleSidebar);
   const { theme, toggleTheme } = useThemeStore();
 
+  // Close mobile drawer when clicking a menu item
+  const closeMobileDrawer = () => {
+    const drawer = document.getElementById('my-drawer') as HTMLInputElement;
+    if (drawer) {
+      drawer.checked = false;
+    }
+  };
+
   return (
     <div className='flex flex-1 flex-col bg-base-100 w-full'>
       {/* Header */}
@@ -48,6 +56,7 @@ const Menu = () => {
             <Link
               key={i}
               to={link}
+              onClick={closeMobileDrawer}
               className={classNames(
                 'flex items-center gap-3 py-2.5 px-3 rounded-xl',
                 'transition-all duration-200 group',
