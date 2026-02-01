@@ -28,3 +28,5 @@ export function AddButton({ onClick, className, label }: Props) {
     </button>
   )
 }
+
+export default AddButton;

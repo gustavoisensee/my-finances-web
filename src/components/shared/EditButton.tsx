@@ -3,13 +3,15 @@ import cn from 'classnames';
 
 type Props = {
   onClick: (x?: unknown) => void | unknown;
+  disabled?: boolean;
 }
 
-export default function EditButton({ onClick }: Props) {
+export default function EditButton({ onClick, disabled }: Props) {
   return (
     <button
       type='button'
       onClick={onClick}
+      disabled={disabled}
       className={cn(
         'flex z-10 justify-center items-center',
         'h-6 w-7 sm:h-8 sm:w-8', // Larger touch target on mobile

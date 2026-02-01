@@ -11,12 +11,12 @@ export interface MonthFormType extends FieldValues {
   description?: string;
   createdAt: string;
   yearId: number;
-};
+}
 
 export interface MonthCopyFormType extends FieldValues {
   value: number;
   yearId: number;
-};
+}
 
 export interface BudgetFormType extends FieldValues {
   id?: number;
@@ -25,7 +25,7 @@ export interface BudgetFormType extends FieldValues {
   color?: string;
   createdAt: string;
   monthId: number;
-};
+}
 
 export interface IncomeFormType extends FieldValues {
   id?: number;
@@ -33,7 +33,7 @@ export interface IncomeFormType extends FieldValues {
   description: string;
   createdAt: string;
   monthId: number;
-};
+}
 
 export interface ExpenseFormType extends FieldValues {
   id?: number,
@@ -42,4 +42,4 @@ export interface ExpenseFormType extends FieldValues {
   createdAt: string;
   budgetId: number;
   categoryId?: number;
-};
+}

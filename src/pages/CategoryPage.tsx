@@ -1,8 +1,10 @@
+
 import CanNotFetchData from '@/components/shared/CanNotFetchData';
 import CategoryTable from '@/components/category/CategoryTable';
 import Loading from '@/components/shared/Loading';
 import { useCategories } from '@/hooks/categoryHooks';
 import { FolderKanban } from 'lucide-react';
+import Toast from '@/components/shared/Toast';
 
 export default function CategoryPage() {
   const { data, isFetching, error } = useCategories();
@@ -10,6 +12,7 @@ export default function CategoryPage() {
 
   return (
     <div className='flex flex-1 flex-col gap-6'>
+      <Toast />
       {/* Header Section */}
       <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
         <div className='flex flex-col gap-2'>

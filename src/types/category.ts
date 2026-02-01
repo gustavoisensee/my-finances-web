@@ -1,5 +1,6 @@
 export type Category = {
-  id: number,
+  id: number;
   name: string;
-  userId: number;
+  userId: number | null;
+  expenseCount: number;
 }

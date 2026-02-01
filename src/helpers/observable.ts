@@ -1,11 +1,14 @@
-class Observable {
-  private observers: ((data?: any) => void | unknown)[] = [];
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ObserverCallback = (data?: any) => void | unknown;
 
-  subscribe(func: (data?: any) => void | unknown): void {
+class Observable {
+  private observers: ObserverCallback[] = [];
+
+  subscribe(func: ObserverCallback): void {
     this.observers?.push?.(func);
   }
 
-  unsubscribe(func: (data?: any) => void | unknown): void {
+  unsubscribe(func: ObserverCallback): void {
     this.observers = this.observers?.filter?.((observer) => observer !== func);
   }
 
