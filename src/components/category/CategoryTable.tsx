@@ -2,17 +2,15 @@ import { Category } from '@/types/category';
 import { Tag, Shield, User } from 'lucide-react';
 import cn from 'classnames';
 import { useState } from 'react';
-import AddButton from '../shared/AddButton';
 import EditButton from '../shared/EditButton';
 import DeleteButton from '../shared/DeleteButton';
 import CategoryModal from './CategoryModal';
-import { useCreateCategory, useUpdateCategory, useDeleteCategory } from '@/hooks/categoryHooks';
+import { useUpdateCategory, useDeleteCategory } from '@/hooks/categoryHooks';
 
 const isSystemCategory = (userId: number | null) => userId === null;
 
 type Props = {
   data: Category[];
-  currentUserId: number;
 }
 
 const AdminBadge = () => (
@@ -48,14 +46,8 @@ const CategoryTable = ({ data }: Props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editCategory, setEditCategory] = useState<Category | null>(null);
   const [deleteLoading, setDeleteLoading] = useState<number | null>(null);
-  const createMutation = useCreateCategory();
   const updateMutation = useUpdateCategory();
   const deleteMutation = useDeleteCategory();
-
-  const handleAdd = () => {
-    setEditCategory(null);
-    setModalOpen(true);
-  };
 
   const handleEdit = (cat: Category) => {
     setEditCategory(cat);
@@ -71,10 +63,8 @@ const CategoryTable = ({ data }: Props) => {
   const handleSubmit = (data: { name: string }) => {
     if (editCategory) {
       updateMutation.mutate({ id: editCategory.id, data });
-    } else {
-      createMutation.mutate(data);
+      setModalOpen(false);
     }
-    setModalOpen(false);
   };
 
   const canEdit = (cat: Category) => !isSystemCategory(cat.userId);
@@ -98,7 +88,6 @@ const CategoryTable = ({ data }: Props) => {
           <span className='text-xs font-semibold text-base-content/50 uppercase tracking-wider'>Category</span>
           <span className='text-xs font-semibold text-base-content/50 uppercase tracking-wider text-right'>Owner</span>
         </div>
-        <AddButton onClick={handleAdd} />
       </div>
 
       <div className='divide-y divide-base-200'>
@@ -159,7 +148,7 @@ const CategoryTable = ({ data }: Props) => {
         onClose={() => setModalOpen(false)}
         onSubmit={handleSubmit}
         initialData={editCategory}
-        loading={createMutation.isPending || updateMutation.isPending}
+        loading={updateMutation.isPending}
       />
     </div>
   );

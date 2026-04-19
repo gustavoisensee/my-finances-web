@@ -1,13 +1,23 @@
+import { useState } from 'react';
 import CanNotFetchData from '@/components/shared/CanNotFetchData';
 import CategoryTable from '@/components/category/CategoryTable';
+import CategoryModal from '@/components/category/CategoryModal';
 import Loading from '@/components/shared/Loading';
-import { useCategories } from '@/hooks/categoryHooks';
+import AddButton from '@/components/shared/AddButton';
+import { useCategories, useCreateCategory } from '@/hooks/categoryHooks';
 import { FolderKanban } from 'lucide-react';
 import Toast from '@/components/shared/Toast';
 
 export default function CategoryPage() {
-  const { data, currentUserId, isFetching, error } = useCategories();
+  const { data, isFetching, error } = useCategories();
   const categoryCount = data?.length || 0;
+  const [addModalOpen, setAddModalOpen] = useState(false);
+  const createMutation = useCreateCategory();
+
+  const handleAddSubmit = (formData: { name: string }) => {
+    createMutation.mutate(formData);
+    setAddModalOpen(false);
+  };
 
   return (
     <div className='flex flex-1 flex-col gap-6'>
@@ -34,14 +44,24 @@ export default function CategoryPage() {
               </div>
             </div>
           )}
+          {!isFetching && data && (
+            <AddButton onClick={() => setAddModalOpen(true)} />
+          )}
         </div>
       </div>
 
       <div>
         {isFetching && <Loading />}
         {!isFetching && error && <CanNotFetchData />}
-        {!isFetching && data && <CategoryTable data={data} currentUserId={currentUserId} />}
+        {!isFetching && data && <CategoryTable data={data} />}
       </div>
+
+      <CategoryModal
+        open={addModalOpen}
+        onClose={() => setAddModalOpen(false)}
+        onSubmit={handleAddSubmit}
+        loading={createMutation.isPending}
+      />
     </div>
   )
 }
