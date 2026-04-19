@@ -1,17 +1,26 @@
 import { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { obsMonth, obsDashboard, obsMonthById } from '@/helpers/month';
 import { getMonthByIdWithAllData, getMonths } from '@/services/month';
+import { getSessionYear } from '@/helpers/year';
 import { Year as YearType } from '@/types/year';
 
+const getInitialYearId = (queryClient: ReturnType<typeof useQueryClient>): number => {
+  const cachedYears = queryClient.getQueryData<YearType[]>(['years']);
+  if (!cachedYears) return 0;
+  const sessionYear = getSessionYear();
+  return cachedYears.find((y) => y.value === sessionYear)?.id ?? 0;
+};
+
 export const useMonths = (iBudgets: boolean = false, iExpenses: boolean = false) => {
-  const [yearId, setYearId] = useState(0);
+  const queryClient = useQueryClient();
+  const [yearId, setYearId] = useState(() => getInitialYearId(queryClient));
 
   const { data, error, isFetching, refetch } = useQuery({
     queryKey: ['months', yearId],
     queryFn: () => getMonths(yearId, iBudgets, iExpenses),
-    staleTime: 2 * 60 * 1000, // 2 min
+    staleTime: 2 * 60 * 1000,
     retry: 3,
     enabled: yearId > 0
   });

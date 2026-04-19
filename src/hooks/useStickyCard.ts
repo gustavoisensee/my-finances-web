@@ -90,7 +90,7 @@ export const useStickyCard = () => {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll);
+    window.addEventListener("resize", handleScroll, { passive: true });
     handleScroll(); // Check initial position
 
     return () => {

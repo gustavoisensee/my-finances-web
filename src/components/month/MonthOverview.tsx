@@ -1,12 +1,13 @@
+import { useMemo } from 'react';
 import { Month as MonthType } from '@/types/month';
 import { getTotal } from '@/helpers/currency';
 import { getTotals } from '@/helpers/totals';
 import { useStickyCard } from '@/hooks/useStickyCard';
-import { 
-  MonthOverviewHeader, 
-  StatsCards, 
-  IncomesSection, 
-  BudgetsSection 
+import {
+  MonthOverviewHeader,
+  StatsCards,
+  IncomesSection,
+  BudgetsSection
 } from './overview';
 
 type Props = {
@@ -14,8 +15,8 @@ type Props = {
 }
 
 export default function MonthOverview({ month }: Props) {
-  const totalIncome = getTotal(month.incomes);
-  const { totalBudgets, totalExpenses } = getTotals(month.budgets);
+  const totalIncome = useMemo(() => getTotal(month.incomes), [month.incomes]);
+  const { totalBudgets, totalExpenses } = useMemo(() => getTotals(month.budgets), [month.budgets]);
   const budgetsLeft = totalBudgets - totalExpenses;
   const isBalanced = totalIncome === totalBudgets;
   const isOverBudget = totalBudgets > totalIncome;

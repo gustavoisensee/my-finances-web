@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 export const getSessionYear = () => {
-  return Number(global?.sessionStorage?.getItem('year') || dayjs().year());
+  return Number(sessionStorage.getItem('year') || dayjs().year());
 }
 
 export const setSessionYear = (year: number) => {

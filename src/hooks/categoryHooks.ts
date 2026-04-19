@@ -1,4 +1,3 @@
-
 import { getCategories, createCategory, updateCategory, deleteCategory } from '@/services/category';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { openAlert } from '@/helpers/alert';
@@ -12,12 +11,16 @@ export const useCategories = () => {
   const { data, error, isFetching } = useQuery({
     queryKey: ['categories'],
     queryFn: getCategories,
-    staleTime: 2 * 60 * 1000, // 2 min
+    staleTime: 2 * 60 * 1000,
     retry: 3
   });
 
+  const categories = data ?? [];
+  const currentUserId = categories.find((c) => c.userId !== null)?.userId ?? 0;
+
   return {
-    data: data || [],
+    data: categories,
+    currentUserId,
     error,
     isFetching
   }

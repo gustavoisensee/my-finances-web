@@ -1,10 +1,9 @@
 import { createRoot } from "react-dom/client";
-import { ClerkProvider } from "@clerk/clerk-react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import App from "./App";
 import "./styles/globals.css";
+import { AuthProvider } from "./contexts/AuthContext";
 
-// Initialize theme from localStorage before render
 const savedTheme = localStorage.getItem('theme-storage');
 if (savedTheme) {
   try {
@@ -19,13 +18,6 @@ if (savedTheme) {
   document.documentElement.setAttribute('data-theme', 'light');
 }
 
-// Import your Publishable Key
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || "";
-
-if (!PUBLISHABLE_KEY) {
-  console.warn("Add your Clerk Publishable Key to the .env file");
-}
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -36,9 +28,9 @@ const queryClient = new QueryClient({
 });
 
 createRoot(document.getElementById("root")!).render(
-  <ClerkProvider publishableKey={PUBLISHABLE_KEY || ""}>
+  <AuthProvider>
     <QueryClientProvider client={queryClient}>
       <App />
     </QueryClientProvider>
-  </ClerkProvider>
+  </AuthProvider>
 );

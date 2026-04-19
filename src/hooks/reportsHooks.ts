@@ -20,6 +20,16 @@ export const CHART_COLORS = {
   ],
 };
 
+export const CHART_TOOLTIP_STYLE = {
+  contentStyle: {
+    backgroundColor: 'oklch(var(--b1))',
+    border: '1px solid oklch(var(--b3))',
+    borderRadius: '0.75rem',
+  },
+  labelStyle: { color: 'oklch(var(--bc))' },
+  itemStyle: { color: 'oklch(var(--bc))' },
+} as const;
+
 export type BarChartDataItem = {
   name: string;
   income: number;
@@ -80,42 +90,35 @@ export const useReports = () => {
     return data.reduce((acc, month) => acc + (month.budgets?.length || 0), 0);
   }, [data]);
 
-  // Prepare data for Monthly Income vs Expenses Bar Chart
-  const barChartData = useMemo<BarChartDataItem[]>(() => {
-    if (!data) return [];
-    return data.map((month) => {
-      const income = getTotal(month.incomes || []);
-      const budgets = month.budgets || [];
-      const expenses = budgets.reduce((acc, budget) => acc + getTotal(budget.expenses || []), 0);
-      return {
-        name: Months[month.description] || month.description,
-        income,
-        expenses,
-      };
-    }).sort((a, b) => {
-      const monthOrder = Object.values(Months);
-      return monthOrder.indexOf(a.name) - monthOrder.indexOf(b.name);
-    });
-  }, [data]);
+  const monthOrder = useMemo(() => Object.values(Months), []);
 
-  // Prepare data for Financial Trend Line Chart
-  const lineChartData = useMemo<LineChartDataItem[]>(() => {
-    if (!data) return [];
-    return data.map((month) => {
+  const { barChartData, lineChartData } = useMemo(() => {
+    if (!data) return { barChartData: [] as BarChartDataItem[], lineChartData: [] as LineChartDataItem[] };
+
+    const bar: BarChartDataItem[] = [];
+    const line: LineChartDataItem[] = [];
+
+    for (const month of data) {
       const income = getTotal(month.incomes || []);
       const budgets = month.budgets || [];
       const expenses = budgets.reduce((acc, budget) => acc + getTotal(budget.expenses || []), 0);
-      return {
-        name: Months[month.description]?.substring(0, 3) || month.description,
+      const fullName = Months[month.description] || month.description;
+
+      bar.push({ name: fullName, income, expenses });
+      line.push({
+        name: fullName.substring(0, 3),
         income,
         expenses,
         savings: income - expenses,
-      };
-    }).sort((a, b) => {
-      const monthOrder = Object.values(Months).map(m => m.substring(0, 3));
-      return monthOrder.indexOf(a.name) - monthOrder.indexOf(b.name);
-    });
-  }, [data]);
+      });
+    }
+
+    bar.sort((a, b) => monthOrder.indexOf(a.name) - monthOrder.indexOf(b.name));
+    const shortOrder = monthOrder.map(m => m.substring(0, 3));
+    line.sort((a, b) => shortOrder.indexOf(a.name) - shortOrder.indexOf(b.name));
+
+    return { barChartData: bar, lineChartData: line };
+  }, [data, monthOrder]);
 
   // Prepare data for Category Distribution Pie Chart
   const pieChartData = useMemo<PieChartDataItem[]>(() => {

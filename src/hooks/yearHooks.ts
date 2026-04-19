@@ -26,9 +26,7 @@ export const useYears = () => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      if (year) obsMonth.notify(year);
-    }, 0);
+    if (year) obsMonth.notify(year);
   }, [year])
 
   return {

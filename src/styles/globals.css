@@ -2,26 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Hide Clerk development mode badge */
-.cl-internal-b3fm6y {
-  display: none !important;
-}
-
-/* Fix Clerk "Last used" badge positioning to prevent overlap with button text */
-.cl-socialButtonsBlockButton {
-  padding-top: 0.75rem !important;
-  padding-bottom: 0.75rem !important;
-}
-
-.cl-socialButtonsBlockButton__lastUsed {
-  position: absolute !important;
-  top: -0.5rem !important;
-  right: 0.5rem !important;
-  font-size: 0.75rem !important;
-  line-height: 1rem !important;
-  z-index: 10 !important;
-}
-
 /* Override DaisyUI modal scrollbar-gutter that creates empty space on the right */
 :root:has(:is(.modal-open, .modal:target, .modal-toggle:checked + .modal, .modal[open])) {
   scrollbar-gutter: auto;

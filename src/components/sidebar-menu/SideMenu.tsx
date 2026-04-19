@@ -1,18 +1,17 @@
 import classNames from 'classnames';
 import { PanelLeftOpen, User } from 'lucide-react';
-import { useUser } from '@clerk/clerk-react';
 
 import Menu from './Menu';
 import MobileMenu from './MobileMenu';
 import { useSidebarStore } from '@/stores/sidebarStore';
+import { useAuthContext } from '@/contexts/AuthContext';
 
 const DesktopMenu = () => {
   const { isCollapsed, toggleSidebar } = useSidebarStore();
-  const { user } = useUser();
+  const { user } = useAuthContext();
 
   return (
     <>
-      {/* Collapsed rail */}
       <div
         className={classNames(
           'hidden lg:flex flex-col fixed top-0 start-0 bottom-0 w-16',
@@ -22,7 +21,6 @@ const DesktopMenu = () => {
           isCollapsed ? 'opacity-100' : 'opacity-0 pointer-events-none'
         )}
       >
-        {/* Expand button */}
         <button
           onClick={toggleSidebar}
           className={classNames(
@@ -35,15 +33,14 @@ const DesktopMenu = () => {
           <PanelLeftOpen className="w-5 h-5" />
         </button>
 
-        {/* Spacer */}
         <div className='flex-1' />
 
-        {/* User avatar */}
         <div className='flex items-center justify-center w-10 h-10 rounded-full bg-base-200 overflow-hidden'>
-          {user?.imageUrl ? (
-            <img 
-              src={user.imageUrl} 
+          {user?.photoURL ? (
+            <img
+              src={user.photoURL}
               alt="Profile"
+              referrerPolicy='no-referrer'
               className='w-10 h-10 rounded-full object-cover'
             />
           ) : (
@@ -52,7 +49,6 @@ const DesktopMenu = () => {
         </div>
       </div>
 
-      {/* Full sidebar */}
       <div
         className={classNames(
           'hidden flex-col fixed top-0 start-0 bottom-0 w-64',

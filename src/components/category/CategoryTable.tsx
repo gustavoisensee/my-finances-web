@@ -8,11 +8,11 @@ import DeleteButton from '../shared/DeleteButton';
 import CategoryModal from './CategoryModal';
 import { useCreateCategory, useUpdateCategory, useDeleteCategory } from '@/hooks/categoryHooks';
 
-// System categories have userId: null
 const isSystemCategory = (userId: number | null) => userId === null;
 
 type Props = {
-  data: Category[]
+  data: Category[];
+  currentUserId: number;
 }
 
 const AdminBadge = () => (
@@ -29,7 +29,6 @@ const YouBadge = () => (
   </span>
 );
 
-// Get a consistent color based on category name - using theme-compatible colors
 const getCategoryColor = (name: string) => {
   const colors = [
     'bg-error/20 text-error',
@@ -44,7 +43,6 @@ const getCategoryColor = (name: string) => {
   const index = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
   return colors[index % colors.length];
 };
-
 
 const CategoryTable = ({ data }: Props) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -79,19 +77,14 @@ const CategoryTable = ({ data }: Props) => {
     setModalOpen(false);
   };
 
-  // Check if a category can be edited (only user's own categories, not system ones)
   const canEdit = (cat: Category) => !isSystemCategory(cat.userId);
 
-  // Check if a category can be deleted
-  // - Cannot delete system categories
-  // - Cannot delete if category has expenses linked to it
   const canDelete = (cat: Category) => {
     if (isSystemCategory(cat.userId)) return false;
     if (cat.expenseCount > 0) return false;
     return true;
   };
 
-  // Get tooltip message for disabled delete button
   const getDeleteTooltip = (cat: Category) => {
     if (isSystemCategory(cat.userId)) return 'System categories cannot be deleted';
     if (cat.expenseCount > 0) return `Cannot delete: used by ${cat.expenseCount} expense${cat.expenseCount > 1 ? 's' : ''}`;
@@ -100,7 +93,6 @@ const CategoryTable = ({ data }: Props) => {
 
   return (
     <div className='bg-base-100 rounded-2xl border border-base-300 shadow-sm overflow-hidden'>
-      {/* Table Header */}
       <div className='flex items-center justify-between px-6 py-4 bg-base-200/50 border-b border-base-200'>
         <div className='grid grid-cols-[1fr,auto] gap-4 flex-1'>
           <span className='text-xs font-semibold text-base-content/50 uppercase tracking-wider'>Category</span>
@@ -109,17 +101,15 @@ const CategoryTable = ({ data }: Props) => {
         <AddButton onClick={handleAdd} />
       </div>
 
-      {/* Table Body */}
       <div className='divide-y divide-base-200'>
-        {data?.map((d, i) => (
+        {data?.map((d) => (
           <div
-            key={i}
+            key={d.id}
             className={cn(
               'grid grid-cols-[1fr,auto,auto,auto] gap-4 px-6 py-4 items-center',
               'hover:bg-base-200/30 transition-colors duration-150'
             )}
           >
-            {/* Category name with icon */}
             <div className='flex items-center gap-3'>
               <div className={cn(
                 'flex items-center justify-center w-9 h-9 rounded-lg',
@@ -130,12 +120,10 @@ const CategoryTable = ({ data }: Props) => {
               <span className='font-medium text-base-content'>{d.name}</span>
             </div>
 
-            {/* Owner badge */}
             <div className='flex justify-end'>
               {isSystemCategory(d.userId) ? <AdminBadge /> : <YouBadge />}
             </div>
 
-            {/* Edit button - disabled for system categories */}
             <div className='flex justify-end'>
               <div className={!canEdit(d) ? 'tooltip tooltip-left' : ''} data-tip={!canEdit(d) ? 'System categories cannot be edited' : ''}>
                 <EditButton
@@ -145,7 +133,6 @@ const CategoryTable = ({ data }: Props) => {
               </div>
             </div>
 
-            {/* Delete button - disabled for system categories or categories with expenses */}
             <div className='flex justify-end'>
               <div className={!canDelete(d) ? 'tooltip tooltip-left' : ''} data-tip={getDeleteTooltip(d)}>
                 <DeleteButton
@@ -158,7 +145,6 @@ const CategoryTable = ({ data }: Props) => {
         ))}
       </div>
 
-      {/* Empty state */}
       {(!data || data.length === 0) && (
         <div className='flex flex-col items-center justify-center py-12 px-4'>
           <div className='flex items-center justify-center w-12 h-12 rounded-xl bg-base-200 mb-3'>
@@ -168,7 +154,6 @@ const CategoryTable = ({ data }: Props) => {
         </div>
       )}
 
-      {/* Modal for create/edit */}
       <CategoryModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}

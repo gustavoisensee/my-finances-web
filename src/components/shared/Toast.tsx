@@ -1,6 +1,6 @@
 import { obsAlert } from '@/helpers/alert';
 import cn from 'classnames';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import AlertSuccess from '../svgs/AlertSuccess';
 import AlertWarning from '../svgs/AlertWarning';
 import AlertError from '../svgs/AlertError';
@@ -20,27 +20,31 @@ const initialValues: StateProps = {
   time: 5000
 };
 
+const alertIcons = {
+  warning: <AlertWarning />,
+  success: <AlertSuccess />,
+  error: <AlertError />,
+  info: <AlertInfo />,
+};
+
 export default function Toast() {
   const [state, setState] = useState<StateProps>(initialValues);
-  const alertTypes = useMemo(() => ({
-    warning: <AlertWarning />,
-    success: <AlertSuccess />,
-    error: <AlertError />,
-    info: <AlertInfo />
-  }), []);
-  const iconType = useMemo(() => alertTypes[state.type], [alertTypes, state.type]);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  const handleAlert = useCallback((props: StateProps) => {
+    setState({ ...initialValues, ...props });
+  }, []);
 
   useEffect(() => {
-    const fn = (props: StateProps) => setState({ ...state, ...props });
-    obsAlert.subscribe(fn);
-
-    return () => obsAlert.unsubscribe(fn);
-  }, [state]);
+    obsAlert.subscribe(handleAlert);
+    return () => obsAlert.unsubscribe(handleAlert);
+  }, [handleAlert]);
 
   useEffect(() => {
     if (state.open) {
-      setTimeout(() => setState(initialValues), state.time);
+      timerRef.current = setTimeout(() => setState(initialValues), state.time);
     }
+    return () => clearTimeout(timerRef.current);
   }, [state.open, state.time]);
 
   return (
@@ -49,10 +53,8 @@ export default function Toast() {
       'translate-x-24': !state.open
     })}>
       <div className='flex flex-wrap alert shadow-lg'>
-        {iconType}
-        <span className=''>
-          {state.message}
-        </span>
+        {alertIcons[state.type]}
+        <span>{state.message}</span>
       </div>
     </div>
   )

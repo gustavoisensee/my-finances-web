@@ -1,4 +1,3 @@
-
 import { apiClient } from '@/lib/api-client';
 import { Category } from '@/types/category';
 

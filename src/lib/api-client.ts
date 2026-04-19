@@ -22,7 +22,7 @@ class ApiClient {
       async (config: InternalAxiosRequestConfig) => {
         if (this.getTokenFn) {
           try {
-            // Get fresh token for every request - Clerk handles refresh automatically
+            // Fresh Firebase ID token on each request
             const token = await this.getTokenFn()
             if (token) {
               config.headers.Authorization = `Bearer ${token}`
@@ -54,7 +54,7 @@ class ApiClient {
   }
 
   /**
-   * Set the token provider function from Clerk's useAuth hook.
+   * Set the token provider (Firebase `getIdToken` via auth.currentUser).
    * This function will be called on every request to get a fresh token.
    */
   setTokenProvider(getTokenFn: GetTokenFn) {

@@ -1,6 +1,6 @@
 # My Finances Web
 
-A personal finance management application built with **Vite**, **React**, **TypeScript**, **React Router**, **TanStack Query**, and **Clerk** for authentication.
+A personal finance management application built with **Vite**, **React**, **TypeScript**, **React Router**, **TanStack Query**, and **Firebase** for authentication.
 
 ## Tech Stack
 
@@ -8,7 +8,7 @@ A personal finance management application built with **Vite**, **React**, **Type
 - **Build Tool**: Vite 5
 - **Routing**: React Router v6
 - **State Management**: TanStack Query (React Query) for server state
-- **Authentication**: Clerk
+- **Authentication**: Firebase
 - **Styling**: Tailwind CSS + DaisyUI
 - **Form Handling**: React Hook Form + Yup validation
 - **HTTP Client**: Axios (centralized API client)
@@ -35,11 +35,16 @@ npm install
 3. Create a `.env` file in the root directory with the following variables:
 
 ```env
-VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
 VITE_API_BASE_URL=https://my-finances-api-v4.onrender.com
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.firebasestorage.app
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
 ```
 
-> **Note**: Get your Clerk Publishable Key from the [Clerk Dashboard](https://dashboard.clerk.com/~/api-keys)
+> **Note**: Get your Firebase config from the [Firebase Console](https://console.firebase.google.com/) under Project Settings > General > Your apps.
 
 ### Development
 
@@ -103,7 +108,7 @@ src/
 - **Budget Management**: Set and track budgets
 - **Expense Tracking**: Record and categorize expenses
 - **Category Management**: Organize transactions by category
-- **User Authentication**: Secure login with Clerk
+- **User Authentication**: Secure login with Firebase
 - **Responsive Design**: Mobile-friendly interface
 
 ## API Integration
@@ -117,19 +122,24 @@ The application connects to an external REST API. All API calls are centralized 
 
 ## Authentication
 
-This application uses [Clerk](https://clerk.com/) for authentication. Clerk provides:
+This application uses [Firebase Authentication](https://firebase.google.com/docs/auth) for user management. It provides:
 
-- Sign in / Sign up flows
-- User management
-- Session handling
-- JWT token management
+- Email/password sign in and sign up
+- Session persistence
+- Automatic ID token refresh
+- Token injection into API requests via interceptor
 
 ## Environment Variables
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `VITE_CLERK_PUBLISHABLE_KEY` | Clerk publishable key for authentication | Yes |
 | `VITE_API_BASE_URL` | Base URL for the REST API backend | Yes |
+| `VITE_FIREBASE_API_KEY` | Firebase API key | Yes |
+| `VITE_FIREBASE_AUTH_DOMAIN` | Firebase auth domain | Yes |
+| `VITE_FIREBASE_PROJECT_ID` | Firebase project ID | Yes |
+| `VITE_FIREBASE_STORAGE_BUCKET` | Firebase storage bucket | Yes |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | Firebase messaging sender ID | Yes |
+| `VITE_FIREBASE_APP_ID` | Firebase app ID | Yes |
 
 ## Learn More
 
@@ -137,7 +147,7 @@ This application uses [Clerk](https://clerk.com/) for authentication. Clerk prov
 - [React Documentation](https://react.dev/)
 - [React Router Documentation](https://reactrouter.com/)
 - [TanStack Query Documentation](https://tanstack.com/query/latest)
-- [Clerk Documentation](https://clerk.com/docs)
+- [Firebase Documentation](https://firebase.google.com/docs)
 - [Tailwind CSS Documentation](https://tailwindcss.com/)
 
 ## License
