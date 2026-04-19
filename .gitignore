@@ -39,7 +39,5 @@ dist-ssr
 # Testing
 coverage
 
-# Claude Code
-.agents/
-.claude/
-skills-lock.json
+# Claude Code local settings
+.claude/settings.local.json
