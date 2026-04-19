@@ -5,6 +5,7 @@ import { useState } from 'react';
 import EditButton from '../shared/EditButton';
 import DeleteButton from '../shared/DeleteButton';
 import CategoryModal from './CategoryModal';
+import CategoryDeleteConfirmation from './CategoryDeleteConfirmation';
 import { useUpdateCategory, useDeleteCategory } from '@/hooks/categoryHooks';
 
 const isSystemCategory = (userId: number | null) => userId === null;
@@ -45,7 +46,8 @@ const getCategoryColor = (name: string) => {
 const CategoryTable = ({ data }: Props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editCategory, setEditCategory] = useState<Category | null>(null);
-  const [deleteLoading, setDeleteLoading] = useState<number | null>(null);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deleteCategory, setDeleteCategory] = useState<Category | null>(null);
   const updateMutation = useUpdateCategory();
   const deleteMutation = useDeleteCategory();
 
@@ -54,10 +56,16 @@ const CategoryTable = ({ data }: Props) => {
     setModalOpen(true);
   };
 
-  const handleDelete = async (cat: Category) => {
-    setDeleteLoading(cat.id);
-    await deleteMutation.mutateAsync(cat.id);
-    setDeleteLoading(null);
+  const handleDelete = (cat: Category) => {
+    setDeleteCategory(cat);
+    setDeleteModalOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!deleteCategory) return;
+    await deleteMutation.mutateAsync(deleteCategory.id);
+    setDeleteModalOpen(false);
+    setDeleteCategory(null);
   };
 
   const handleSubmit = (data: { name: string }) => {
@@ -126,7 +134,7 @@ const CategoryTable = ({ data }: Props) => {
               <div className={!canDelete(d) ? 'tooltip tooltip-left' : ''} data-tip={getDeleteTooltip(d)}>
                 <DeleteButton
                   onClick={() => canDelete(d) ? handleDelete(d) : undefined}
-                  disabled={!canDelete(d) || deleteLoading === d.id}
+                  disabled={!canDelete(d)}
                 />
               </div>
             </div>
@@ -149,6 +157,14 @@ const CategoryTable = ({ data }: Props) => {
         onSubmit={handleSubmit}
         initialData={editCategory}
         loading={updateMutation.isPending}
+      />
+
+      <CategoryDeleteConfirmation
+        open={deleteModalOpen}
+        categoryName={deleteCategory?.name ?? ''}
+        onClose={() => { setDeleteModalOpen(false); setDeleteCategory(null); }}
+        onConfirm={handleDeleteConfirm}
+        loading={deleteMutation.isPending}
       />
     </div>
   );
