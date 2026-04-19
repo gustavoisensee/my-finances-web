@@ -38,3 +38,8 @@ dist-ssr
 
 # Testing
 coverage
+
+# Claude Code
+.agents/
+.claude/
+skills-lock.json

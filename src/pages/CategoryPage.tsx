@@ -34,6 +34,9 @@ export default function CategoryPage() {
 
         <div className='flex items-center gap-3'>
           {!isFetching && data && (
+            <AddButton onClick={() => setAddModalOpen(true)} />
+          )}
+          {!isFetching && data && (
             <div className='flex items-center gap-3 px-4 py-2 bg-base-100 rounded-xl border border-base-300 shadow-sm'>
               <div className='flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10'>
                 <FolderKanban className='w-5 h-5 text-primary' />
@@ -43,9 +46,6 @@ export default function CategoryPage() {
                 <p className='text-xs text-base-content/50'>Total categories</p>
               </div>
             </div>
-          )}
-          {!isFetching && data && (
-            <AddButton onClick={() => setAddModalOpen(true)} />
           )}
         </div>
       </div>
