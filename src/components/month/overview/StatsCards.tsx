@@ -8,7 +8,8 @@ type Props = {
   totalBudgets: number;
   budgetsLeft: number;
   remainingCardRef: RefObject<HTMLDivElement>;
-  spacerRef: RefObject<HTMLDivElement>;
+  placeholderRef: RefObject<HTMLDivElement>;
+  isSticky: boolean;
 };
 
 export default function StatsCards({
@@ -16,7 +17,8 @@ export default function StatsCards({
   totalBudgets,
   budgetsLeft,
   remainingCardRef,
-  spacerRef,
+  placeholderRef,
+  isSticky,
 }: Props) {
   return (
     <div className="flex flex-col gap-3 sm:gap-4">
@@ -81,10 +83,15 @@ export default function StatsCards({
         </div>
       </div>
 
-      {/* Budget Remaining - Mobile only (sticky with React) */}
+      {/* Budget Remaining - Mobile only */}
       <div
         ref={remainingCardRef}
-        className="sm:hidden flex items-center gap-4 p-4 bg-base-100 relative rounded-2xl border-t border-b border-base-300 shadow-sm"
+        className={cn(
+          "sm:hidden flex items-center gap-4 p-4 bg-base-100",
+          isSticky
+            ? "fixed top-16 left-0 right-0 z-30 shadow-lg border-y border-base-300 animate-slide-down"
+            : "relative rounded-2xl border border-base-300 shadow-sm"
+        )}
       >
         <div
           className={cn(
@@ -112,8 +119,11 @@ export default function StatsCards({
         </div>
       </div>
 
-      {/* Spacer to prevent layout shift when card becomes fixed */}
-      <div ref={spacerRef} className="sm:hidden h-20 hidden" />
+      {/* Placeholder to prevent layout jump when card becomes fixed */}
+      <div
+        ref={placeholderRef}
+        className={cn("sm:hidden", isSticky ? "block h-20" : "hidden")}
+      />
     </div>
   );
 }

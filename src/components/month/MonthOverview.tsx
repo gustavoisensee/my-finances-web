@@ -21,14 +21,14 @@ export default function MonthOverview({ month }: Props) {
   const isBalanced = totalIncome === totalBudgets;
   const isOverBudget = totalBudgets > totalIncome;
 
-  const { cardRef: remainingCardRef, spacerRef } = useStickyCard();
+  const { cardRef: remainingCardRef, placeholderRef, isSticky } = useStickyCard();
 
   return (
     <div className='flex flex-col gap-6'>
-      <MonthOverviewHeader 
-        month={month} 
-        isBalanced={isBalanced} 
-        isOverBudget={isOverBudget} 
+      <MonthOverviewHeader
+        month={month}
+        isBalanced={isBalanced}
+        isOverBudget={isOverBudget}
       />
 
       <StatsCards
@@ -36,7 +36,8 @@ export default function MonthOverview({ month }: Props) {
         totalBudgets={totalBudgets}
         budgetsLeft={budgetsLeft}
         remainingCardRef={remainingCardRef}
-        spacerRef={spacerRef}
+        placeholderRef={placeholderRef}
+        isSticky={isSticky}
       />
 
       <IncomesSection incomes={month.incomes} />
