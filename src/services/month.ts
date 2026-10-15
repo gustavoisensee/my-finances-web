@@ -2,8 +2,9 @@ import { apiClient } from '@/lib/api-client';
 import { MonthFormType } from '@/types/form';
 import { Month } from '@/types/month';
 
+// The API returns 10 months unless `take` is given, so ask for the maximum (100).
 export const getMonths = (yearId: number, iBudgets: boolean = false, iExpenses: boolean = false) =>
-  apiClient.get<Month[]>(`/month?iIncomes=true&yearId=${yearId}&iBudgets=${iBudgets}&iExpenses=${iExpenses}`);
+  apiClient.get<Month[]>(`/month?iIncomes=true&yearId=${yearId}&take=100&iBudgets=${iBudgets}&iExpenses=${iExpenses}`);
 
 export const getMonthByIdWithAllData = (monthId: number) =>
   apiClient.get<Month>(`/month/${monthId}?iIncomes=true&iBudgets=true&iExpenses=true`);
